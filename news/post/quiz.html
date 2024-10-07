@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 小測驗 - myLLM.tw</title>
+<link rel="icon" href="images/favicon.png" type="image/png">
+<style>
+    body, html {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #293241;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        padding-bottom: 30px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .button {
+        background-color: #293241;
+        border: none;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        font-size: 16px;
+        margin: 10px auto;
+        cursor: pointer;
+        border-radius: 10px;
+        width: 80%;
+    }
+    .button span {
+        font-weight: bold;
+    }
+    .hidden {
+        display: none;
+    }
+    .fade {
+        animation: fadeIn 1s;
+    }
+    p {
+        font-size: 14px;
+        text-align: left;
+        padding: 15px;
+        margin: 10px auto;
+        width: 80%;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    img.logo {
+        width: 140px;
+        margin: 20px auto 0;
+        position: relative;
+        bottom: 0;
+    }
+    @media (min-width: 768px) {
+        .container {
+            width: 60vw;
+            height: 90vh;
+            margin: 20px;
+            padding: 20px;
+        }
+        body {
+            background: linear-gradient(to right, #293241, #527A8C);
+        }
+    }
+    @media (max-width: 767px) {
+        .container {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+        }
+    }
+</style>
+<script>
+    function startQuiz() {
+        document.getElementById('home').classList.add('hidden');
+        document.getElementById('question').classList.remove('hidden');
+    }
+
+    function checkAnswer(answer) {
+        if (answer === 'C') {
+            document.getElementById('question').classList.add('hidden');
+            document.getElementById('correct').classList.remove('hidden');
+        } else {
+            wrongAnswer();
+        }
+    }
+
+    function wrongAnswer() {
+        document.getElementById('question').classList.add('hidden');
+        document.getElementById('wrong').classList.remove('hidden');
+    }
+
+    function resetQuiz() {
+        document.getElementById('wrong').classList.add('hidden');
+        document.getElementById('correct').classList.add('hidden');
+        document.getElementById('home').classList.remove('hidden');
+    }
+
+    function copyURL() {
+        const dummy = document.createElement('textarea');
+        dummy.value = window.location.href;
+        document.body.appendChild(dummy);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        alert('網址已複製！');
+    }
+</script>
+</head>
+<body>
+<div class="container fade" id="home">
+    <div class="content">
+        <h1>測你瞭不瞭解AI</h1>
+        <button class="button" onclick="startQuiz()">開始答題</button>
+    </div>
+    <img src="https://cloudfilesdm.com/postcards/image-1712020892552.png" alt="myLLM.tw Logo" class="logo">
+</div>
+
+<div class="container hidden" id="question">
+    <div class="content">
+        <h2>Q: 什麼是大語言模型 ？</h2>
+        <button class="button" onclick="checkAnswer('A')">ChatGPT</button>
+        <button class="button" onclick="checkAnswer('B')">AI聊天機器人</button>
+        <button class="button" onclick="checkAnswer('C')">用大量數據訓練的模型，可以理解和生成語言</button>
+    </div>
+    <img src="https://cloudfilesdm.com/postcards/image-1712020892552.png" alt="myLLM.tw Logo" class="logo">
+</div>
+
+<div class="container hidden" id="correct">
+    <div class="content">
+        <h2>恭喜答對！</h2>
+        <p>
+            大語言模型是用大量文本數據訓練的人工智慧模型。這些模型利用深度學習技術來理解語言的結構和含義，使它們能夠生成流暢、合乎語境的文字。這些模型可以用於各種應用，包括聊天機器人、翻譯、自動摘要等。
+            <br> 那A和B為什麼不對呢，ChatGPT和AI聊天機器人看似相關，但它們實際上是大語言模型的應用例子，而非大語言模型本身。你可以把「大型語言模型」想像成ChatGPT以及AI聊天機器人的大腦，因此正確答案為C！
+        </p>
+        <button class="button" onclick="copyURL()">考考朋友對 AI 了不了解</button>
+        <button class="button" onclick="resetQuiz()">回首頁</button>
+    </div>
+    <img src="https://cloudfilesdm.com/postcards/image-1712020892552.png" alt="myLLM.tw Logo" class="logo">
+</div>
+
+<div class="container hidden" id="wrong">
+    <div class="content">
+        <h2>答錯啦！再試一次吧</h2>
+        <button class="button" onclick="resetQuiz()">重答一次</button>
+    </div>
+    <img src="https://cloudfilesdm.com/postcards/image-1712020892552.png" alt="myLLM.tw Logo" class="logo">
+</div>
+</body>
+</html>

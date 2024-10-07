@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ </head>
+ <body class="bg-white">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   電子報 - myLLM.tw
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="images/favicon.png" rel="icon" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #1F2B40;
+        }
+
+        .menu-open {
+            display: block !important;
+        }
+
+        .iframe-container {
+            background-color: white;
+            box-shadow: 0px 0px 50px rgba(31, 43, 64, 0.1);
+        }
+
+        #menu-toggle i {
+            font-size: 0.9rem;
+        }
+  </style>
+  <div class="flex flex-col md:flex-row min-h-screen">
+   <!-- Desktop Menu -->
+   <nav class="bg-white md:shadow-lg md:w-72 p-8 py-14 hidden md:flex flex-col justify-between">
+    <div class="w-full">
+     <h2 class="text-md font-medium mb-8">
+      電子報
+     </h2>
+     <div class="mb-4">
+      <div class="text-sm font-medium mb-2 cursor-pointer flex flex-row w-full hover:opacity-85" onclick="toggleMenu('menu2024', 'menu2023')">
+       <span class="basis-1/2">
+        <h3>
+         2024
+        </h3>
+       </span>
+       <span class="basis-1/2 text-right">
+        <i class="fa fa-chevron-down fa-xs">
+        </i>
+       </span>
+      </div>
+      <ul class="space-y-1 hidden text-sm" id="menu2024">
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-19.html" target="content-frame">
+         2024.09 第19期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-18.html" target="content-frame">
+         2024.08 第18期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-17.html" target="content-frame">
+         2024.08 第17期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-16.html" target="content-frame">
+         2024.07 第16期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-15.html" target="content-frame">
+         2024.07 第15期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-14.html" target="content-frame">
+         2024.06 第14期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-13.html" target="content-frame">
+         2024.06 第13期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-12.html" target="content-frame">
+         2024.05 第12期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-11.html" target="content-frame">
+         2024.05 第11期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-10.html" target="content-frame">
+         2024.04 第10期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-9.html" target="content-frame">
+         2024.04 第09期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-8.html" target="content-frame">
+         2024.03 第08期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-7.html" target="content-frame">
+         2024.03 第07期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-6.html" target="content-frame">
+         2024.02 第06期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-5.html" target="content-frame">
+         2024.02 第05期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-4.html" target="content-frame">
+         2024.01 第04期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-3.html" target="content-frame">
+         2024.01 第03期
+        </a>
+       </li>
+      </ul>
+     </div>
+     <div class="mb-4">
+      <div class="text-sm font-medium mb-2 cursor-pointer flex flex-row w-full hover:opacity-85" onclick="toggleMenu('menu2023', 'menu2024')">
+       <span class="basis-1/2">
+        <h3>
+         2023
+        </h3>
+       </span>
+       <span class="basis-1/2 text-right">
+        <i class="fa fa-chevron-down fa-xs">
+        </i>
+       </span>
+      </div>
+      <ul class="space-y-1 hidden text-sm" id="menu2023">
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-2.html" target="content-frame">
+         2023.12 第02期
+        </a>
+       </li>
+       <li>
+        <a class="hover:opacity-85" href="newsletter/newsletter-1.html" target="content-frame">
+         2023.11 第01期
+        </a>
+       </li>
+      </ul>
+     </div>
+     <a class="text-sm hover:opacity-85" href="http://myllm.tw/" target="_blank">
+      myLLM 服務產學聯盟
+     </a>
+    </div>
+    <div>
+     <a href="http://myllm.tw/" target="_blank">
+      <img alt="Logo" class="h-9 hover:opacity-85" src="images/icon-blue.png"/>
+     </a>
+    </div>
+   </nav>
+   <!-- Mobile Menu -->
+   <div class="bg-white shadow-md md:shadow-lg md:hidden p-4 px-5 flex justify-between items-center z-20">
+    <a href="http://myllm.tw/" target="_blank">
+     <img alt="Logo" class="h-7" src="images/icon-blue.png"/>
+    </a>
+    <button class="flex flex-row items-center" id="menu-toggle">
+     <h2 class="text-sm font-medium mr-2">
+      電子報
+     </h2>
+     <i class="fa fa-caret-down fa-2xs">
+     </i>
+    </button>
+   </div>
+   <nav class="absolute hidden w-full h-full bg-white md:shadow-lg p-5 pt-20 pb-6 z-10 text-sm" id="mobile-menu">
+    <div class="mb-4">
+     <div class="font-medium mb-2 cursor-pointer flex flex-row w-full hover:opacity-85" onclick="toggleMobileSubMenu('mobileMenu2024', 'mobileMenu2023')">
+      <span class="basis-1/2">
+       <h3>
+        2024
+       </h3>
+      </span>
+      <span class="basis-1/2 text-right">
+       <i class="fa fa-chevron-down fa-xs">
+       </i>
+      </span>
+     </div>
+     <ul class="space-y-1 hidden" id="mobileMenu2024">
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-19.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.09 第19期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-18.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.08 第18期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-17.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.08 第17期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-16.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.07 第16期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-15.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.07 第15期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-14.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.06 第14期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-13.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.06 第13期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-12.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.05 第12期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-11.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.05 第11期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-10.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.04 第10期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-9.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.04 第09期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-8.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.03 第08期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-7.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.03 第07期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-6.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.02 第06期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-5.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.02 第05期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-4.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.01 第04期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-3.html" onclick="closeMobileMenu()" target="content-frame">
+        2024.01 第03期
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div class="mb-4">
+     <div class="font-medium mb-2 cursor-pointer flex flex-row w-full hover:opacity-85" onclick="toggleMobileSubMenu('mobileMenu2023', 'mobileMenu2024')">
+      <span class="basis-1/2">
+       <h3>
+        2023
+       </h3>
+      </span>
+      <span class="basis-1/2 text-right">
+       <i class="fa fa-chevron-down fa-xs">
+       </i>
+      </span>
+     </div>
+     <ul class="space-y-1 hidden" id="mobileMenu2023">
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-2.html" onclick="closeMobileMenu()" target="content-frame">
+        2023.12 第02期
+       </a>
+      </li>
+      <li>
+       <a class="hover:opacity-85" href="newsletter/newsletter-1.html" onclick="closeMobileMenu()" target="content-frame">
+        2023.11 第01期
+       </a>
+      </li>
+     </ul>
+    </div>
+    <a class="hover:opacity-85" href="http://myllm.tw/" target="_blank">
+     myLLM 服務產學聯盟
+    </a>
+   </nav>
+   <!-- Content Area -->
+   <main class="bg-white absolute md:static w-full h-screen flex-grow pt-14 md:pt-0">
+    <div class="iframe-container h-full md:h-full px-0 md:px-8">
+     <iframe class="w-full h-full" name="content-frame" src="newsletter/newsletter-19.html">
+     </iframe>
+    </div>
+   </main>
+  </div>
+  <script>
+   function toggleMenu(menuIdToShow, menuIdToHide) {
+            var menuToShow = document.getElementById(menuIdToShow);
+            var menuToHide = document.getElementById(menuIdToHide);
+            if (menuToShow.classList.contains('hidden')) {
+                menuToShow.classList.remove('hidden');
+                menuToHide.classList.add('hidden');
+            } else {
+                menuToShow.classList.add('hidden');
+            }
+        }
+
+        function toggleMobileSubMenu(menuIdToShow, menuIdToHide) {
+            var menuToShow = document.getElementById(menuIdToShow);
+            var menuToHide = document.getElementById(menuIdToHide);
+            if (menuToShow.classList.contains('hidden')) {
+                menuToShow.classList.remove('hidden');
+                menuToHide.classList.add('hidden');
+            } else {
+                menuToShow.classList.add('hidden');
+            }
+        }
+
+        function closeMobileMenu() {
+            var menu = document.getElementById('mobile-menu');
+            menu.classList.add('hidden');
+        }
+
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            var menu = document.getElementById('mobile-menu');
+            var menu2024 = document.getElementById('mobileMenu2024');
+            var menu2023 = document.getElementById('mobileMenu2023');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu2024.classList.add('hidden');
+                menu2023.classList.add('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+  </script>
+  <!-- <script>
+   document.location.href = "/agent/NYCUHome.html"
+  </script> -->
+ </body>
+</html>
