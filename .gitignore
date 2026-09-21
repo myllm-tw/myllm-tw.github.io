@@ -187,3 +187,5 @@ cython_debug/
 *.sqlite3-*
 
 dist/
+# 瀏覽器自動化產生的截圖與記錄
+.playwright-mcp/
