@@ -1,0 +1,16 @@
+---
+interface Props {
+  /** 是否使用較亮的表面色，用在需要與周圍區塊區隔時 */
+  raised?: boolean;
+  class?: string;
+}
+const { raised = false, class: className = '' } = Astro.props;
+const surface = raised ? 'var(--surface-raised)' : 'var(--surface)';
+---
+
+<div
+  class={`rounded-2xl border p-6 ${className}`}
+  style={`border-color: var(--border); background: ${surface}; box-shadow: var(--shadow-card)`}
+>
+  <slot />
+</div>

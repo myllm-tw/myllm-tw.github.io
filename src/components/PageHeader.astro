@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  titleEn?: string;
+  lead?: string;
+}
+const { title, titleEn, lead } = Astro.props;
+---
+
+<section class="border-b" style="border-color: var(--border); background: var(--bg-subtle)">
+  <div class="mx-auto max-w-6xl px-4 py-14 sm:py-20">
+    {
+      titleEn && (
+        <p class="text-xs font-bold tracking-[0.2em] uppercase" style="color: var(--accent)">
+          {titleEn}
+        </p>
+      )
+    }
+    <h1 class="mt-3 text-3xl font-bold tracking-tight text-balance sm:text-4xl">{title}</h1>
+    {
+      lead && (
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-pretty" style="color: var(--ink-muted)">
+          {lead}
+        </p>
+      )
+    }
+  </div>
+</section>
