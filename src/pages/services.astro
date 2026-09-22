@@ -159,8 +159,8 @@ const marqueeItems = [...edgeLanding, ...edgeLanding];
                 </div>
 
                 {item.device && (
-                  <figure class="card panel-hover self-start overflow-hidden">
-                    <div class="scan overflow-hidden">
+                  <figure class="self-start">
+                    <div class="scan frame">
                       <img
                         src={item.device.image}
                         alt={`本項服務的示範機型 ${item.device.name}`}
@@ -168,7 +168,7 @@ const marqueeItems = [...edgeLanding, ...edgeLanding];
                         class="block w-full"
                       />
                     </div>
-                    <figcaption class="flex items-center justify-between gap-3 px-4 py-3 text-sm">
+                    <figcaption class="mt-3 flex items-center justify-between gap-3 text-sm">
                       <span>
                         <span class="block text-xs" style="color: var(--ink-faint)">
                           示範機型
@@ -186,11 +186,11 @@ const marqueeItems = [...edgeLanding, ...edgeLanding];
               {item.visuals.length > 0 && (
                 <div class={`mt-10 grid gap-6 ${item.visuals.length > 1 ? 'md:grid-cols-2' : ''}`}>
                   {item.visuals.map((v) => (
-                    <figure class="card panel-hover overflow-hidden">
-                      <div class="overflow-hidden">
-                        <img src={v.src} alt={v.alt} loading="lazy" class="block w-full" />
+                    <figure>
+                      <div class="frame">
+                        <img src={v.src} alt={v.alt} loading="lazy" class="block w-full transition-transform duration-700 hover:scale-[1.03]" />
                       </div>
-                      <figcaption class="px-4 py-3 text-sm leading-relaxed" style="color: var(--ink-soft)">
+                      <figcaption class="mt-3 text-sm leading-relaxed" style="color: var(--ink-soft)">
                         {v.caption}
                       </figcaption>
                     </figure>

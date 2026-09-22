@@ -72,19 +72,7 @@ const ogImage = new URL(site.ogImage, Astro.site);
     <Footer />
 
     <script>
-      // .spotlight 卡片的滑鼠追蹤光暈：用事件委派，全站只掛一個監聽器。
-      // 游標位置寫進 CSS 變數，光暈本身由 global.css 畫，沒有這段腳本也不影響版面。
-      document.addEventListener(
-        'pointermove',
-        (e) => {
-          const el = (e.target as Element | null)?.closest<HTMLElement>('.spotlight');
-          if (!el) return;
-          const r = el.getBoundingClientRect();
-          el.style.setProperty('--mx', `${e.clientX - r.left}px`);
-          el.style.setProperty('--my', `${e.clientY - r.top}px`);
-        },
-        { passive: true },
-      );
+      import '../scripts/interactions.ts';
     </script>
   </body>
 </html>

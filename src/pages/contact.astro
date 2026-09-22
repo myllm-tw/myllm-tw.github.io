@@ -16,37 +16,30 @@ const channels = [
   contact.email && { icon: 'lucide:mail', label: '信箱', value: contact.email, href: `mailto:${contact.email}` },
   contact.address && { icon: 'lucide:map-pin', label: '地址', value: contact.address },
 ].filter(Boolean) as { icon: string; label: string; value: string; href?: string }[];
-
-const linkIcons = ['lucide:landmark', 'lucide:graduation-cap', 'lucide:flask-conical', 'lucide:brain-circuit'];
 ---
 
 <Base title="聯絡我們" description={`與 ${site.name} 聯絡，了解服務內容與入會方式。`}>
   <PageHeader title="聯絡聯盟" lead="想了解服務內容或入會方式，歡迎與聯盟聯絡。" />
 
-  <section class="top-glow mx-auto max-w-6xl px-5 py-24">
-    <div class="relative grid gap-5 lg:grid-cols-2">
-      <article class="card spotlight p-8 sm:p-10">
-        <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
-          <Icon name="lucide:message-circle" class="size-6" style="color: var(--signal)" />
-        </span>
-        <h2 class="mt-6 text-2xl">聯盟窗口</h2>
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <div class="grid-rules lg:grid-cols-2">
+      <div class="px-1 py-10 lg:pr-12 lg:pl-0">
+        <h2 class="text-2xl sm:text-3xl">聯盟窗口</h2>
         {
           hasContactInfo ? (
-            <dl class="mt-7 space-y-3">
+            <dl class="mt-8">
               {channels.map((c) => (
-                <div class="card-soft flex items-center gap-4 p-4">
+                <div class="flex items-center gap-4 border-t py-4" style="border-color: var(--hairline)">
                   <Icon name={c.icon} class="size-5 shrink-0" style="color: var(--signal)" />
                   <div class="min-w-0">
                     <dt class="text-xs" style="color: var(--ink-faint)">{c.label}</dt>
-                    <dd class="mt-0.5 break-words">
-                      {c.href ? <a href={c.href} class="link-line">{c.value}</a> : c.value}
-                    </dd>
+                    <dd class="mt-0.5 break-words">{c.href ? <a href={c.href} class="link-line">{c.value}</a> : c.value}</dd>
                   </div>
                 </div>
               ))}
             </dl>
           ) : (
-            <p class="mt-5 text-[15px] leading-loose" style="color: var(--ink-soft)">
+            <p class="mt-6 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
               聯盟由{site.org}主辦。洽詢服務內容或入會方式，可以先下載會員申請表，或透過下方主辦單位的管道聯絡。
             </p>
           )
@@ -55,35 +48,29 @@ const linkIcons = ['lucide:landmark', 'lucide:graduation-cap', 'lucide:flask-con
           <Icon name="lucide:file-down" class="size-4" />
           下載會員申請表
         </a>
-      </article>
+      </div>
 
-      <article class="card p-8 sm:p-10">
-        <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
-          <Icon name="lucide:building-2" class="size-6" style="color: var(--signal)" />
-        </span>
-        <h2 class="mt-6 text-2xl">主辦單位</h2>
-        <p class="mt-5 text-lg leading-relaxed" style="font-family: var(--font-display)">{site.org}</p>
-        <p class="mt-4 text-[15px] leading-loose" style="color: var(--ink-soft)">
+      <div class="px-1 py-10 lg:pl-12">
+        <h2 class="text-2xl sm:text-3xl">主辦單位</h2>
+        <p class="mt-6 text-lg leading-relaxed" style="font-family: var(--font-display)">{site.org}</p>
+        <p class="mt-4 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
           於 2024 年 3 月成立 myLLM 產學聯盟，以獨立第三方角色提供大型語言模型的評測與技術服務。
         </p>
-        <span class="pill mt-7">
-          <span class="led"></span>
-          {site.funding}
-        </span>
-      </article>
+        <p class="mt-6 inline-flex items-center gap-2 text-sm" style="color: var(--ink-faint)">
+          <span class="led"></span>{site.funding}
+        </p>
+      </div>
     </div>
 
     {
       contact.mapEmbed && (
-        <div class="frame mt-5">
-          <iframe
-            src={contact.mapEmbed}
-            title="聯盟位置地圖"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            class="block h-80 w-full border-0"
-          />
-        </div>
+        <iframe
+          src={contact.mapEmbed}
+          title="聯盟位置地圖"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="frame mt-12 block h-80 w-full border-0"
+        />
       )
     }
   </section>
@@ -91,26 +78,21 @@ const linkIcons = ['lucide:landmark', 'lucide:graduation-cap', 'lucide:flask-con
   <section style="background: var(--surface-2)">
     <div class="mx-auto max-w-6xl px-5 py-24">
       <h2 class="text-3xl sm:text-4xl">相關連結</h2>
-      <ul class="mt-12 grid gap-4 sm:grid-cols-2">
+      <ul class="hairline-list mt-12">
         {
-          relatedLinks.map((link, i) => (
-            <li>
+          relatedLinks.map((link) => (
+            <li class="hairline-row">
               <a
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="card spotlight panel-hover group flex items-center gap-5 p-6"
+                class="grid items-baseline gap-x-6 gap-y-1 py-6 sm:grid-cols-[1.3fr_1fr_1.5rem]"
               >
-                <span class="grid size-12 shrink-0 place-items-center rounded-2xl" style="background: var(--surface-2)">
-                  <Icon name={linkIcons[i % linkIcons.length]} class="icon-hover size-6" style="color: var(--signal)" />
+                <span class="text-lg" style="font-family: var(--font-display)">{link.label}</span>
+                <span class="text-sm" style="color: var(--ink-soft)">
+                  {link.note}
                 </span>
-                <span class="flex-1">
-                  <span class="block text-base font-medium">{link.label}</span>
-                  <span class="mt-1 block text-sm" style="color: var(--ink-soft)">
-                    {link.note}
-                  </span>
-                </span>
-                <Icon name="lucide:arrow-up-right" class="size-5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" style="color: var(--ink-faint)" />
+                <Icon name="lucide:arrow-up-right" class="row-arrow hidden size-5 sm:block" style="color: var(--ink-faint)" />
               </a>
             </li>
           ))

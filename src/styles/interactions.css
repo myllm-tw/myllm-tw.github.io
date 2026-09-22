@@ -1,0 +1,250 @@
+/* 互動與循環動效：按鈕、連結、掃描線、跑馬燈、指示燈、長條圖。 */
+
+/* ───────────────────────── 互動與循環動效 ───────────────────────── */
+
+@layer components {
+  /*
+    主要按鈕：hover 時一層顏色由左刷到右並停留填滿，文字同步反色（反白效果）。
+    刷色層是 ::after，放在文字下方；最上層的 ::before 是一道光澤。
+    顏色依所在區塊決定，不跟著系統主題走，避免深藍區塊上出現沉悶的深褐色：
+      - 淺色一般區塊：深藍底，刷成琥珀
+      - 深藍區塊（.inverse）與深色模式：琥珀底，刷成白
+  */
+  .btn-primary {
+    --btn-bg: #1e2a3f;
+    --btn-ink: #ffffff;
+    --btn-fill: #d9a441;
+    --btn-fill-ink: #0b1219;
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    padding: 0.85rem 1.6rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: var(--btn-bg);
+    color: var(--btn-ink);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 8px 24px -12px var(--btn-bg);
+    transition:
+      color 0.35s cubic-bezier(0.7, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1),
+      box-shadow 0.3s;
+  }
+  .inverse .btn-primary,
+  :root[data-theme="dark"] .btn-primary {
+    --btn-bg: #d9a441;
+    --btn-ink: #0b1219;
+    --btn-fill: #ffffff;
+    --btn-fill-ink: #0b1219;
+  }
+  /* 刷色層：由左往右掃滿 */
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--btn-fill);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  /* 光澤：刷色完成時再掃過一道亮光 */
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.55) 50%, transparent 65%);
+    transform: translateX(-130%);
+    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 0.15s;
+  }
+  .btn-primary:hover {
+    color: var(--btn-fill-ink);
+    transform: translateY(-3px);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 14px 32px -12px var(--btn-fill);
+  }
+  .btn-primary:hover::after { transform: scaleX(1); }
+  .btn-primary:hover::before { transform: translateX(130%); }
+  .btn-primary:active { transform: translateY(-1px) scale(0.98); }
+  .btn-primary > * { position: relative; z-index: 2; }
+  .btn-primary .btn-arrow { transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1); }
+  .btn-primary:hover .btn-arrow { transform: translateX(5px); }
+
+  /*
+    次要按鈕：邊框版本，hover 時一層顏色由左刷滿，文字反色。
+    三個顏色分開定義，不要用 currentColor 當刷色：
+    hover 時文字會反色，currentColor 跟著變就會讓刷色層與文字同色而看不見。
+    也不要在元素上寫行內 color，行內樣式會蓋掉 hover 的反色規則。
+  */
+  .btn-ghost {
+    --ghost-ink: var(--ink);
+    --ghost-fill: var(--ink);
+    --ghost-fill-ink: var(--void);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 9999px;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ghost-ink);
+    border: 1px solid color-mix(in srgb, var(--ghost-ink) 35%, transparent);
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      color 0.35s cubic-bezier(0.7, 0, 0.2, 1),
+      border-color 0.35s,
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .inverse .btn-ghost {
+    --ghost-ink: #e9eff6;
+    --ghost-fill: #e9eff6;
+    --ghost-fill-ink: #0b1219;
+  }
+  .btn-ghost::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--ghost-fill);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  .btn-ghost:hover {
+    color: var(--ghost-fill-ink);
+    border-color: var(--ghost-fill);
+    transform: translateY(-2px);
+  }
+  .btn-ghost:hover::before { transform: scaleX(1); }
+
+  /* 文字連結：底線從左長出 */
+  .link-line {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-bottom: 2px;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--rule-strong);
+    opacity: 0.5;
+  }
+  .link-line:hover { background-size: 100% 1px; }
+
+  /* 圖示在 hover 時轉一下，讓清單有反應 */
+  .icon-hover { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .group:hover .icon-hover { transform: rotate(-8deg) scale(1.15); }
+
+  /*
+    掃描線：一道光在圖片上由上往下循環掃過，呼應「檢測」。
+    外層需要 position: relative 與 overflow: hidden。
+  */
+  .scan {
+    position: relative;
+    overflow: hidden;
+  }
+  .scan::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -30%;
+    height: 30%;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in srgb, var(--signal) 22%, transparent) 70%,
+      color-mix(in srgb, var(--signal) 60%, transparent) 98%,
+      transparent
+    );
+    mix-blend-mode: screen;
+  }
+
+  /* 跑馬燈：內容需重複兩份，整條平移一半長度即可無縫循環 */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+  }
+
+  /* 儀器指示燈 */
+  .led {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 60%, transparent);
+  }
+
+  /* 評測長條：寬度由 --w 決定，捲動進畫面時從 0 長出 */
+  .bar {
+    height: 100%;
+    width: var(--w);
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scan::after { animation: scan-sweep 4.2s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+  .marquee-track { animation: marquee 38s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  .led { animation: led-pulse 2s ease-out infinite; }
+  .float { animation: float 7s ease-in-out infinite; }
+  .drift { animation: drift 24s linear infinite; }
+
+  @supports (animation-timeline: view()) {
+    .bar {
+      animation: bar-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+}
+
+@keyframes scan-sweep {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(440%); }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@keyframes led-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 60%, transparent); }
+  70% { box-shadow: 0 0 0 0.6rem transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(0.4deg); }
+}
+@keyframes drift {
+  to { background-position: 60px 60px; }
+}
+@keyframes bar-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

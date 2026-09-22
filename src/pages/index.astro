@@ -1,4 +1,8 @@
 ---
+/**
+ * 首頁。每個區塊選用的呈現手法與理由記錄在 docs/design-research.md 的對照表。
+ * 原則：卡片只在需要並列比較時使用，全頁只有結尾一個面板。
+ */
 import Base from '../layouts/Base.astro';
 import { Icon } from 'astro-icon/components';
 import { site } from '../config/site';
@@ -8,233 +12,243 @@ import { benchmark } from '../data/benchmark';
 import issues from '../data/newsletter.json';
 
 const totalArticles = issues.reduce((n, i) => n + i.articles.length, 0);
-const latest = issues.slice(0, 3);
+const latest = issues.slice(0, 5);
 const seven = benchmark.find((b) => b.model === '7B')!;
 const speedup = (seven.tokPerSec[0]! / seven.tokPerSec[2]!).toFixed(1);
-const deviceTicker = [...devices, ...devices];
+
+// 懸停顯圖清單：每一項取示範機型照，沒有的話取第一張截圖
+const revealRows = edgeLanding.map((item) => ({
+  ...item,
+  img: item.device?.image ?? item.visuals[0]?.src ?? '',
+}));
+
+const stats = [
+  { value: String(seven.tokPerSec[0]), unit: 'tok/s', label: '7B 模型量化到 4 bits 的生成速度' },
+  { value: speedup, unit: '×', label: '比 16 bits 快的倍數' },
+  { value: String(seven.mmlu[0]), unit: '%', label: '量化後的 MMLU 準確率，只降 0.2 個百分點' },
+  { value: String(devices.length), unit: '種', label: '從樹莓派到 Mac Studio 的評測裝置' },
+];
 ---
 
 <Base path="/">
-  {/* 開場：極光背景 + 聯盟主張 + 漫畫插圖 */}
+  {/* Split Hero：主張、說明與規模在首屏同時交代 */}
   <section class="inverse relative overflow-hidden">
     <div class="aurora" aria-hidden="true"></div>
-    <div class="drift halftone pointer-events-none absolute inset-0 opacity-[0.05]" style="color: #e9eff6" aria-hidden="true"></div>
-    <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-16 pb-20 md:grid-cols-[1.1fr_1fr] md:gap-14 md:pt-24 md:pb-28">
+    <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 md:grid-cols-[1.15fr_1fr] md:gap-16 md:pt-20 md:pb-24">
       <div class="stage-in">
-        <span class="glass-dark inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs">
-          <span class="led"></span>
-          {site.funding} · {site.orgShort}
-        </span>
-        <h1 class="mt-7 text-[2.75rem] leading-[1.12] sm:text-6xl md:text-[4.5rem]">
-          資料不落雲<br />
-          <span style="color: #d9a441">AI 要落地</span>
+        <p class="muted flex flex-wrap items-baseline gap-x-2 text-sm">
+          <span class="led self-center"></span>
+          已發行
+          <span class="reading text-base text-white" data-ticker data-to={totalArticles}>{totalArticles}</span>
+          篇 AI 電子報，共
+          <span class="reading text-base text-white" data-ticker data-to={issues.length}>{issues.length}</span>
+          期
+        </p>
+        <h1 class="mt-7 text-[2.6rem] leading-[1.14] sm:text-[3.4rem] md:text-[3.9rem]">
+          <span class="whitespace-nowrap">資料不落雲，</span><span class="whitespace-nowrap" style="color: #d9a441">AI 要落地。</span>
+          <span class="tonal-dim block text-[0.62em] leading-[1.35] mt-3">
+            在企業自己的機器上，用上驗證過的大型語言模型。
+          </span>
         </h1>
         <p class="muted mt-8 max-w-md text-[15px] leading-loose">
-          生成式 AI 的軟硬體整合，做在企業自己的機器上。myLLM 產學聯盟以獨立第三方角色評測模型效能，
-          並把驗證過的模型帶進現場。
+          {site.org}主辦的產學聯盟。我們以獨立第三方角色
+          <a href="/services/#benchmark" class="link-line text-white">評測模型效能</a>，並把
+          <a href="/services/#edge-landing" class="link-line text-white">驗證過的模型帶進現場</a>。
         </p>
         <div class="mt-10 flex flex-wrap items-center gap-3">
           <a href="/services/" class="btn-primary">
             我們做什麼
             <Icon name="lucide:arrow-right" class="btn-arrow size-4" />
           </a>
-          <a href="/services/#benchmark" class="btn-ghost">
-            <Icon name="lucide:activity" class="size-4" />
-            看實測數據
-          </a>
+          <a href="/membership/" class="btn-ghost">成為聯盟會員</a>
         </div>
       </div>
 
       <div class="float relative">
-        <div class="absolute -inset-4 rounded-[2rem] opacity-60 blur-2xl" style="background: radial-gradient(60% 60% at 50% 50%, rgb(217 164 65 / 0.35), transparent)" aria-hidden="true"></div>
-        <div class="frame relative" style="border-color: rgb(255 255 255 / 0.12)">
-          <img
-            src="/images/robot-comic.webp"
-            alt="漫畫風格的機器人衝出畫面，象徵 AI 落地到實際場景"
-            width="1024"
-            height="1024"
-            loading="eager"
-            fetchpriority="high"
-            class="block w-full"
-          />
-        </div>
-        <div
-          class="absolute -bottom-6 left-5 z-10 flex items-center gap-3 rounded-2xl px-4 py-3 sm:left-8"
-          style="background: rgb(11 18 25 / 0.94); border: 1px solid rgb(255 255 255 / 0.12); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 16px 40px -12px rgb(0 0 0 / 0.6)"
-        >
-          <Icon name="lucide:zap" class="size-5" style="color: #d9a441" />
-          <div>
-            <p class="reading text-lg leading-none" style="font-family: var(--font-display)">{speedup}×</p>
-            <p class="muted mt-1 text-[11px]">4 bits 量化後的速度</p>
-          </div>
-        </div>
+        <div class="absolute -inset-5 rounded-[2rem] opacity-60 blur-2xl" style="background: radial-gradient(60% 60% at 50% 50%, rgb(217 164 65 / 0.3), transparent)" aria-hidden="true"></div>
+        <img
+          src="/images/robot-comic.webp"
+          alt="漫畫風格的機器人衝出畫面，象徵 AI 落地到實際場景"
+          width="1024"
+          height="1024"
+          loading="eager"
+          fetchpriority="high"
+          class="frame relative block w-full"
+          style="border-color: rgb(255 255 255 / 0.12)"
+        />
+      </div>
+    </div>
+
+    {/* Proof Strip：評測平台的裝置就是信任來源 */}
+    <div class="relative border-t" style="border-color: rgb(255 255 255 / 0.1)">
+      <div class="mx-auto max-w-6xl px-5">
+        <p class="muted pt-6 text-xs">在這六種嵌入式裝置上跑過同一組測試</p>
+        <ul class="grid-rules mt-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" style="border-bottom: 0">
+          {
+            devices.map((d) => (
+              <li class="flex flex-col gap-1 px-4 py-5">
+                <span class="text-sm font-medium text-white">{d.name}</span>
+                <span class="muted flex items-center gap-1.5 text-xs">
+                  {d.vendor}
+                  <span style="color: #d9a441">{d.tier}</span>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </section>
 
-  {/* 評測裝置跑馬燈 */}
-  <div class="marquee border-b py-5" style="border-color: var(--hairline); background: var(--surface-2)" aria-hidden="true">
-    <div class="marquee-track gap-4 pr-4">
+  {/* Statement：聯盟的核心論點，一整個區塊只放這一句 */}
+  <section class="top-glow mx-auto max-w-6xl px-5 pt-28 pb-24">
+    <p class="relative statement max-w-4xl">
+      超人難尋，<br class="sm:hidden" />
+      <span style="color: var(--signal)">鋼鐵人可以量產。</span>
+    </p>
+    <div class="relative mt-16 grid gap-px md:grid-cols-2" style="background: var(--hairline)">
       {
-        deviceTicker.map((d) => (
-          <span class="pill shrink-0">
-            <Icon name="lucide:cpu" class="size-3.5" style="color: var(--signal)" />
-            {d.name}
-            <span style="color: var(--ink-faint)">{d.tier}</span>
-          </span>
+        empowerment.contrast.map((c, i) => (
+          <div class="flex gap-5 py-8 md:px-8 md:first:pl-0" style="background: var(--void)">
+            <Icon
+              name={i === 0 ? 'lucide:user-round' : 'lucide:bot'}
+              class="mt-1 size-7 shrink-0"
+              style={i === 0 ? 'color: var(--ink-faint)' : 'color: var(--signal)'}
+            />
+            <div>
+              <h3 class="text-2xl">{c.subject}</h3>
+              <p class="mt-3 text-[15px] leading-loose" style="color: var(--ink-soft)">
+                {c.body}
+              </p>
+            </div>
+          </div>
         ))
       }
     </div>
-  </div>
+    <p class="relative mt-10 text-[15px] leading-loose" style="color: var(--ink-soft)">
+      {empowerment.note}企業賦能員工要具備的能力：
+      {
+        empowerment.abilities.map((a, i) => (
+          <>
+            <span style="color: var(--ink)">{a}</span>
+            {i < empowerment.abilities.length - 1 && <span class="mx-2" style="color: var(--ink-faint)">／</span>}
+          </>
+        ))
+      }
+    </p>
+  </section>
 
-  {/* Bento：把最重要的幾件事拼成一塊 */}
-  <section class="top-glow mx-auto max-w-6xl px-5 py-24">
-    <div class="relative max-w-2xl">
-      <h2 class="text-3xl leading-snug sm:text-4xl">{empowerment.headline}</h2>
-      <p class="mt-5 text-[15px] leading-loose" style="color: var(--ink-soft)">{empowerment.note}</p>
-    </div>
-
-    <div class="bento relative mt-12">
-      <article class="card spotlight md:col-span-4 md:row-span-2 flex flex-col justify-between p-8">
-        <div class="grid gap-8 sm:grid-cols-2">
-          {
-            empowerment.contrast.map((c, i) => (
-              <div>
-                <span
-                  class="grid size-11 place-items-center rounded-2xl"
-                  style={i === 0 ? 'background: var(--surface-2)' : 'background: var(--signal); color: var(--signal-face)'}
-                >
-                  <Icon name={i === 0 ? 'lucide:user-round' : 'lucide:bot'} class="size-5" />
+  {/* Visible Grid 數字帶：實測結果要能一眼橫向比較 */}
+  <section style="background: var(--surface-2)">
+    <div class="mx-auto max-w-6xl px-5 py-20">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <h2 class="max-w-xl text-3xl leading-snug sm:text-4xl">量化到 4 bits，速度快三倍，準確率幾乎不掉</h2>
+        <a href="/services/#benchmark" class="link-line text-sm">
+          完整測試數據
+          <Icon name="lucide:arrow-up-right" class="size-3.5" />
+        </a>
+      </div>
+      <dl class="grid-rules on-panel mt-12 grid-cols-2 lg:grid-cols-4">
+        {
+          stats.map((st) => (
+            <div class="flex flex-col justify-between gap-6 px-5 py-8 sm:px-7">
+              <dd class="flex items-baseline gap-1.5">
+                <span class="reading text-5xl sm:text-6xl" style="font-family: var(--font-display)" data-ticker data-to={st.value}>
+                  {st.value}
                 </span>
-                <h3 class="mt-5 text-2xl">{c.subject}</h3>
-                <p class="mt-3 text-[15px] leading-loose" style="color: var(--ink-soft)">
-                  {c.body}
+                <span class="text-lg" style="color: var(--signal)">{st.unit}</span>
+              </dd>
+              <dt class="text-sm leading-relaxed" style="color: var(--ink-soft)">
+                {st.label}
+              </dt>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="mt-5 text-xs" style="color: var(--ink-faint)">實測於 Jetson Orin</p>
+    </div>
+  </section>
+
+  {/* Sticky Storytelling：階段有先後，捲動才看得出順序 */}
+  <section class="story mx-auto max-w-6xl px-5 py-28" data-story>
+    <div class="grid gap-12 md:grid-cols-[1fr_1.1fr] md:gap-20">
+      <div class="md:sticky md:top-28 md:self-start">
+        <h2 class="text-3xl sm:text-4xl">企業導入 LLM 的三個階段</h2>
+        <div class="story-progress mt-8 grid grid-cols-3 gap-2" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="story-panel mt-10 hidden h-56 md:block" aria-hidden="true">
+          {
+            services.map((s, i) => (
+              <div data-panel={i + 1} class="flex flex-col justify-end">
+                <Icon name={s.icon} class="size-10" style="color: var(--signal)" />
+                <p class="reading mt-6 text-[7rem] leading-none" style="font-family: var(--font-display); color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--signal) 70%, transparent)">
+                  0{i + 1}
                 </p>
               </div>
             ))
           }
         </div>
-        <div class="mt-10">
-          <p class="text-sm" style="color: var(--ink-faint)">企業賦能員工要具備的能力</p>
-          <ul class="mt-4 flex flex-wrap gap-2">
-            {empowerment.abilities.map((a) => <li class="pill">{a}</li>)}
-          </ul>
-        </div>
-      </article>
+      </div>
 
-      <article class="card glow-border md:col-span-2 flex flex-col justify-between p-7">
-        <div class="flex items-center gap-2 text-sm" style="color: var(--ink-faint)">
-          <span class="led"></span>7B · 4 bits
-        </div>
-        <div>
-          <p class="reading text-5xl" style="font-family: var(--font-display); color: var(--signal)">{seven.tokPerSec[0]}</p>
-          <p class="mt-2 text-sm" style="color: var(--ink-soft)">每秒 token，比 16 bits 快 {speedup} 倍</p>
-        </div>
-      </article>
-
-      <article class="card spotlight md:col-span-2 flex flex-col justify-between p-7">
-        <Icon name="lucide:target" class="size-6" style="color: var(--signal)" />
-        <div>
-          <p class="reading text-5xl" style="font-family: var(--font-display)">{seven.mmlu[0]}%</p>
-          <p class="mt-2 text-sm" style="color: var(--ink-soft)">MMLU 準確率，16 bits 為 {seven.mmlu[2]}%</p>
-        </div>
-      </article>
-
-      <a href="/services/#benchmark" class="card panel-hover md:col-span-3 group overflow-hidden">
-        <div class="overflow-hidden">
-          <img src="/images/edge-devices.jpg" alt="六種嵌入式裝置並排陳列的評測平台" width="2876" height="832" loading="lazy" class="block w-full" />
-        </div>
-        <div class="flex items-center justify-between p-6">
-          <div>
-            <p class="text-base font-medium">六種嵌入式裝置的評測平台</p>
-            <p class="mt-1 text-sm" style="color: var(--ink-soft)">從樹莓派到 Mac Studio，同一組測試</p>
-          </div>
-          <Icon name="lucide:arrow-up-right" class="icon-hover size-5 shrink-0" style="color: var(--signal)" />
-        </div>
-      </a>
-
-      <a href="/newsletter/" class="card-soft panel-hover md:col-span-3 group flex flex-col justify-between p-7">
-        <div class="flex items-center justify-between">
-          <Icon name="lucide:newspaper" class="size-6" style="color: var(--signal)" />
-          <Icon name="lucide:arrow-up-right" class="icon-hover size-5" style="color: var(--ink-faint)" />
-        </div>
-        <div class="mt-10">
-          <p class="reading text-5xl" style="font-family: var(--font-display)">{totalArticles}</p>
-          <p class="mt-2 text-sm" style="color: var(--ink-soft)">篇 AI 電子報文章，{issues.length} 期，自 2023.11 起每月發行</p>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  {/* 三個階段 */}
-  <section style="background: var(--surface-2)">
-    <div class="mx-auto max-w-6xl px-5 py-24">
-      <h2 class="text-3xl sm:text-4xl">企業導入 LLM 的三個階段</h2>
-      <div class="mt-12 grid gap-4 md:grid-cols-3">
+      <ol class="space-y-24 md:space-y-40 md:py-10">
         {
           services.map((s, i) => (
-            <a href={`/services/#${s.id}`} class="card spotlight panel-hover group flex flex-col p-7">
-              <div class="flex items-center justify-between">
-                <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
-                  <Icon name={s.icon} class="icon-hover size-6" style="color: var(--signal)" />
-                </span>
-                <span class="reading text-sm" style="color: var(--ink-faint)">
-                  階段 {i + 1}
-                </span>
-              </div>
-              <h3 class="mt-7 text-xl">{s.title}</h3>
-              <p class="mt-3 text-sm leading-loose" style="color: var(--ink-soft)">
-                {s.summary}
+            <li data-step={i + 1}>
+              <p class="reading text-sm" style="color: var(--signal)">
+                階段 {i + 1}
               </p>
-              <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm" style="color: var(--signal)">
-                服務內容
-                <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </a>
+              <h3 class="mt-3 text-2xl sm:text-3xl">{s.title}</h3>
+              <p class="mt-5 text-lg leading-relaxed">{s.summary}</p>
+              <p class="mt-4 text-[15px] leading-loose" style="color: var(--ink-soft)">
+                {s.detail[0]}
+              </p>
+              <a href={`/services/#${s.id}`} class="link-line mt-6 text-sm" style="color: var(--signal)">
+                這個階段的服務
+                <Icon name="lucide:arrow-right" class="size-4" />
+              </a>
+            </li>
           ))
         }
-      </div>
+      </ol>
     </div>
   </section>
 
-  {/* Edge Landing 七項 */}
-  <section class="mx-auto max-w-6xl px-5 py-24">
-    <div class="flex flex-wrap items-end justify-between gap-6">
-      <div>
-        <h2 class="text-3xl sm:text-4xl">Edge Landing 七項落地服務</h2>
-        <p class="mt-4 text-[15px]" style="color: var(--ink-soft)">模型在企業自己的環境裡執行，資料不必離開現場。</p>
+  {/* Hover Reveal List：七項都有實機照，攤開會變成圖片牆，改成滑到才浮出 */}
+  <section class="border-t" style="border-color: var(--hairline)" data-reveal-list>
+    <div class="mx-auto max-w-6xl px-5 py-24">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <h2 class="text-3xl sm:text-4xl">Edge Landing 七項落地服務</h2>
+          <p class="mt-4 text-[15px]" style="color: var(--ink-soft)">模型在企業自己的環境裡執行，資料不必離開現場。</p>
+        </div>
+        <p class="hidden text-xs md:block" style="color: var(--ink-faint)">滑過每一項，看示範現場</p>
       </div>
-      <a href="/services/#edge-landing" class="link-line text-sm">
-        全部服務細節
-        <Icon name="lucide:arrow-up-right" class="size-3.5" />
-      </a>
-    </div>
-    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        edgeLanding.map((item, i) => (
-          <li class={i === 0 ? 'sm:col-span-2' : ''}>
-            <a href={`/services/#${item.id}`} class="card spotlight panel-hover group flex h-full flex-col p-6">
-              <span class="grid size-11 place-items-center rounded-2xl" style="background: var(--surface-2)">
-                <Icon name={item.icon} class="icon-hover size-5" style="color: var(--signal)" />
-              </span>
-              <span class="mt-5 text-base font-medium">{item.title}</span>
-              <span class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">
-                {item.summary}
-              </span>
-              {item.device && (
-                <span class="pill mt-auto self-start pt-1.5" style="margin-top: auto">
-                  <Icon name="lucide:cpu" class="size-3.5" style="color: var(--signal)" />
-                  {item.device.name}
+
+      <ul class="hairline-list mt-12">
+        {
+          revealRows.map((item) => (
+            <li class="hairline-row" data-reveal-row data-img={item.img} data-alt={`${item.title}的示範現場`}>
+              <a href={`/services/#${item.id}`} class="grid items-center gap-x-6 gap-y-2 py-6 md:grid-cols-[2.5rem_1.3fr_1.7fr_9rem_1.5rem]">
+                <Icon name={item.icon} class="size-6" style="color: var(--signal)" />
+                <span class="text-lg" style="font-family: var(--font-display)">{item.title}</span>
+                <span class="text-sm leading-relaxed" style="color: var(--ink-soft)">
+                  {item.summary}
                 </span>
-              )}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+                <span class="text-xs" style="color: var(--ink-faint)">
+                  {item.device?.name ?? ''}
+                </span>
+                <Icon name="lucide:arrow-right" class="row-arrow hidden size-5 md:block" style="color: var(--ink-faint)" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <img data-reveal-img class="reveal-float" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" />
   </section>
 
-  {/* 電子報 */}
+  {/* Hairline Index：清單型內容，要能掃讀日期與標題 */}
   <section style="background: var(--surface-2)">
     <div class="mx-auto max-w-6xl px-5 py-24">
       <div class="flex flex-wrap items-end justify-between gap-6">
@@ -244,25 +258,22 @@ const deviceTicker = [...devices, ...devices];
           <Icon name="lucide:arrow-up-right" class="size-3.5" />
         </a>
       </div>
-      <ul class="mt-12 grid gap-4 md:grid-cols-3">
+      <ul class="hairline-list mt-12">
         {
           latest.map((issue) => (
-            <li>
-              <a href={`/newsletter/${issue.no}/`} class="card spotlight panel-hover group flex h-full flex-col p-7">
-                <div class="flex items-center justify-between">
-                  <span class="pill">
-                    <Icon name="lucide:calendar" class="size-3.5" style="color: var(--signal)" />
-                    {issue.date}
-                  </span>
-                  <span class="reading text-3xl" style="font-family: var(--font-display); color: var(--signal)">
-                    {issue.no}
-                  </span>
-                </div>
-                <p class="mt-7 text-[15px] leading-relaxed">{issue.articles[0]?.title}</p>
-                <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm" style="color: var(--ink-faint)">
-                  {issue.articles.length} 篇文章
-                  <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+            <li class="hairline-row">
+              <a href={`/newsletter/${issue.no}/`} class="grid items-baseline gap-x-6 gap-y-1 py-5 sm:grid-cols-[3.5rem_5.5rem_1fr_4rem_1.5rem]">
+                <span class="reading text-2xl" style="font-family: var(--font-display); color: var(--signal)">
+                  {issue.no}
                 </span>
+                <span class="reading text-sm" style="color: var(--ink-faint)">
+                  {issue.date}
+                </span>
+                <span class="text-[15px] leading-relaxed">{issue.articles[0]?.title}</span>
+                <span class="reading text-sm" style="color: var(--ink-faint)">
+                  {issue.articles.length} 篇
+                </span>
+                <Icon name="lucide:arrow-right" class="row-arrow hidden size-5 sm:block" style="color: var(--ink-faint)" />
               </a>
             </li>
           ))
@@ -271,7 +282,7 @@ const deviceTicker = [...devices, ...devices];
     </div>
   </section>
 
-  {/* 結尾 */}
+  {/* Media Panel：全頁唯一的面板，留給行動呼籲 */}
   <section class="mx-auto max-w-6xl px-5 py-24">
     <div class="inverse relative overflow-hidden rounded-[2rem] px-8 py-16 sm:px-14">
       <div class="aurora" aria-hidden="true"></div>

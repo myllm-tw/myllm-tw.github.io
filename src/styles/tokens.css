@@ -1,0 +1,91 @@
+/* 色彩 token 與基礎樣式。深淺兩套配色、語意色名稱與 base layer。 */
+
+/*
+  色彩 token。底色延續品牌既有資產（#1e2a3f 取自 myLLMBanner.png，
+  #253242 是舊站 bgcolor），訊號色為黃銅琥珀。
+  頁面一律使用語意名稱，不直接寫十六進位值。
+*/
+:root {
+  color-scheme: light;
+  --void: #ffffff;
+  --panel: #f1f4f8;
+  --rule: #d9e0e8;
+  --rule-strong: #1e2a3f;
+  --ink: #0f1a27;
+  --ink-soft: #465668;
+  --ink-faint: #76889b;
+  --signal: #8a5f0c;
+  --signal-face: #ffffff;
+  --alert: #c8102e;
+  --link: #1d4f7c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --void: #0b1219;
+    --panel: #131d29;
+    --rule: #223140;
+    --rule-strong: #43586e;
+    --ink: #e9eff6;
+    --ink-soft: #a2b4c6;
+    --ink-faint: #6f8296;
+    --signal: #d9a441;
+    --signal-face: #0b1219;
+    --alert: #ff5a6a;
+    --link: #8ab6de;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --void: #0b1219;
+  --panel: #131d29;
+  --rule: #223140;
+  --rule-strong: #43586e;
+  --ink: #e9eff6;
+  --ink-soft: #a2b4c6;
+  --ink-faint: #6f8296;
+  --signal: #d9a441;
+  --signal-face: #0b1219;
+  --alert: #ff5a6a;
+  --link: #8ab6de;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  body {
+    background: var(--void);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "palt";
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  /* 數字一律等寬對齊，因為期數與統計要能上下比對 */
+  .nums { font-variant-numeric: tabular-nums; }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+
+  /* Tailwind v4 把 button 的預設游標改成 default，依官方升級指南加回 pointer */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

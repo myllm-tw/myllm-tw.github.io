@@ -24,49 +24,52 @@ const next = sorted[index + 1];
     lead={`${issue.date} 發行，收錄 ${issue.articles.length} 篇文章。點任何一篇即可下載 PDF 全文。`}
   />
 
-  <section class="top-glow mx-auto max-w-3xl px-5 py-20">
-    <ul class="relative space-y-3">
+  <section class="mx-auto max-w-4xl px-5 py-20">
+    <ol class="hairline-list">
       {
         issue.articles.map((article, i) => (
-          <li>
-            <a href={article.pdf} class="card spotlight panel-hover group flex items-center gap-5 p-5">
-              <span
-                class="reading grid size-10 shrink-0 place-items-center rounded-xl text-sm"
-                style="background: var(--surface-2); color: var(--ink-faint)"
-              >
-                {i + 1}
+          <li class="hairline-row">
+            <a href={article.pdf} class="grid items-baseline gap-x-6 gap-y-1 py-6 sm:grid-cols-[2.5rem_1fr_auto]">
+              <span class="reading text-2xl" style="font-family: var(--font-display); color: var(--signal)">
+                {String(i + 1).padStart(2, '0')}
               </span>
-              <span class="flex-1 text-[15px] leading-relaxed">{article.title}</span>
-              <span class="pill shrink-0 transition-colors group-hover:border-[var(--signal)]">
-                <Icon name="lucide:download" class="size-3.5" style="color: var(--signal)" />
+              <span class="text-lg leading-relaxed" style="font-family: var(--font-display)">{article.title}</span>
+              <span class="row-arrow inline-flex items-center gap-1.5 text-sm" style="color: var(--ink-faint)">
+                <Icon name="lucide:download" class="size-4" />
                 PDF
               </span>
             </a>
           </li>
         ))
       }
-    </ul>
+    </ol>
 
-    <nav class="mt-14 flex flex-wrap items-center justify-between gap-3">
+    <nav class="grid-rules mt-16 grid-cols-3 text-sm">
       {
         prev ? (
-          <a href={`/newsletter/${prev.no}/`} class="btn-ghost group">
-            <Icon name="lucide:arrow-left" class="size-4 transition-transform group-hover:-translate-x-1" />
-            第 {prev.no} 期
+          <a href={`/newsletter/${prev.no}/`} class="group flex flex-col gap-1 px-1 py-5">
+            <span class="text-xs" style="color: var(--ink-faint)">上一期</span>
+            <span class="inline-flex items-center gap-1.5">
+              <Icon name="lucide:arrow-left" class="size-4 transition-transform group-hover:-translate-x-1" style="color: var(--signal)" />
+              第 {prev.no} 期
+            </span>
           </a>
         ) : (
           <span />
         )
       }
-      <a href="/newsletter/" class="pill">
-        <Icon name="lucide:layout-grid" class="size-3.5" style="color: var(--signal)" />
+      <a href="/newsletter/" class="flex flex-col items-center justify-center gap-1 px-1 py-5 text-center">
+        <span class="text-xs" style="color: var(--ink-faint)">全部</span>
         所有期數
       </a>
       {
         next ? (
-          <a href={`/newsletter/${next.no}/`} class="btn-ghost group">
-            第 {next.no} 期
-            <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+          <a href={`/newsletter/${next.no}/`} class="group flex flex-col items-end gap-1 px-1 py-5 text-right">
+            <span class="text-xs" style="color: var(--ink-faint)">下一期</span>
+            <span class="inline-flex items-center gap-1.5">
+              第 {next.no} 期
+              <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" style="color: var(--signal)" />
+            </span>
           </a>
         ) : (
           <span />
@@ -74,7 +77,7 @@ const next = sorted[index + 1];
       }
     </nav>
 
-    <p class="mt-10 text-center text-xs leading-loose" style="color: var(--ink-faint)">
+    <p class="mt-10 text-xs leading-loose" style="color: var(--ink-faint)">
       這一期寄出時的原始版面保留在
       <a href={`/news/newsletter/newsletter-${issue.no}.html`} class="link-line">
         /news/newsletter/newsletter-{issue.no}.html

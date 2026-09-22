@@ -12,10 +12,11 @@ if (!membership.fee || membership.benefits.length === 0) {
 }
 
 const steps = [
-  { icon: 'lucide:file-down', title: '下載申請表', body: '填寫會員申請表，說明貴公司的需求。', href: membership.applicationForm, cta: '下載申請表' },
-  { icon: 'lucide:messages-square', title: '與聯盟聯絡', body: '和聯盟窗口確認服務需求與合作方式。', href: '/contact/', cta: '聯絡窗口' },
-  { icon: 'lucide:badge-check', title: '取得會員資格', body: '完成審核與繳費後，即可使用會員服務。' },
+  { title: '下載申請表', body: '填寫會員申請表，說明貴公司的需求。', href: membership.applicationForm, cta: '下載申請表' },
+  { title: '與聯盟聯絡', body: '和聯盟窗口確認服務需求與合作方式。', href: '/contact/', cta: '聯絡窗口' },
+  { title: '取得會員資格', body: '完成審核與繳費後，即可使用會員服務。' },
 ];
+const outline = 'color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--signal) 75%, transparent)';
 ---
 
 <Base title="成為會員" description="加入 myLLM 產學聯盟，取得專業諮詢、平台評測與技術交流資源。">
@@ -32,27 +33,22 @@ const steps = [
     </div>
   </PageHeader>
 
-  {/* 入會三步驟：真的有先後，所以編號 */}
-  <section class="top-glow mx-auto max-w-6xl px-5 py-24">
-    <h2 class="relative text-3xl sm:text-4xl">三個步驟加入聯盟</h2>
-    <ol class="relative mt-12 grid gap-4 md:grid-cols-3">
+  {/* 流程列：三步真的有先後，用顯性網格橫向排開，描邊大數字標順序 */}
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <h2 class="text-3xl sm:text-4xl">三個步驟加入聯盟</h2>
+    <ol class="grid-rules mt-12 md:grid-cols-3">
       {
         steps.map((st, i) => (
-          <li class="card spotlight flex flex-col p-7">
-            <div class="flex items-center justify-between">
-              <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
-                <Icon name={st.icon} class="size-6" style="color: var(--signal)" />
-              </span>
-              <span class="reading text-4xl" style="font-family: var(--font-display); color: var(--rule)">
-                {i + 1}
-              </span>
-            </div>
-            <h3 class="mt-7 text-xl">{st.title}</h3>
+          <li class="flex flex-col px-1 py-8 md:px-8 md:first:pl-0">
+            <span class="reading text-7xl leading-none" style={`font-family: var(--font-display); ${outline}`}>
+              {i + 1}
+            </span>
+            <h3 class="mt-8 text-xl">{st.title}</h3>
             <p class="mt-3 text-sm leading-loose" style="color: var(--ink-soft)">
               {st.body}
             </p>
             {st.href && (
-              <a href={st.href} class="link-line mt-auto self-start pt-6 text-sm" style="color: var(--signal)">
+              <a href={st.href} class="link-line mt-5 self-start text-sm" style="color: var(--signal)">
                 {st.cta}
                 <Icon name="lucide:arrow-right" class="size-4" />
               </a>
@@ -64,69 +60,72 @@ const steps = [
   </section>
 
   <section style="background: var(--surface-2)">
-    <div class="mx-auto max-w-6xl px-5 py-24">
-      <div class="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
-        <article class="card p-8 sm:p-10">
-          <h2 class="text-2xl sm:text-3xl">會員可以取得什麼</h2>
-          {
-            membership.benefits.length > 0 ? (
-              <ul class="mt-8 grid gap-3 sm:grid-cols-2">
-                {membership.benefits.map((b) => (
-                  <li class="card-soft flex items-start gap-3 p-4 text-[15px]">
-                    <Icon name="lucide:check" class="mt-0.5 size-4 shrink-0" style="color: var(--signal)" />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div class="mt-8 space-y-3">
-                {services.map((s) => (
-                  <a href={`/services/#${s.id}`} class="card-soft panel-hover group flex items-start gap-4 p-5">
-                    <Icon name={s.icon} class="icon-hover mt-0.5 size-5 shrink-0" style="color: var(--signal)" />
-                    <div>
-                      <p class="text-base font-medium">{s.title}</p>
-                      <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">
+    <div class="mx-auto grid max-w-6xl gap-16 px-5 py-24 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
+      <div>
+        <h2 class="text-3xl sm:text-4xl">會員可以取得什麼</h2>
+        {
+          membership.benefits.length > 0 ? (
+            <ul class="hairline-list mt-10">
+              {membership.benefits.map((b) => (
+                <li class="hairline-row flex items-start gap-4 py-5 text-[15px]">
+                  <Icon name="lucide:check" class="mt-1 size-4 shrink-0" style="color: var(--signal)" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul class="hairline-list mt-10">
+              {services.map((s) => (
+                <li class="hairline-row">
+                  <a href={`/services/#${s.id}`} class="grid items-start gap-x-5 gap-y-1 py-6 sm:grid-cols-[1.5rem_1fr_1.5rem]">
+                    <Icon name={s.icon} class="mt-1 size-5" style="color: var(--signal)" />
+                    <span>
+                      <span class="block text-lg" style="font-family: var(--font-display)">{s.title}</span>
+                      <span class="mt-1.5 block text-sm leading-relaxed" style="color: var(--ink-soft)">
                         {s.summary}
-                      </p>
-                    </div>
+                      </span>
+                    </span>
+                    <Icon name="lucide:arrow-right" class="row-arrow mt-1 hidden size-5 sm:block" style="color: var(--ink-faint)" />
                   </a>
-                ))}
-              </div>
-            )
-          }
-        </article>
-
-        <aside class="grid gap-4 self-start">
-          {
-            membership.fee && (
-              <div class="card glow-border p-7">
-                <p class="text-sm" style="color: var(--ink-faint)">會員費用</p>
-                <p class="reading mt-2 text-3xl" style="font-family: var(--font-display); color: var(--signal)">
-                  {membership.fee}
-                </p>
-              </div>
-            )
-          }
-          {
-            membership.eligibility && (
-              <div class="card p-7">
-                <p class="text-sm" style="color: var(--ink-faint)">入會資格</p>
-                <p class="mt-2 text-[15px] leading-loose" style="color: var(--ink-soft)">{membership.eligibility}</p>
-              </div>
-            )
-          }
-          <a href="/membership/terms/" class="card panel-hover group flex items-center gap-4 p-7">
-            <span class="grid size-12 shrink-0 place-items-center rounded-2xl" style="background: var(--surface-2)">
-              <Icon name="lucide:scroll-text" class="icon-hover size-6" style="color: var(--signal)" />
-            </span>
-            <div class="flex-1">
-              <p class="text-base font-medium">使用條款</p>
-              <p class="mt-1 text-sm" style="color: var(--ink-soft)">加入會員即表示同意，共十二章</p>
-            </div>
-            <Icon name="lucide:arrow-up-right" class="size-5 shrink-0" style="color: var(--ink-faint)" />
-          </a>
-        </aside>
+                </li>
+              ))}
+            </ul>
+          )
+        }
       </div>
+
+      <dl class="self-start">
+        {
+          membership.fee && (
+            <div class="border-t py-6" style="border-color: var(--hairline)">
+              <dt class="text-sm" style="color: var(--ink-faint)">會員費用</dt>
+              <dd class="reading mt-2 text-3xl" style="font-family: var(--font-display); color: var(--signal)">
+                {membership.fee}
+              </dd>
+            </div>
+          )
+        }
+        {
+          membership.eligibility && (
+            <div class="border-t py-6" style="border-color: var(--hairline)">
+              <dt class="text-sm" style="color: var(--ink-faint)">入會資格</dt>
+              <dd class="mt-2 text-[15px] leading-loose" style="color: var(--ink-soft)">{membership.eligibility}</dd>
+            </div>
+          )
+        }
+        <div class="border-y py-6" style="border-color: var(--hairline)">
+          <dt class="text-sm" style="color: var(--ink-faint)">使用條款</dt>
+          <dd class="mt-2 text-[15px] leading-loose" style="color: var(--ink-soft)">
+            加入會員即表示同意本聯盟的使用條款，共十二章。
+          </dd>
+          <dd class="mt-4">
+            <a href="/membership/terms/" class="link-line text-sm" style="color: var(--signal)">
+              閱讀使用條款
+              <Icon name="lucide:arrow-up-right" class="size-3.5" />
+            </a>
+          </dd>
+        </div>
+      </dl>
     </div>
   </section>
 </Base>
