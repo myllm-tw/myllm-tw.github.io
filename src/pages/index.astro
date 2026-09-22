@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Icon } from 'astro-icon/components';
 import { site } from '../config/site';
 import { services, edgeLanding, devices } from '../data/services';
 import { empowerment } from '../data/empowerment';
@@ -14,22 +15,19 @@ const latest = issues.slice(0, 4);
   <section class="inverse relative overflow-hidden">
     <div
       class="pointer-events-none absolute inset-0 halftone-dense opacity-[0.07]"
-      style="color: var(--void)"
+      style="color: #e9eff6"
       aria-hidden="true"
     >
     </div>
     <div class="relative mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_1fr] md:gap-14 md:py-24">
-      <div>
-        <p class="text-sm" style="color: color-mix(in srgb, var(--void) 62%, transparent)">
-          {site.org}
-        </p>
+      <div class="stage-in">
+        <p class="muted text-sm">{site.org}</p>
         <h1 class="mt-6 text-[2.75rem] leading-[1.15] sm:text-6xl md:text-[4.25rem]">
           資料不落雲<br />
           <span style="color: var(--signal)">AI 要落地</span>
         </h1>
         <p
-          class="mt-8 max-w-md text-[15px] leading-loose"
-          style="color: color-mix(in srgb, var(--void) 78%, transparent)"
+          class="muted mt-8 max-w-md text-[15px] leading-loose"
         >
           生成式 AI 的軟硬體整合，做在企業自己的機器上。myLLM 產學聯盟以獨立第三方角色
           評測模型效能，並把驗證過的模型帶進現場。
@@ -38,7 +36,7 @@ const latest = issues.slice(0, 4);
           <a
             href="/services/"
             class="px-7 py-3.5 text-sm font-medium"
-            style="background: var(--signal); color: #fff"
+            style="background: var(--signal); color: var(--signal-face)"
           >
             我們做什麼
           </a>
@@ -187,8 +185,11 @@ const latest = issues.slice(0, 4);
         {
           edgeLanding.map((item) => (
             <div class="border-t py-6" style="border-color: var(--rule)">
-              <dt class="text-base font-medium">{item.title}</dt>
-              <dd class="mt-2 text-sm leading-loose" style="color: var(--ink-soft)">
+              <dt class="flex items-center gap-3 text-base font-medium">
+                <Icon name={item.icon} class="size-[18px] shrink-0" style="color: var(--signal)" />
+                {item.title}
+              </dt>
+              <dd class="mt-2.5 pl-[30px] text-sm leading-loose" style="color: var(--ink-soft)">
                 {item.description}
               </dd>
             </div>
@@ -235,23 +236,22 @@ const latest = issues.slice(0, 4);
 
   {/* 結尾 */}
   <section class="inverse relative overflow-hidden">
-    <div class="pointer-events-none absolute inset-0 halftone opacity-[0.06]" style="color: var(--void)" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-0 halftone opacity-[0.06]" style="color: #e9eff6" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-6xl px-5 py-20">
       <h2 class="max-w-xl text-3xl leading-snug sm:text-4xl">想知道貴公司的 AI 系統表現如何？</h2>
       <p
-        class="mt-6 max-w-xl text-[15px] leading-loose"
-        style="color: color-mix(in srgb, var(--void) 78%, transparent)"
+        class="muted mt-6 max-w-xl text-[15px] leading-loose"
       >
         會員可取得專業諮詢與平台評測資源。
       </p>
       <div class="mt-10 flex flex-wrap items-center gap-6">
-        <a href="/membership/" class="px-7 py-3.5 text-sm font-medium" style="background: var(--signal); color: #fff">
+        <a href="/membership/" class="px-7 py-3.5 text-sm font-medium" style="background: var(--signal); color: var(--signal-face)">
           成為聯盟會員
         </a>
         <a
           href="/contact/"
           class="border-b pb-1 text-sm"
-          style="color: var(--void); border-color: color-mix(in srgb, var(--void) 45%, transparent)"
+          style="border-color: #43586e"
         >
           聯絡聯盟窗口
         </a>

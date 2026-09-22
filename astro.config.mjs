@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import icon from 'astro-icon';
 
 // 站台網域只在這裡定義一次，頁面裡用 Astro.site 取用，不要再寫死。
 export default defineConfig({
@@ -10,7 +11,7 @@ export default defineConfig({
   // 搭配 wrangler.jsonc 的 html_handling: "none"：頁面網址一律帶尾斜線（/about/），
   // 這樣舊的 .html 網址才能原樣保留而不被重導向。
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [sitemap(), icon({ iconDir: 'src/icons' })],
   vite: {
     plugins: [tailwindcss()],
   },

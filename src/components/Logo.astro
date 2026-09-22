@@ -1,0 +1,31 @@
+---
+/**
+ * 站台 logo。原始檔 news/www/homeLOGO.png 是白底深藍字，深色模式下會看不見，
+ * 因此在 public/images/ 另備去背的深淺兩版，依模式切換。
+ */
+interface Props {
+  /** 顯示高度（px），寬度依 4.06:1 的原始比例換算 */
+  height?: number;
+  class?: string;
+}
+const { height = 28, class: className = '' } = Astro.props;
+const width = Math.round(height * (3110 / 766));
+---
+
+<span class={`inline-block ${className}`} style={`height:${height}px;width:${width}px`}>
+  <img
+    src="/images/logo-light.png"
+    alt="myLLM.tw"
+    width={width}
+    height={height}
+    class="block h-full w-full object-contain dark:hidden"
+  />
+  <img
+    src="/images/logo-dark.png"
+    alt=""
+    aria-hidden="true"
+    width={width}
+    height={height}
+    class="hidden h-full w-full object-contain dark:block"
+  />
+</span>

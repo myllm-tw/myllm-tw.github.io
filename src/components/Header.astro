@@ -1,5 +1,7 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import Logo from './Logo.astro';
+import { Icon } from 'astro-icon/components';
 import { site, nav } from '../config/site';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -11,11 +13,11 @@ const isCurrent = (href: string) => {
 
 <header class="sticky top-0 z-40 border-b" style="border-color: var(--rule); background: var(--void)">
   <div class="mx-auto flex h-16 max-w-5xl items-center gap-5 px-5">
-    <a href="/" class="flex items-baseline gap-2.5" aria-label={`${site.shortName} 首頁`}>
-      <span style="font-family: var(--font-display)" class="text-lg font-bold tracking-tight">
-        {site.shortName}
+    <a href="/" class="flex items-center gap-3" aria-label={`${site.shortName} 首頁`}>
+      <Logo height={26} />
+      <span class="hidden border-l pl-3 text-xs sm:block" style="color: var(--ink-faint); border-color: var(--rule)">
+        {site.tagline}
       </span>
-      <span class="hidden text-xs sm:block" style="color: var(--ink-faint)">{site.tagline}</span>
     </a>
 
     <nav class="ml-auto hidden md:block" aria-label="主要導覽">
@@ -55,9 +57,7 @@ const isCurrent = (href: string) => {
         aria-expanded="false"
         aria-controls="mobile-nav"
       >
-        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <path d="M4 8h16M4 16h16" />
-        </svg>
+        <Icon name="lucide:menu" class="size-5" />
       </button>
     </div>
   </div>

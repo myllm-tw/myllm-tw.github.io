@@ -4,6 +4,8 @@
  */
 export type Service = {
   id: string;
+  /** lucide 圖示名稱，供 astro-icon 使用 */
+  icon: string;
   title: string;
   titleEn: string;
   summary: string;
@@ -13,6 +15,7 @@ export type Service = {
 export const services: Service[] = [
   {
     id: 'ecosystem',
+    icon: 'lucide:users-round',
     title: 'LLM 生態圈交流',
     titleEn: 'Ecosystem',
     summary: '成為 AI 知識使用者與供應者之間的橋樑。',
@@ -23,6 +26,7 @@ export const services: Service[] = [
   },
   {
     id: 'benchmark',
+    icon: 'lucide:gauge',
     title: 'LLM 平台落地測試、評估與優化',
     titleEn: 'Benchmarking',
     summary: '以獨立第三方角色，提供 AI 系統的效能評估與基準測試。',
@@ -33,6 +37,7 @@ export const services: Service[] = [
   },
   {
     id: 'platform',
+    icon: 'lucide:layers',
     title: '分析式與生成式 AI 平台設計',
     titleEn: 'Platform Design',
     summary: '針對特定主題設計分析式與生成式 AI 平台。',
@@ -47,14 +52,14 @@ export const services: Service[] = [
  * Edge Landing 的服務項目，名稱與順序依設計稿 news/www/myllm-web-theme.png 的側邊選單。
  * 舊站左側選單漏了「AIoT 歷史配方經驗擷取」，此處補回。
  */
-export const edgeLanding: { title: string; description: string }[] = [
-  { title: '強化檢索生成（RAG plus）', description: '讓模型引用企業自有的文件與知識回答，答案有出處。' },
-  { title: '智慧身份識別與安全控管', description: '在地端完成識別與權限控管，資料不外流。' },
-  { title: '自動化演講摘要', description: '把演講與會議內容整理成逐字稿與摘要。' },
-  { title: '編程知識小助手', description: '以企業內部程式碼與文件為基礎的開發輔助。' },
-  { title: '智慧表格語言模型', description: '理解表格結構，處理報表與結構化資料查詢。' },
-  { title: '客製化邊緣裝置佈署', description: '依現場條件配置可在邊緣裝置執行的模型。' },
-  { title: 'AIoT 歷史配方經驗擷取', description: '從歷史生產資料中萃取配方與參數的經驗知識。' },
+export const edgeLanding: { icon: string; title: string; description: string }[] = [
+  { icon: 'lucide:file-search', title: '強化檢索生成（RAG plus）', description: '讓模型引用企業自有的文件與知識回答，答案有出處。' },
+  { icon: 'lucide:shield-check', title: '智慧身份識別與安全控管', description: '在地端完成識別與權限控管，資料不外流。' },
+  { icon: 'lucide:mic', title: '自動化演講摘要', description: '把演講與會議內容整理成逐字稿與摘要。' },
+  { icon: 'lucide:code-xml', title: '編程知識小助手', description: '以企業內部程式碼與文件為基礎的開發輔助。' },
+  { icon: 'lucide:table-2', title: '智慧表格語言模型', description: '理解表格結構，處理報表與結構化資料查詢。' },
+  { icon: 'lucide:cpu', title: '客製化邊緣裝置佈署', description: '依現場條件配置可在邊緣裝置執行的模型。' },
+  { icon: 'lucide:flask-conical', title: 'AIoT 歷史配方經驗擷取', description: '從歷史生產資料中萃取配方與參數的經驗知識。' },
 ];
 
 /**

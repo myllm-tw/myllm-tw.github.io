@@ -35,45 +35,48 @@
 :root {
   color-scheme: light;
   --void: #ffffff;
-  --panel: #f1f1ef;
-  --rule: #d4d4d0;
-  --rule-strong: #111111;
-  --ink: #111111;
-  --ink-soft: #4a4a48;
-  --ink-faint: #7c7c78;
-  --signal: #c8102e;
+  --panel: #f1f4f8;
+  --rule: #d9e0e8;
+  --rule-strong: #1e2a3f;
+  --ink: #0f1a27;
+  --ink-soft: #465668;
+  --ink-faint: #76889b;
+  --signal: #8a5f0c;
   --signal-face: #ffffff;
-  --link: #111111;
+  --alert: #c8102e;
+  --link: #1d4f7c;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --void: #0b0b0b;
-    --panel: #161616;
-    --rule: #2e2e2e;
-    --rule-strong: #f2f2f2;
-    --ink: #f2f2f2;
-    --ink-soft: #b4b4b0;
-    --ink-faint: #82827e;
-    --signal: #ff4757;
-    --signal-face: #0b0b0b;
-    --link: #f2f2f2;
+    --void: #0b1219;
+    --panel: #131d29;
+    --rule: #223140;
+    --rule-strong: #43586e;
+    --ink: #e9eff6;
+    --ink-soft: #a2b4c6;
+    --ink-faint: #6f8296;
+    --signal: #d9a441;
+    --signal-face: #0b1219;
+    --alert: #ff5a6a;
+    --link: #8ab6de;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --void: #0b0b0b;
-  --panel: #161616;
-  --rule: #2e2e2e;
-  --rule-strong: #f2f2f2;
-  --ink: #f2f2f2;
-  --ink-soft: #b4b4b0;
-  --ink-faint: #82827e;
-  --signal: #ff4757;
-  --signal-face: #0b0b0b;
-  --link: #f2f2f2;
+  --void: #0b1219;
+  --panel: #131d29;
+  --rule: #223140;
+  --rule-strong: #43586e;
+  --ink: #e9eff6;
+  --ink-soft: #a2b4c6;
+  --ink-faint: #6f8296;
+  --signal: #d9a441;
+  --signal-face: #0b1219;
+  --alert: #ff5a6a;
+  --link: #8ab6de;
 }
 
 @layer base {
@@ -172,8 +175,66 @@
 
   /* 反白區塊：黑底白字，用在需要強烈對比的段落 */
   .inverse {
-    background: var(--ink);
-    color: var(--void);
+    background: #0b1219;
+    color: #e9eff6;
   }
-  .inverse a { color: var(--void); }
+  .inverse a { color: #e9eff6; }
+  .inverse .muted { color: #93a7bb; }
+}
+
+/*
+  動效只用在兩個地方，不做每區塊都淡入的通用套路：
+  1. 量測軸隨捲動長出，動作本身就在表達「量測」；
+  2. 首頁開場的一次性編排。
+  兩者都走 CSS 原生的 scroll-driven animation，不載入 JS；
+  瀏覽器不支援時內容照常顯示，只是沒有動作。
+*/
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .axis {
+      border-left-color: transparent;
+    }
+    .axis::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1px;
+      width: 1px;
+      background: var(--rule);
+      transform-origin: top center;
+      animation: axis-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 50%;
+    }
+    .axis > .tick::before {
+      transform-origin: left center;
+      animation: tick-extend linear both;
+      animation-timeline: view();
+      animation-range: entry 25% cover 42%;
+    }
+  }
+
+  .stage-in > * {
+    animation: stage-rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+  .stage-in > *:nth-child(2) { animation-delay: 0.07s; }
+  .stage-in > *:nth-child(3) { animation-delay: 0.14s; }
+  .stage-in > *:nth-child(4) { animation-delay: 0.21s; }
+  .stage-in > *:nth-child(5) { animation-delay: 0.28s; }
+}
+
+@keyframes axis-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes tick-extend {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes stage-rise {
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to { opacity: 1; transform: none; }
 }
