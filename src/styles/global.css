@@ -184,7 +184,7 @@
     background: #0b1219;
     color: #e9eff6;
   }
-  .inverse a { color: #e9eff6; }
+  .inverse :where(a) { color: #e9eff6; }
   .inverse .muted { color: #93a7bb; }
 }
 
@@ -249,43 +249,87 @@
 
 @layer components {
   /*
-    主要按鈕：hover 時微微上浮，一道光澤從左掃到右，箭頭往前推。
-    光澤用 ::before 疊在按鈕上，不影響文字可讀性。
+    主要按鈕：hover 時一層顏色由左刷到右並停留填滿，文字同步反色（反白效果）。
+    刷色層是 ::after，放在文字下方；最上層的 ::before 是一道光澤。
+    顏色依所在區塊決定，不跟著系統主題走，避免深藍區塊上出現沉悶的深褐色：
+      - 淺色一般區塊：深藍底，刷成琥珀
+      - 深藍區塊（.inverse）與深色模式：琥珀底，刷成白
   */
   .btn-primary {
+    --btn-bg: #1e2a3f;
+    --btn-ink: #ffffff;
+    --btn-fill: #d9a441;
+    --btn-fill-ink: #0b1219;
     position: relative;
+    isolation: isolate;
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
     overflow: hidden;
     border-radius: 9999px;
     padding: 0.85rem 1.6rem;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), 0 8px 24px -12px var(--signal);
     font-size: 0.875rem;
     font-weight: 500;
-    background: var(--signal);
-    color: var(--signal-face);
-    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.25s;
+    background: var(--btn-bg);
+    color: var(--btn-ink);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 8px 24px -12px var(--btn-bg);
+    transition:
+      color 0.35s cubic-bezier(0.7, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1),
+      box-shadow 0.3s;
   }
+  .inverse .btn-primary,
+  :root[data-theme="dark"] .btn-primary {
+    --btn-bg: #d9a441;
+    --btn-ink: #0b1219;
+    --btn-fill: #ffffff;
+    --btn-fill-ink: #0b1219;
+  }
+  /* 刷色層：由左往右掃滿 */
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--btn-fill);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  /* 光澤：刷色完成時再掃過一道亮光 */
   .btn-primary::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
-    transform: translateX(-120%);
-    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.55) 50%, transparent 65%);
+    transform: translateX(-130%);
+    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 0.15s;
   }
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px -10px var(--signal);
+    color: var(--btn-fill-ink);
+    transform: translateY(-3px);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 14px 32px -12px var(--btn-fill);
   }
-  .btn-primary:hover::before { transform: translateX(120%); }
-  .btn-primary:active { transform: translateY(0); }
-  .btn-primary .btn-arrow { transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1); }
-  .btn-primary:hover .btn-arrow { transform: translateX(4px); }
+  .btn-primary:hover::after { transform: scaleX(1); }
+  .btn-primary:hover::before { transform: translateX(130%); }
+  .btn-primary:active { transform: translateY(-1px) scale(0.98); }
+  .btn-primary > * { position: relative; z-index: 2; }
+  .btn-primary .btn-arrow { transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1); }
+  .btn-primary:hover .btn-arrow { transform: translateX(5px); }
 
-  /* 次要按鈕：邊框版本，hover 時填滿 */
+  /*
+    次要按鈕：邊框版本，hover 時一層顏色由左刷滿，文字反色。
+    三個顏色分開定義，不要用 currentColor 當刷色：
+    hover 時文字會反色，currentColor 跟著變就會讓刷色層與文字同色而看不見。
+    也不要在元素上寫行內 color，行內樣式會蓋掉 hover 的反色規則。
+  */
   .btn-ghost {
+    --ghost-ink: var(--ink);
+    --ghost-fill: var(--ink);
+    --ghost-fill-ink: var(--void);
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -294,24 +338,37 @@
     padding: 0.8rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
-    border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+    color: var(--ghost-ink);
+    border: 1px solid color-mix(in srgb, var(--ghost-ink) 35%, transparent);
     overflow: hidden;
     isolation: isolate;
-    transition: color 0.3s;
+    transition:
+      color 0.35s cubic-bezier(0.7, 0, 0.2, 1),
+      border-color 0.35s,
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .inverse .btn-ghost {
+    --ghost-ink: #e9eff6;
+    --ghost-fill: #e9eff6;
+    --ghost-fill-ink: #0b1219;
   }
   .btn-ghost::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: currentColor;
+    border-radius: inherit;
+    background: var(--ghost-fill);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1);
+    transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  .btn-ghost:hover {
+    color: var(--ghost-fill-ink);
+    border-color: var(--ghost-fill);
+    transform: translateY(-2px);
   }
   .btn-ghost:hover::before { transform: scaleX(1); }
-  .btn-ghost:hover { color: var(--void); }
-  .inverse .btn-ghost:hover { color: #0b1219; }
 
   /* 文字連結：底線從左長出 */
   .link-line {
@@ -480,6 +537,12 @@
   --glow: rgb(217 164 65 / 0.18);
 }
 @media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn-primary {
+    --btn-bg: #d9a441;
+    --btn-ink: #0b1219;
+    --btn-fill: #ffffff;
+    --btn-fill-ink: #0b1219;
+  }
   :root:not([data-theme="light"]) {
     --surface: #111b27;
     --surface-2: #16222f;
