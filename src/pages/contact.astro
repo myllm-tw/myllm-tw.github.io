@@ -1,10 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
-import Card from '../components/Card.astro';
 import { site, contact, hasContactInfo, relatedLinks, membership } from '../config/site';
 
-// 舊站沒有留下任何窗口資料，缺的時候在建置階段提醒，避免這一頁空著上線
 if (!hasContactInfo) {
   console.warn(
     '[contact] 尚未填寫聯絡窗口資料，/contact/ 只會顯示主辦單位與相關連結。請在 src/config/site.ts 的 contact 補上姓名、電話、信箱與地址。',
@@ -13,137 +11,101 @@ if (!hasContactInfo) {
 ---
 
 <Base title="聯絡我們" description={`與 ${site.name} 聯絡，了解服務內容與入會方式。`}>
-  <PageHeader
-    title="聯絡我們"
-    titleEn="Contact"
-    lead="想了解服務內容或入會方式，歡迎與聯盟聯絡。"
-  />
+  <PageHeader title="聯絡聯盟" lead="想了解服務內容或入會方式，歡迎與聯盟聯絡。" />
 
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <div class="grid gap-6 lg:grid-cols-2">
-      <Card>
-        <h2 class="text-xl font-bold tracking-tight">聯盟窗口</h2>
+  <section class="mx-auto max-w-5xl px-5 py-20">
+    <div class="grid gap-14 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <h2 class="text-xl">聯盟窗口</h2>
         {
           hasContactInfo ? (
-            <dl class="mt-6 space-y-5 text-[15px]">
+            <dl class="mt-8">
               {contact.person && (
-                <div>
-                  <dt class="text-sm" style="color: var(--ink-faint)">
-                    窗口
-                  </dt>
-                  <dd class="mt-1 font-medium">{contact.person}</dd>
+                <div class="border-t py-4" style="border-color: var(--rule)">
+                  <dt class="text-sm" style="color: var(--ink-faint)">窗口</dt>
+                  <dd class="mt-1.5">{contact.person}</dd>
                 </div>
               )}
               {contact.phone && (
-                <div>
-                  <dt class="text-sm" style="color: var(--ink-faint)">
-                    電話
-                  </dt>
-                  <dd class="mt-1 font-medium">
-                    <a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`} class="hover:underline">
+                <div class="border-t py-4" style="border-color: var(--rule)">
+                  <dt class="text-sm" style="color: var(--ink-faint)">電話</dt>
+                  <dd class="reading mt-1.5">
+                    <a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`} style="color: var(--link)">
                       {contact.phone}
                     </a>
                   </dd>
                 </div>
               )}
               {contact.email && (
-                <div>
-                  <dt class="text-sm" style="color: var(--ink-faint)">
-                    信箱
-                  </dt>
-                  <dd class="mt-1 font-medium">
-                    <a href={`mailto:${contact.email}`} class="hover:underline">
+                <div class="border-t py-4" style="border-color: var(--rule)">
+                  <dt class="text-sm" style="color: var(--ink-faint)">信箱</dt>
+                  <dd class="mt-1.5">
+                    <a href={`mailto:${contact.email}`} style="color: var(--link)">
                       {contact.email}
                     </a>
                   </dd>
                 </div>
               )}
               {contact.address && (
-                <div>
-                  <dt class="text-sm" style="color: var(--ink-faint)">
-                    地址
-                  </dt>
-                  <dd class="mt-1 font-medium leading-relaxed">{contact.address}</dd>
+                <div class="border-t py-4" style="border-color: var(--rule)">
+                  <dt class="text-sm" style="color: var(--ink-faint)">地址</dt>
+                  <dd class="mt-1.5 leading-relaxed">{contact.address}</dd>
                 </div>
               )}
             </dl>
           ) : (
-            <div class="mt-6 text-[15px] leading-relaxed" style="color: var(--ink-muted)">
-              <p>
-                聯盟由{site.org}主辦。若要洽詢服務內容或入會方式，可先下載
-                <a href={membership.applicationForm} class="font-medium underline" style="color: var(--accent)">
-                  會員申請表
-                </a>
-                ，或透過下方主辦單位的管道聯絡。
-              </p>
-            </div>
+            <p class="mt-8 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
+              聯盟由{site.org}主辦。若要洽詢服務內容或入會方式，可先下載
+              <a href={membership.applicationForm} style="color: var(--link)">會員申請表</a>
+              ，或透過下方主辦單位的管道聯絡。
+            </p>
           )
         }
-      </Card>
+      </div>
 
-      <Card>
-        <h2 class="text-xl font-bold tracking-tight">主辦單位</h2>
-        <p class="mt-6 text-lg font-bold">{site.org}</p>
-        <p class="mt-2 text-[15px] leading-relaxed" style="color: var(--ink-muted)">
+      <div>
+        <h2 class="text-xl">主辦單位</h2>
+        <p class="mt-8 text-lg leading-relaxed" style="font-family: var(--font-display)">{site.org}</p>
+        <p class="mt-4 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
           於 2024 年 3 月成立 myLLM 產學聯盟，以獨立第三方角色提供大型語言模型的評測與技術服務。
         </p>
-        <p class="mt-6 inline-block rounded-md px-2 py-1 text-xs" style="background: var(--accent-soft); color: var(--accent)">
-          {site.funding}
-        </p>
-      </Card>
+        <p class="mt-6 text-sm" style="color: var(--ink-faint)">{site.funding}</p>
+      </div>
     </div>
 
     {
       contact.mapEmbed && (
-        <Card class="mt-6 overflow-hidden p-0">
-          <iframe
-            src={contact.mapEmbed}
-            title="聯盟位置地圖"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            class="block h-80 w-full border-0"
-          />
-        </Card>
+        <iframe
+          src={contact.mapEmbed}
+          title="聯盟位置地圖"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="mt-16 block h-80 w-full border"
+          style="border-color: var(--rule)"
+        />
       )
     }
   </section>
 
-  <section style="background: var(--bg-subtle)">
-    <div class="mx-auto max-w-6xl px-4 py-16">
-      <h2 class="text-2xl font-bold tracking-tight">相關連結</h2>
-      <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+  <section class="border-t" style="border-color: var(--rule); background: var(--panel)">
+    <div class="mx-auto max-w-5xl px-5 py-20">
+      <h2 class="text-2xl">相關連結</h2>
+      <dl class="mt-10 grid gap-x-12 sm:grid-cols-2">
         {
           relatedLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-start justify-between gap-4 rounded-xl border p-5 transition-colors hover:border-current"
-                style="border-color: var(--border); background: var(--surface)"
-              >
-                <span>
-                  <span class="block text-base font-bold">{link.label}</span>
-                  <span class="mt-1 block text-sm" style="color: var(--ink-muted)">
-                    {link.note}
-                  </span>
-                </span>
-                <svg
-                  class="mt-1 size-4 shrink-0"
-                  style="color: var(--accent)"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  aria-hidden="true"
-                >
-                  <path d="M7 17 17 7M9 7h8v8" />
-                </svg>
-              </a>
-            </li>
+            <div class="border-t py-5" style="border-color: var(--rule)">
+              <dt>
+                <a href={link.href} target="_blank" rel="noopener noreferrer" class="text-base" style="color: var(--link)">
+                  {link.label}
+                </a>
+              </dt>
+              <dd class="mt-1.5 text-sm" style="color: var(--ink-soft)">
+                {link.note}
+              </dd>
+            </div>
           ))
         }
-      </ul>
+      </dl>
     </div>
   </section>
 </Base>

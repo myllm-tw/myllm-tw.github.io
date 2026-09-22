@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
-import Card from '../components/Card.astro';
 import { services, edgeLanding } from '../data/services';
 ---
 
@@ -10,85 +9,70 @@ import { services, edgeLanding } from '../data/services';
   description="LLM 生態圈交流、平台落地測試與評估、分析式與生成式 AI 平台設計，以及 Edge Landing 六項落地服務。"
 >
   <PageHeader
-    title="核心服務"
-    titleEn="Services"
-    lead="從知識交流、效能評測到平台設計與落地，涵蓋企業導入大型語言模型的整個過程。"
+    title="從知識交流到模型落地"
+    lead="三項服務對應企業導入大型語言模型的先後階段。先讓知識流動，再驗證效能，最後設計能在現場運作的平台。"
   />
 
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <ul class="space-y-6">
+  <section class="mx-auto max-w-5xl px-5 py-20">
+    <div class="axis space-y-20">
       {
         services.map((s, i) => (
-          <li id={s.id} class="scroll-mt-24">
-            <Card>
-              <div class="grid gap-6 md:grid-cols-[auto_1fr] md:gap-10">
-                <p class="text-5xl font-bold tracking-tight tabular-nums" style="color: var(--accent-soft)">
-                  <span style="color: var(--accent)">{String(i + 1).padStart(2, '0')}</span>
-                </p>
-                <div>
-                  <p class="text-xs font-bold tracking-[0.2em] uppercase" style="color: var(--accent)">
-                    {s.titleEn}
-                  </p>
-                  <h2 class="mt-2 text-xl font-bold tracking-tight">{s.title}</h2>
-                  <p class="mt-4 text-[15px] font-medium">{s.summary}</p>
-                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed" style="color: var(--ink-muted)">
-                    {s.detail.map((p) => (
-                      <p>{p}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </li>
+          <article id={s.id} class="tick scroll-mt-24" data-major>
+            <div class="flex items-baseline gap-4">
+              <span class="reading text-sm" style="color: var(--signal)">
+                {i + 1}
+              </span>
+              <h2 class="text-2xl">{s.title}</h2>
+            </div>
+            <p class="mt-5 max-w-2xl text-lg leading-relaxed">{s.summary}</p>
+            <div class="mt-6 max-w-2xl space-y-5 text-[15px] leading-loose" style="color: var(--ink-soft)">
+              {s.detail.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+          </article>
         ))
       }
-    </ul>
-  </section>
-
-  <section id="edge-landing" class="scroll-mt-24" style="background: var(--bg-subtle)">
-    <div class="mx-auto max-w-6xl px-4 py-16">
-      <p class="text-xs font-bold tracking-[0.2em] uppercase" style="color: var(--accent)">Edge Landing</p>
-      <h2 class="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">讓模型在企業自己的環境裡落地</h2>
-      <p class="mt-5 max-w-2xl text-[15px] leading-relaxed" style="color: var(--ink-muted)">
-        資料不必離開現場，也能用上大型語言模型。以下是目前提供的六項服務。
-      </p>
-      <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          edgeLanding.map((item) => (
-            <li class="rounded-xl border p-5" style="border-color: var(--border); background: var(--surface)">
-              <h3 class="text-base font-bold">{item.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-muted)">
-                {item.description}
-              </p>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <Card raised class="text-center">
-      <h2 class="text-xl font-bold tracking-tight sm:text-2xl">想了解哪一項適合貴公司？</h2>
-      <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed" style="color: var(--ink-muted)">
-        會員可取得專業諮詢服務，由聯盟協助釐清需求與可行的導入方式。
+  <section id="edge-landing" class="scroll-mt-24 border-t" style="border-color: var(--rule); background: var(--panel)">
+    <div class="mx-auto max-w-5xl px-5 py-20">
+      <h2 class="text-2xl sm:text-3xl">Edge Landing</h2>
+      <p class="mt-6 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+        讓模型在企業自己的環境裡執行，資料不必離開現場。六項服務沒有先後，依需求選擇。
       </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a
-          href="/membership/"
-          class="rounded-xl px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
-          style="background: var(--accent); color: var(--accent-ink)"
-        >
-          會員資訊
-        </a>
-        <a
-          href="/contact/"
-          class="rounded-xl border px-6 py-3 text-sm font-bold"
-          style="border-color: var(--border-strong); color: var(--ink)"
-        >
-          聯絡我們
-        </a>
-      </div>
-    </Card>
+      <dl class="mt-12 grid gap-x-12 sm:grid-cols-2">
+        {
+          edgeLanding.map((item) => (
+            <div class="border-t py-6" style="border-color: var(--rule)">
+              <dt class="text-base font-medium">{item.title}</dt>
+              <dd class="mt-2 text-sm leading-loose" style="color: var(--ink-soft)">
+                {item.description}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-5 py-20">
+    <h2 class="max-w-xl text-2xl leading-snug sm:text-3xl">想知道哪一項適合貴公司？</h2>
+    <p class="mt-6 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+      會員可取得專業諮詢服務，由聯盟協助釐清需求與可行的導入方式。
+    </p>
+    <div class="mt-10 flex flex-wrap items-center gap-8">
+      <a
+        href="/membership/"
+        class="px-6 py-3 text-sm font-medium"
+        style="background: var(--signal); color: var(--signal-face)"
+      >
+        成為聯盟會員
+      </a>
+      <a href="/contact/" class="border-b pb-0.5 text-sm" style="color: var(--link); border-color: var(--rule-strong)">
+        聯絡聯盟窗口
+      </a>
+    </div>
   </section>
 </Base>

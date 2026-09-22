@@ -4,7 +4,6 @@ import PageHeader from '../../components/PageHeader.astro';
 import issues from '../../data/newsletter.json';
 
 const totalArticles = issues.reduce((n, i) => n + i.articles.length, 0);
-// 依年份分組，讓 19 期不會變成一長串
 const byYear = new Map<string, typeof issues>();
 for (const issue of issues) {
   const year = issue.date.slice(0, 4);
@@ -15,40 +14,37 @@ const years = [...byYear.keys()].sort().reverse();
 
 <Base
   title="AI 電子報"
-  description={`myLLM 產學聯盟自 2023 年 11 月起發行的 AI 電子報，共 ${issues.length} 期、${totalArticles} 篇文章，整理 AI 工具、模型與產業動態。`}
+  description={`myLLM 產學聯盟自 2023 年 11 月起發行的 AI 電子報，共 ${issues.length} 期、${totalArticles} 篇文章。`}
 >
   <PageHeader
     title="AI 電子報"
-    titleEn="Newsletter"
-    lead={`自 2023 年 11 月起每月發行，共 ${issues.length} 期、${totalArticles} 篇文章，整理值得一看的 AI 工具、模型與產業動態。`}
+    lead="每月整理值得一看的 AI 工具、模型與產業動態。每一篇都有 PDF 全文。"
+    reading={[
+      { label: '期數', value: String(issues.length) },
+      { label: '文章', value: String(totalArticles) },
+      { label: '開始發行', value: '2023.11' },
+    ]}
   />
 
   {
     years.map((year) => (
-      <section class="mx-auto max-w-6xl px-4 py-12">
-        <h2 class="text-xl font-bold tracking-tight tabular-nums">{year}</h2>
-        <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section class="mx-auto max-w-5xl px-5 py-14">
+        <h2 class="reading text-xl" style="color: var(--ink-faint)">
+          {year}
+        </h2>
+        <ul class="mt-6">
           {byYear.get(year)!.map((issue) => (
-            <li>
-              <a
-                href={`/newsletter/${issue.no}/`}
-                class="flex h-full flex-col rounded-2xl border p-6 transition-colors hover:border-current"
-                style="border-color: var(--border); background: var(--surface); box-shadow: var(--shadow-card)"
-              >
-                <span class="text-xs font-bold tracking-widest tabular-nums" style="color: var(--accent)">
+            <li class="border-t" style="border-color: var(--rule)">
+              <a href={`/newsletter/${issue.no}/`} class="flex flex-wrap items-baseline gap-x-6 gap-y-1 py-5">
+                <span class="reading w-10 text-lg" style="font-family: var(--font-display); color: var(--signal)">
+                  {issue.no}
+                </span>
+                <span class="reading text-sm" style="color: var(--ink-faint)">
                   {issue.date}
                 </span>
-                <span class="mt-2 text-lg font-bold">第 {issue.no} 期</span>
-                <span class="mt-3 text-sm" style="color: var(--ink-muted)">
-                  {issue.articles.length} 篇文章
-                </span>
-                {issue.articles[0] && (
-                  <span class="mt-4 line-clamp-2 text-sm leading-relaxed" style="color: var(--ink-faint)">
-                    {issue.articles[0].title}
-                  </span>
-                )}
-                <span class="mt-auto pt-5 text-sm font-medium" style="color: var(--accent)">
-                  看這一期 →
+                <span class="min-w-0 flex-1 text-[15px]">{issue.articles[0]?.title}</span>
+                <span class="reading text-sm" style="color: var(--ink-faint)">
+                  {issue.articles.length} 篇
                 </span>
               </a>
             </li>

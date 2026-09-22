@@ -8,50 +8,52 @@ import terms from '../../data/terms.json';
   title="使用條款"
   description="myLLM 產學聯盟使用條款，共十二章，涵蓋會員資格、登錄資料、使用行為、免責事項與智慧財產權。"
 >
-  <PageHeader title={terms.title} titleEn="Terms" lead="加入會員即表示同意以下條款。" />
+  <PageHeader title={terms.title} lead="加入會員即表示同意以下條款。" />
 
-  <section class="mx-auto max-w-3xl px-4 py-14">
-    <nav aria-label="條款目錄" class="rounded-2xl border p-6" style="border-color: var(--border); background: var(--surface-raised)">
-      <h2 class="text-sm font-bold tracking-widest uppercase" style="color: var(--ink-faint)">目錄</h2>
-      <ol class="mt-4 grid gap-2 sm:grid-cols-2">
+  <section class="mx-auto max-w-5xl px-5 py-16">
+    <div class="grid gap-14 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16">
+      <nav aria-label="條款目錄" class="lg:sticky lg:top-24 lg:self-start">
+        <ol class="space-y-2.5 text-sm">
+          {
+            terms.sections.map((s, i) => (
+              <li>
+                <a href={`#section-${i}`} style="color: var(--ink-soft)">
+                  {s.heading}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <div class="max-w-2xl space-y-14">
         {
-          terms.sections.map((s, i) => (
-            <li>
-              <a href={`#section-${i}`} class="text-sm hover:underline" style="color: var(--ink-muted)">
-                {s.heading}
-              </a>
-            </li>
+          terms.sections.map((section, i) => (
+            <section id={`section-${i}`} class="scroll-mt-24">
+              <h2 class="border-b pb-3 text-lg" style="border-color: var(--rule)">
+                {section.heading}
+              </h2>
+              <ul class="mt-6 space-y-5">
+                {section.items.map((item) => (
+                  <li class="text-[15px] leading-loose" style="color: var(--ink-soft)">
+                    <p>{item.text}</p>
+                    {item.sub && (
+                      <ul class="mt-3 space-y-2 border-l pl-5" style="border-color: var(--rule)">
+                        {item.sub.map((sub) => (
+                          <li>{sub}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))
         }
-      </ol>
-    </nav>
-
-    <div class="mt-12 space-y-12">
-      {
-        terms.sections.map((section, i) => (
-          <section id={`section-${i}`} class="scroll-mt-24">
-            <h2 class="text-lg font-bold tracking-tight">{section.heading}</h2>
-            <ul class="mt-5 space-y-4">
-              {section.items.map((item) => (
-                <li class="text-[15px] leading-relaxed" style="color: var(--ink-muted)">
-                  <p>{item.text}</p>
-                  {item.sub && (
-                    <ul class="mt-3 space-y-2 border-l pl-5" style="border-color: var(--border)">
-                      {item.sub.map((sub) => (
-                        <li>{sub}</li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
+        <p class="border-t pt-6 text-xs leading-loose" style="border-color: var(--rule); color: var(--ink-faint)">
+          本頁內容由舊站 <code>/news/www/MemberAgreement.html</code> 轉為結構化資料，條文文字未做改寫。
+        </p>
+      </div>
     </div>
-
-    <p class="mt-14 border-t pt-8 text-xs leading-relaxed" style="border-color: var(--border); color: var(--ink-faint)">
-      本頁內容由舊站 <code>/news/www/MemberAgreement.html</code> 轉為結構化資料而來，條文文字未做改寫。
-    </p>
   </section>
 </Base>

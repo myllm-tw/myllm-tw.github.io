@@ -2,175 +2,150 @@
 import Base from '../layouts/Base.astro';
 import { site } from '../config/site';
 import { services, edgeLanding } from '../data/services';
+import issues from '../data/newsletter.json';
 
-// 最新三期電子報，連到既有的存檔頁（舊網址保持可用）
-const latestIssues = [
-  { no: 19, date: '2024.09' },
-  { no: 18, date: '2024.08' },
-  { no: 17, date: '2024.08' },
-];
+const totalArticles = issues.reduce((n, i) => n + i.articles.length, 0);
+const latest = issues.slice(0, 4);
 ---
 
 <Base path="/">
-  {/* Hero */}
-  <section class="relative overflow-hidden">
-    <div
-      class="pointer-events-none absolute inset-0 -z-10 opacity-60"
-      style="background: radial-gradient(60rem 30rem at 50% -10%, var(--accent-soft), transparent 70%)"
-      aria-hidden="true"
-    >
-    </div>
-    <div class="mx-auto max-w-6xl px-4 py-20 text-center sm:py-28">
-      <p
-        class="inline-block rounded-full border px-3 py-1 text-xs font-medium"
-        style="border-color: var(--border-strong); color: var(--ink-muted)"
-      >
-        {site.funding}
-      </p>
-      <h1 class="mx-auto mt-6 max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl md:text-6xl">
-        {site.tagline}
-      </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty sm:text-lg" style="color: var(--ink-muted)">
-        {site.org}於 2024 年 3 月成立 myLLM 產學聯盟，以獨立第三方角色協助產業導入大型語言模型，
-        涵蓋生態圈交流、平台落地評測與 AI 平台設計。
-      </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-3">
-        <a
-          href="/membership/"
-          class="rounded-xl px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
-          style="background: var(--accent); color: var(--accent-ink)"
-        >
-          成為聯盟會員
-        </a>
-        <a
-          href="/services/"
-          class="rounded-xl border px-6 py-3 text-sm font-bold transition-colors"
-          style="border-color: var(--border-strong); color: var(--ink)"
-        >
-          了解核心服務
-        </a>
+  {/* 開場：聯盟的身份與它量測的對象 */}
+  <section class="mx-auto max-w-5xl px-5 pt-20 pb-24 sm:pt-28">
+    <p class="text-sm" style="color: var(--ink-soft)">{site.org}</p>
+    <h1 class="mt-5 max-w-3xl text-4xl leading-[1.25] sm:text-5xl md:text-[3.5rem]">
+      替台灣產業量測<br />大型語言模型的真實能力
+    </h1>
+    <p class="mt-8 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+      myLLM 產學聯盟成立於 2024 年 3 月，以獨立第三方角色執行 AI 系統的效能評估與基準測試，
+      並把驗證過的模型帶進企業自己的環境落地。
+    </p>
+
+    <dl class="mt-14 flex flex-wrap gap-x-14 gap-y-8 border-t pt-8" style="border-color: var(--rule)">
+      <div>
+        <dt class="text-sm" style="color: var(--ink-faint)">電子報</dt>
+        <dd class="reading mt-1.5 text-3xl" style="font-family: var(--font-display)">
+          {issues.length}<span class="ml-1 text-base" style="color: var(--ink-soft)">期</span>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-sm" style="color: var(--ink-faint)">收錄文章</dt>
+        <dd class="reading mt-1.5 text-3xl" style="font-family: var(--font-display)">
+          {totalArticles}<span class="ml-1 text-base" style="color: var(--ink-soft)">篇</span>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-sm" style="color: var(--ink-faint)">開始發行</dt>
+        <dd class="reading mt-1.5 text-3xl" style="font-family: var(--font-display)">2023.11</dd>
+      </div>
+    </dl>
+  </section>
+
+  {/* 三項服務對應企業導入 LLM 的先後階段，因此掛在同一條軸上依序展開 */}
+  <section class="border-t" style="border-color: var(--rule); background: var(--panel)">
+    <div class="mx-auto max-w-5xl px-5 py-20">
+      <h2 class="text-2xl sm:text-3xl">企業導入 LLM 的三個階段</h2>
+      <div class="axis mt-12 space-y-14">
+        {
+          services.map((s, i) => (
+            <article class="tick" data-major>
+              <div class="flex items-baseline gap-4">
+                <span class="reading text-sm" style="color: var(--signal)">
+                  {i + 1}
+                </span>
+                <h3 class="text-xl">{s.title}</h3>
+              </div>
+              <p class="mt-4 max-w-2xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+                {s.detail[0]}
+              </p>
+              <a
+                href={`/services/#${s.id}`}
+                class="mt-4 inline-block border-b pb-0.5 text-sm"
+                style="color: var(--link); border-color: var(--rule-strong)"
+              >
+                {s.title}的服務內容
+              </a>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  {/* 三大核心服務 */}
-  <section class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
-    <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">核心服務</h2>
-    <p class="mt-3 max-w-2xl text-sm leading-relaxed" style="color: var(--ink-muted)">
-      從交流、評測到平台設計，涵蓋企業導入 LLM 的三個階段。
+  {/* Edge Landing：並列的六個項目，沒有先後，用清單而非軸 */}
+  <section class="mx-auto max-w-5xl px-5 py-20">
+    <h2 class="text-2xl sm:text-3xl">在企業自己的環境裡落地</h2>
+    <p class="mt-5 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+      Edge Landing 讓模型在現場執行，資料不必離開企業。目前提供六項服務。
     </p>
-    <ul class="mt-10 grid gap-5 md:grid-cols-3">
+    <dl class="mt-12 grid gap-x-12 sm:grid-cols-2">
       {
-        services.map((s, i) => (
-          <li
-            class="flex flex-col rounded-2xl border p-6"
-            style="border-color: var(--border); background: var(--surface); box-shadow: var(--shadow-card)"
-          >
-            <span class="text-xs font-bold tracking-widest" style="color: var(--accent)">
-              {String(i + 1).padStart(2, '0')} · {s.titleEn}
-            </span>
-            <h3 class="mt-3 text-lg font-bold">{s.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed" style="color: var(--ink-muted)">
-              {s.summary}
-            </p>
-            <a
-              href={`/services/#${s.id}`}
-              class="mt-auto pt-5 text-sm font-medium hover:underline"
-              style="color: var(--accent)"
-            >
-              看服務內容 →
-            </a>
-          </li>
+        edgeLanding.map((item) => (
+          <div class="border-t py-6" style="border-color: var(--rule)">
+            <dt class="text-base font-medium">{item.title}</dt>
+            <dd class="mt-2 text-sm leading-loose" style="color: var(--ink-soft)">
+              {item.description}
+            </dd>
+          </div>
         ))
       }
-    </ul>
+    </dl>
   </section>
 
-  {/* Edge Landing */}
-  <section style="background: var(--bg-subtle)">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
-      <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Edge Landing 服務</h2>
-      <p class="mt-3 max-w-2xl text-sm leading-relaxed" style="color: var(--ink-muted)">
-        讓模型在企業自己的環境裡落地，資料不必離開現場。
+  {/* 電子報：最新幾期以讀數排列，期號對齊便於比對 */}
+  <section class="border-t" style="border-color: var(--rule); background: var(--panel)">
+    <div class="mx-auto max-w-5xl px-5 py-20">
+      <h2 class="text-2xl sm:text-3xl">AI 電子報</h2>
+      <p class="mt-5 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+        每月整理值得一看的 AI 工具、模型與產業動態，自 2023 年 11 月起累積 {issues.length} 期。
       </p>
-      <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-12">
         {
-          edgeLanding.map((item) => (
-            <li class="rounded-xl border p-5" style="border-color: var(--border); background: var(--surface)">
-              <h3 class="text-base font-bold">{item.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-muted)">
-                {item.description}
-              </p>
+          latest.map((issue) => (
+            <li class="border-t" style="border-color: var(--rule)">
+              <a href={`/newsletter/${issue.no}/`} class="flex flex-wrap items-baseline gap-x-6 gap-y-1 py-5">
+                <span class="reading w-12 text-lg" style="font-family: var(--font-display); color: var(--signal)">
+                  {issue.no}
+                </span>
+                <span class="reading text-sm" style="color: var(--ink-faint)">
+                  {issue.date}
+                </span>
+                <span class="min-w-0 flex-1 text-[15px]">{issue.articles[0]?.title}</span>
+                <span class="reading text-sm" style="color: var(--ink-faint)">
+                  {issue.articles.length} 篇
+                </span>
+              </a>
             </li>
           ))
         }
       </ul>
-    </div>
-  </section>
-
-  {/* 電子報 */}
-  <section class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">AI 電子報</h2>
-        <p class="mt-3 max-w-2xl text-sm leading-relaxed" style="color: var(--ink-muted)">
-          每月整理值得一看的 AI 工具、模型與產業動態，累積 19 期。
-        </p>
-      </div>
-      <a href="/newsletter/" class="text-sm font-medium hover:underline" style="color: var(--accent)">
-        看全部 19 期 →
+      <a
+        href="/newsletter/"
+        class="mt-8 inline-block border-b pb-0.5 text-sm"
+        style="color: var(--link); border-color: var(--rule-strong)"
+      >
+        瀏覽全部 {issues.length} 期
       </a>
     </div>
-    <ul class="mt-10 grid gap-5 md:grid-cols-3">
-      {
-        latestIssues.map((issue) => (
-          <li
-            class="rounded-2xl border p-6"
-            style="border-color: var(--border); background: var(--surface); box-shadow: var(--shadow-card)"
-          >
-            <p class="text-xs font-bold tracking-widest" style="color: var(--accent)">
-              {issue.date}
-            </p>
-            <h3 class="mt-2 text-lg font-bold">第 {issue.no} 期</h3>
-            <a
-              href={`/news/newsletter/newsletter-${issue.no}.html`}
-              class="mt-5 inline-block text-sm font-medium hover:underline"
-              style="color: var(--accent)"
-            >
-              閱讀這一期 →
-            </a>
-          </li>
-        ))
-      }
-    </ul>
   </section>
 
-  {/* 加入聯盟 */}
-  <section class="mx-auto max-w-6xl px-4 pb-20">
-    <div
-      class="rounded-3xl border px-6 py-14 text-center"
-      style="border-color: var(--border); background: var(--surface-raised)"
-    >
-      <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">加入 myLLM 產學聯盟</h2>
-      <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed" style="color: var(--ink-muted)">
-        會員可取得專業諮詢、平台評測與技術交流資源。歡迎與我們聯絡了解入會方式。
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a
-          href="/membership/"
-          class="rounded-xl px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
-          style="background: var(--accent); color: var(--accent-ink)"
-        >
-          會員資訊
-        </a>
-        <a
-          href="/contact/"
-          class="rounded-xl border px-6 py-3 text-sm font-bold"
-          style="border-color: var(--border-strong); color: var(--ink)"
-        >
-          聯絡我們
-        </a>
-      </div>
+  <section class="mx-auto max-w-5xl px-5 py-24">
+    <h2 class="max-w-xl text-2xl leading-snug sm:text-3xl">
+      想知道貴公司的 AI 系統表現如何？
+    </h2>
+    <p class="mt-6 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+      聯盟會員可取得專業諮詢與平台評測資源。歡迎先了解入會方式，或直接與我們聯絡。
+    </p>
+    <div class="mt-10 flex flex-wrap items-center gap-8">
+      <a
+        href="/membership/"
+        class="px-6 py-3 text-sm font-medium"
+        style="background: var(--signal); color: var(--signal-face)"
+      >
+        成為聯盟會員
+      </a>
+      <a href="/contact/" class="border-b pb-0.5 text-sm" style="color: var(--link); border-color: var(--rule-strong)">
+        聯絡聯盟窗口
+      </a>
     </div>
   </section>
 </Base>
