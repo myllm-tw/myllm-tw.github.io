@@ -5,6 +5,11 @@
   "main": "src/worker.ts",
   // 設為部署當天的日期；改動它會改變 Workers 執行階段的行為
   "compatibility_date": "2026-09-22",
+  // 設了 routes 時 wrangler 預設會關掉 workers.dev，預覽網址要明確保留
+  "workers_dev": true,
+  // 正式網域。Worker 本身就是網站源站，用 Custom Domain 讓 Cloudflare 管理 DNS 與憑證。
+  // 綁定前該主機名稱不能有其他 DNS 紀錄，否則會回 code 100117。
+  "routes": [{ "pattern": "www.myllm.tw", "custom_domain": true }],
   "assets": {
     // Astro 的建置輸出（output: 'static'，不需要 @astrojs/cloudflare adapter）
     "directory": "./dist",
