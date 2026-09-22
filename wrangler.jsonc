@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "myllm-tw",
+  // 只用來補目錄索引，命中靜態檔案的請求不會執行它
+  "main": "src/worker.ts",
+  // 設為部署當天的日期；改動它會改變 Workers 執行階段的行為
+  "compatibility_date": "2026-09-22",
+  "assets": {
+    // Astro 的建置輸出（output: 'static'，不需要 @astrojs/cloudflare adapter）
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // 舊網址（例如 /news/NEWSHome.html）必須原樣提供。
+    // 預設的 auto-trailing-slash 會把 .html 307 導到無副檔名版本，改變已寄出的連結，所以關閉。
+    "html_handling": "none",
+    // 必須是 "none"。設成 "404-page" 時，瀏覽器的導覽請求（帶 Sec-Fetch-Mode: navigate）
+    // 會在靜態資產層就被判定為 404 並直接回傳 404 頁，src/worker.ts 不會被呼叫，
+    // 於是 /about/ 這類目錄網址在瀏覽器裡全部變成 404（curl 不帶該 header 所以測不出來）。
+    // 設成 "none" 之後，找不到資產的請求才會交給 Worker，由它補目錄索引或回 404 頁。
+    "not_found_handling": "none"
+  }
+}
