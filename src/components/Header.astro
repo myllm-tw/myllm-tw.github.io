@@ -1,6 +1,7 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 import Logo from './Logo.astro';
+import FundingBadge from './FundingBadge.astro';
 import { Icon } from 'astro-icon/components';
 import { site, nav } from '../config/site';
 
@@ -19,6 +20,7 @@ const isCurrent = (href: string) => {
         {site.tagline}
       </span>
     </a>
+    <FundingBadge class="hidden xl:inline-flex" />
 
     <nav class="ml-auto hidden md:block" aria-label="主要導覽">
       <ul class="flex items-center gap-1">

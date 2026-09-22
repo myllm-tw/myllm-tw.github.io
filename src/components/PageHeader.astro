@@ -1,4 +1,6 @@
 ---
+import FundingBadge from './FundingBadge.astro';
+
 interface Props {
   title: string;
   lead?: string;
@@ -19,7 +21,8 @@ const { title, lead, image, reading = [] } = Astro.props;
     ]}
   >
     <div>
-      <h1 class="max-w-2xl text-3xl leading-[1.25] sm:text-4xl md:text-5xl">{title}</h1>
+      <FundingBadge variant="dark" withOrg size="lg" />
+      <h1 class="mt-6 max-w-2xl text-3xl leading-[1.25] sm:text-4xl md:text-5xl">{title}</h1>
       {lead && <p class="muted mt-7 max-w-xl text-[15px] leading-loose">{lead}</p>}
       {
         reading.length > 0 && (

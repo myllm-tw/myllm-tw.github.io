@@ -5,6 +5,7 @@
  */
 import Base from '../layouts/Base.astro';
 import { Icon } from 'astro-icon/components';
+import FundingBadge from '../components/FundingBadge.astro';
 import { site } from '../config/site';
 import { services, edgeLanding, devices } from '../data/services';
 import { empowerment } from '../data/empowerment';
@@ -36,14 +37,7 @@ const stats = [
     <div class="aurora" aria-hidden="true"></div>
     <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 md:grid-cols-[1.15fr_1fr] md:gap-16 md:pt-20 md:pb-24">
       <div class="stage-in">
-        <p class="muted flex flex-wrap items-baseline gap-x-2 text-sm">
-          <span class="led self-center"></span>
-          已發行
-          <span class="reading text-base text-white" data-ticker data-to={totalArticles}>{totalArticles}</span>
-          篇 AI 電子報，共
-          <span class="reading text-base text-white" data-ticker data-to={issues.length}>{issues.length}</span>
-          期
-        </p>
+        <FundingBadge variant="dark" withOrg size="lg" />
         <h1 class="mt-7 text-[2.6rem] leading-[1.14] sm:text-[3.4rem] md:text-[3.9rem]">
           <span class="whitespace-nowrap">資料不落雲，</span><span class="whitespace-nowrap" style="color: #d9a441">AI 要落地。</span>
           <span class="tonal-dim block text-[0.62em] leading-[1.35] mt-3">
@@ -51,7 +45,7 @@ const stats = [
           </span>
         </h1>
         <p class="muted mt-8 max-w-md text-[15px] leading-loose">
-          {site.org}主辦的產學聯盟。我們以獨立第三方角色
+          我們以獨立第三方角色
           <a href="/services/#benchmark" class="link-line text-white">評測模型效能</a>，並把
           <a href="/services/#edge-landing" class="link-line text-white">驗證過的模型帶進現場</a>。
         </p>
@@ -62,6 +56,14 @@ const stats = [
           </a>
           <a href="/membership/" class="btn-ghost">成為聯盟會員</a>
         </div>
+        <p class="muted mt-8 flex flex-wrap items-baseline gap-x-2 text-sm">
+          <span class="led self-center"></span>
+          已發行
+          <span class="reading text-base text-white" data-ticker data-to={totalArticles}>{totalArticles}</span>
+          篇 AI 電子報，共
+          <span class="reading text-base text-white" data-ticker data-to={issues.length}>{issues.length}</span>
+          期
+        </p>
       </div>
 
       <div class="float relative">

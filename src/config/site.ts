@@ -15,6 +15,8 @@ export const site = {
   org: '國立陽明交通大學 人工智慧系統檢測中心',
   orgShort: 'NYCU 人工智慧系統檢測中心',
   funding: '國科會補助計畫',
+  /** 補助機關全名，與 relatedLinks 裡的補助單位一致 */
+  fundingAgency: '國家科學及技術委員會',
   /** 分享預覽圖，相對站台根目錄；Base.astro 會補上絕對網域 */
   ogImage: '/news/myLLMBanner.png',
   copyright: 'Copyright © 2022-2024 NeuroScope, NTCU, All Rights Reserved',
