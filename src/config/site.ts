@@ -7,6 +7,9 @@ export const site = {
   name: 'myLLM 產學聯盟',
   shortName: 'myLLM.tw',
   tagline: '大型語言模型產學聯盟',
+  /** 聯盟自己的主張，取自設計稿 news/www/myllm-web-theme.png */
+  slogan: '資料不落雲，AI 要落地',
+  sloganFull: '生成式 AI 軟硬體整合實現：資料不落雲，AI 要落地',
   description:
     '國立陽明交通大學人工智慧系統檢測中心主辦的大型語言模型產學聯盟，提供 LLM 企業賦能、Edge Landing 落地服務、模型評測與 AI 電子報。',
   org: '國立陽明交通大學 人工智慧系統檢測中心',

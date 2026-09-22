@@ -34,46 +34,46 @@
 */
 :root {
   color-scheme: light;
-  --void: #fbfbf9;
-  --panel: #f2f4f7;
-  --rule: #d8dee6;
-  --rule-strong: #b4c0cd;
-  --ink: #101823;
-  --ink-soft: #4a5a6d;
-  --ink-faint: #7d8b9b;
-  --signal: #8a6410;
-  --signal-face: #fdf6e6;
-  --link: #275b8c;
+  --void: #ffffff;
+  --panel: #f1f1ef;
+  --rule: #d4d4d0;
+  --rule-strong: #111111;
+  --ink: #111111;
+  --ink-soft: #4a4a48;
+  --ink-faint: #7c7c78;
+  --signal: #c8102e;
+  --signal-face: #ffffff;
+  --link: #111111;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --void: #0e1621;
-    --panel: #17212d;
-    --rule: #2b3847;
-    --rule-strong: #3d4d5f;
-    --ink: #e8edf3;
-    --ink-soft: #9fb0c2;
-    --ink-faint: #718193;
-    --signal: #d9a441;
-    --signal-face: #1e1c12;
-    --link: #7fa9d4;
+    --void: #0b0b0b;
+    --panel: #161616;
+    --rule: #2e2e2e;
+    --rule-strong: #f2f2f2;
+    --ink: #f2f2f2;
+    --ink-soft: #b4b4b0;
+    --ink-faint: #82827e;
+    --signal: #ff4757;
+    --signal-face: #0b0b0b;
+    --link: #f2f2f2;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --void: #0e1621;
-  --panel: #17212d;
-  --rule: #2b3847;
-  --rule-strong: #3d4d5f;
-  --ink: #e8edf3;
-  --ink-soft: #9fb0c2;
-  --ink-faint: #718193;
-  --signal: #d9a441;
-  --signal-face: #1e1c12;
-  --link: #7fa9d4;
+  --void: #0b0b0b;
+  --panel: #161616;
+  --rule: #2e2e2e;
+  --rule-strong: #f2f2f2;
+  --ink: #f2f2f2;
+  --ink-soft: #b4b4b0;
+  --ink-faint: #82827e;
+  --signal: #ff4757;
+  --signal-face: #0b0b0b;
+  --link: #f2f2f2;
 }
 
 @layer base {
@@ -148,4 +148,32 @@
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
   }
+}
+
+@layer components {
+  /* 漫畫網點。跟著文字色走，深淺模式都成立 */
+  .halftone {
+    background-image: radial-gradient(currentColor 1px, transparent 1.2px);
+    background-size: 5px 5px;
+  }
+  .halftone-dense {
+    background-image: radial-gradient(currentColor 1px, transparent 1.1px);
+    background-size: 3px 3px;
+  }
+
+  /* 設計稿的幾何斜角：右下切角 */
+  .cut-br {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.75rem), calc(100% - 1.75rem) 100%, 0 100%);
+  }
+  /* 左上切角，與 cut-br 相對，用於並置的兩個區塊 */
+  .cut-tl {
+    clip-path: polygon(1.75rem 0, 100% 0, 100% 100%, 0 100%, 0 1.75rem);
+  }
+
+  /* 反白區塊：黑底白字，用在需要強烈對比的段落 */
+  .inverse {
+    background: var(--ink);
+    color: var(--void);
+  }
+  .inverse a { color: var(--void); }
 }

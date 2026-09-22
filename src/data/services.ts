@@ -43,12 +43,29 @@ export const services: Service[] = [
   },
 ];
 
-/** Edge Landing 的六項服務，對應舊站左側選單 */
+/**
+ * Edge Landing 的服務項目，名稱與順序依設計稿 news/www/myllm-web-theme.png 的側邊選單。
+ * 舊站左側選單漏了「AIoT 歷史配方經驗擷取」，此處補回。
+ */
 export const edgeLanding: { title: string; description: string }[] = [
-  { title: 'RAG plus', description: '檢索增強生成，讓模型能引用企業自有知識回答。' },
-  { title: '身份識別與安全控管', description: '在地端完成識別與權限控管，資料不外流。' },
-  { title: '自動化演講摘要', description: '將演講與會議內容自動整理成逐字稿與摘要。' },
+  { title: '強化檢索生成（RAG plus）', description: '讓模型引用企業自有的文件與知識回答，答案有出處。' },
+  { title: '智慧身份識別與安全控管', description: '在地端完成識別與權限控管，資料不外流。' },
+  { title: '自動化演講摘要', description: '把演講與會議內容整理成逐字稿與摘要。' },
   { title: '編程知識小助手', description: '以企業內部程式碼與文件為基礎的開發輔助。' },
   { title: '智慧表格語言模型', description: '理解表格結構，處理報表與結構化資料查詢。' },
   { title: '客製化邊緣裝置佈署', description: '依現場條件配置可在邊緣裝置執行的模型。' },
+  { title: 'AIoT 歷史配方經驗擷取', description: '從歷史生產資料中萃取配方與參數的經驗知識。' },
+];
+
+/**
+ * 評測用的嵌入式裝置。照片與分級取自設計稿裡的實機陳列，
+ * 這是聯盟能做第三方效能評比的實體依據。
+ */
+export const devices: { name: string; vendor: string; tier: string }[] = [
+  { name: 'Raspberry Pi 4', vendor: 'Raspberry Pi', tier: '低配' },
+  { name: 'Raspberry Pi 5', vendor: 'Raspberry Pi', tier: '低配' },
+  { name: 'Jetson Xavier', vendor: 'NVIDIA', tier: '中配' },
+  { name: 'N3000', vendor: 'Neuchips', tier: '中配' },
+  { name: 'Jetson Orin', vendor: 'NVIDIA', tier: '中配' },
+  { name: 'Mac Studio', vendor: 'Apple', tier: '高配' },
 ];
