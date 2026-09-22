@@ -1,0 +1,684 @@
+[
+  {
+    "no": 19,
+    "date": "2024.09",
+    "articles": [
+      {
+        "title": "掌控數據安全與效能：本地化大型語言模型的戰略優勢",
+        "pdf": "/news/newsletter/files/掌控數據安全與效能本地化大型語言模型的戰略優勢.pdf"
+      },
+      {
+        "title": "Canva 收購 AI圖像生成公司 Leonardo.AI",
+        "pdf": "/news/newsletter/files/Canva收購AI圖像生成公司LeonardoAI.pdf"
+      },
+      {
+        "title": "拍合照不求人！Google Pixel 9 的創新「Add Me」功能",
+        "pdf": "/news/newsletter/files/拍合照不求人GooglePixel9的創新AddMe功能.pdf"
+      },
+      {
+        "title": "AI工具控必看！Make讓你的工作流程智慧升級",
+        "pdf": "/news/newsletter/files/AI工具控必看Make讓你的工作流程智慧升級.pdf"
+      },
+      {
+        "title": "不用學AE，Jitter AI 幫你製作流暢的精美動畫",
+        "pdf": "/news/newsletter/files/AI應用軟體介紹十八不用學AEJitterAI幫你製作流暢的精美動畫.pdf"
+      },
+      {
+        "title": "高效掌握每一分鐘！行程管理AI讓你事半功倍",
+        "pdf": "/news/newsletter/files/高效掌握每一分鐘行程管理AI讓你事半功倍.pdf"
+      },
+      {
+        "title": "行程管理AI實測｜Reclaim AI：省時間、提效率的秘密武器",
+        "pdf": "/news/newsletter/files/行程管理AI實測ReclaimAI省時間提效率的秘密武器.pdf"
+      },
+      {
+        "title": "行程管理AI實測｜Trevor AI：你的智慧行程管家",
+        "pdf": "/news/newsletter/files/行程管理AI實測TrevorAI你的智慧行程管家.pdf"
+      }
+    ]
+  },
+  {
+    "no": 18,
+    "date": "2024.08",
+    "articles": [
+      {
+        "title": "AI能控制任何人的表情！LivePortrait 讓你的照片動起來",
+        "pdf": "/news/newsletter/files/AI應用軟體介紹十六AI能控制任何人的表情LivePortrait讓你的照片動起來.pdf"
+      },
+      {
+        "title": "AI大模型與人形機器人2.0：Figure02——堪稱地表最強機器人",
+        "pdf": "/news/newsletter/files/AI大模型與人形機器人2.0Figure02堪稱地表最強機器人.pdf"
+      },
+      {
+        "title": "動茲動茲～Animated Drawings 讓你的塗鴉動起來！！",
+        "pdf": "/news/newsletter/files/AI應用軟體介紹十七動茲動茲AnimatedDrawings讓你的塗鴉動起來.pdf"
+      },
+      {
+        "title": "為什麼 Octomind 選擇不再使用 LangChain 架構來構建 AI 代理",
+        "pdf": "/news/newsletter/files/為什麼Octomind選擇不再使用LangChain架構來構建AI代理.pdf"
+      },
+      {
+        "title": "AI 未來的商業模式：台灣的挑戰與展望",
+        "pdf": "/news/newsletter/files/AI未來的商業模式台灣的挑戰與展望.pdf"
+      },
+      {
+        "title": "AI創新：如何為企業未來開闢新路徑",
+        "pdf": "/news/newsletter/files/AI創新如何為企業未來開闢新路徑.pdf"
+      },
+      {
+        "title": "用AI創新傳統工法！AI研發的混合咖啡豆：AI-conic",
+        "pdf": "/news/newsletter/files/用AI創新傳統工法AI研發的混合咖啡豆AIconic.pdf"
+      }
+    ]
+  },
+  {
+    "no": 17,
+    "date": "2024.08",
+    "articles": [
+      {
+        "title": "OpenAI的5級分級系統｜ChatGPT連第2級都不到！",
+        "pdf": "/news/newsletter/files/OpenAI的5級分級系統ChatGPT連第2級都不到.pdf"
+      },
+      {
+        "title": "AI巨頭之爭：模型性能評估與較量",
+        "pdf": "/news/newsletter/files/AI巨頭之爭模型性能評估與較量.pdf"
+      },
+      {
+        "title": "【從局部到全局】一場由圖表驅動的檢索增強生成技術GraphRAG",
+        "pdf": "/news/newsletter/files/從局部到全局一場由圖表驅動的檢索增強生成技術GraphRAG.pdf"
+      },
+      {
+        "title": "高性能、低成本的突破：OpenAI 推出 GPT-4o mini 小型語言模型",
+        "pdf": "/news/newsletter/files/高性能低成本的突破OpenAI推出GPT-4omini小型語言模型.pdf"
+      },
+      {
+        "title": "OpenAI Playground 快速整理會議逐字稿",
+        "pdf": "/news/newsletter/files/OpenAIPlayground快速整理會議逐字稿.pdf"
+      },
+      {
+        "title": "OpenAI 推出新的搜尋引擎 SearchGPT-Google 和 Perplexity 的勁敵",
+        "pdf": "/news/newsletter/files/OpenAI推出新的搜尋引擎SearchGPT-Google和Perplexity的勁敵.pdf"
+      },
+      {
+        "title": "最新開源大型語言模型！Mistral Large 2與Llama 3.1",
+        "pdf": "/news/newsletter/files/最新開源大型語言模型MistralLarge2與Llama3.1.pdf"
+      },
+      {
+        "title": "AI躍上頂尖體育賽事舞台：2024巴黎奧運",
+        "pdf": "/news/newsletter/files/AI躍上頂尖體育賽事舞台2024巴黎奧運.pdf"
+      },
+      {
+        "title": "2024巴黎奧運：AI如何為運動員打造安全的網路環境",
+        "pdf": "/news/newsletter/files/2024巴黎奧運AI如何為運動員打造安全的網路環境.pdf"
+      }
+    ]
+  },
+  {
+    "no": 16,
+    "date": "2024.07",
+    "articles": [
+      {
+        "title": "Best AI Tool 懶出你的生產力！！",
+        "pdf": "/news/newsletter/files/BestAITool懶出你的生產力.pdf"
+      },
+      {
+        "title": "ClaudeAI 編碼超強！不僅可以幫你寫遊戲，還能客製化專屬網頁！",
+        "pdf": "/news/newsletter/files/ClaudeAI編碼超強不僅可以幫你寫遊戲還能客製化專屬網頁.pdf"
+      },
+      {
+        "title": "探索Adobe Firefly，讓AI幫你藝術創作",
+        "pdf": "/news/newsletter/files/探索AdobeFirefly讓AI幫你藝術創作.pdf"
+      },
+      {
+        "title": "Ai也會網頁設計，網頁設計師要失業了嗎？",
+        "pdf": "/news/newsletter/files/Ai也會網頁設計網頁設計師要失業了嗎.pdf"
+      },
+      {
+        "title": "製作動畫，不再求人啦！Tooncrafter生成流暢動畫神器",
+        "pdf": "/news/newsletter/files/製作動畫不再求人啦Tooncrafter生成流暢動畫神器.pdf"
+      },
+      {
+        "title": "上｜Filmora五秒讓你生成影片",
+        "pdf": "/news/newsletter/files/AI影片神器上Filmora五秒讓你生成影片.pdf"
+      },
+      {
+        "title": "下｜Filmora 用AI全方位豐富你的影片創作",
+        "pdf": "/news/newsletter/files/AI影片神器下Filmora用AI全方位豐富你的影片創作.pdf"
+      }
+    ]
+  },
+  {
+    "no": 15,
+    "date": "2024.07",
+    "articles": [
+      {
+        "title": "技術的飛躍：揭示GPT-1至GPT-4o的演變",
+        "pdf": "/news/newsletter/files/技術的飛躍揭示GPT-1至GPT-4o的演變.pdf"
+      },
+      {
+        "title": "AI大型模型比一比！一探LLM、LAM與LVM",
+        "pdf": "/news/newsletter/files/AI大型模型比一比一探LLMLAMLVM.pdf"
+      },
+      {
+        "title": "質感爆棚！讓Styler AI帶你探索風格轉換的奇妙世界",
+        "pdf": "/news/newsletter/files/質感爆棚讓StylerAI帶你探索風格轉換的奇妙世界.pdf"
+      },
+      {
+        "title": "GatekeepAI | 教育界的Sora工具：下一代AI教學工具的崛起",
+        "pdf": "/news/newsletter/files/GatekeepAI教育界的Sora工具下一代AI教學工具的崛起.pdf"
+      },
+      {
+        "title": "說走就走也能準備萬全！用AI快速規劃旅遊行程",
+        "pdf": "/news/newsletter/files/說走就走也能準備萬全用AI快速規劃旅遊行程.pdf"
+      },
+      {
+        "title": "從按鍵到對話，不覺得ChatGPT是進階版的計算機？",
+        "pdf": "/news/newsletter/files/從按鍵到對話不覺得ChatGPT是進階版的計算機.pdf"
+      },
+      {
+        "title": "聽說？！Ideogram 可以讓你的海報添加精準文字？！",
+        "pdf": "/news/newsletter/files/聽說Ideogram可以讓你的海報添加精準文字.pdf"
+      }
+    ]
+  },
+  {
+    "no": 14,
+    "date": "2024.06",
+    "articles": [
+      {
+        "title": "給 RAG 安裝上 Agent 頭腦",
+        "pdf": "/news/newsletter/files/給RAG安裝上Agent頭腦.pdf"
+      },
+      {
+        "title": "麥肯錫2024年的報告你看了嗎 ：人工智慧在商業領域的全面落地與突破",
+        "pdf": "/news/newsletter/files/麥肯錫2024年的報告你看了嗎人工智慧在商業領域的全面落地與突破.pdf"
+      },
+      {
+        "title": "麥肯錫2024年的洞察：生成AI在企業應用中的風險與機會",
+        "pdf": "/news/newsletter/files/麥肯錫2024年的洞察生成AI在企業應用中的風險與機會.pdf"
+      },
+      {
+        "title": "別讓預算限制了你的創意，用Fooocus 創建你的AI虛擬網紅",
+        "pdf": "/news/newsletter/files/別讓預算限制了你的創意用Fooocus創建你的AI虛擬網紅.pdf"
+      },
+      {
+        "title": "揭秘機器人科技！走進智能供應鏈",
+        "pdf": "/news/newsletter/files/揭秘機器人科技走進智能供應鏈.pdf"
+      },
+      {
+        "title": "筆記界的福爾摩斯：NotebookLM",
+        "pdf": "/news/newsletter/files/筆記界的福爾摩斯NotebookLM.pdf"
+      },
+      {
+        "title": "還沒等到SORA那就先試試Luma AI - AI影像生成",
+        "pdf": "/news/newsletter/files/還沒等到SORA那就先試試LumaAIAI影像生成.pdf"
+      }
+    ]
+  },
+  {
+    "no": 13,
+    "date": "2024.06",
+    "articles": [
+      {
+        "title": "Google Project Astra 和 OpenAI 的 GPT-4o 接連登場，多模態AI助理時代真的來臨啦！",
+        "pdf": "/news/newsletter/files/GoogleProjectAstra和OpenAI的GPT4o接連登場多模態AI助理時代真的來臨拉.pdf"
+      },
+      {
+        "title": "2024 Runway AI 電影節登場！看這篇快速了解影片生成 AI",
+        "pdf": "/news/newsletter/files/2024RunwayAI電影節登場看這篇快速了解影片生成AI.pdf"
+      },
+      {
+        "title": "誰說 AI 只會畫畫？生成立體 3D 模型的魔法",
+        "pdf": "/news/newsletter/files/誰說AI只會畫畫生成立體3D模型的魔法.pdf"
+      },
+      {
+        "title": "智慧廚房指南！AI 幫廚讓烹飪更輕鬆安全",
+        "pdf": "/news/newsletter/files/智慧廚房指南AI幫廚讓烹飪更輕鬆安全.pdf"
+      },
+      {
+        "title": "2024 研究生不能錯過的—AI輔助研究工具",
+        "pdf": "/news/newsletter/files/2024研究生不能錯過的AI輔助研究工具.pdf"
+      },
+      {
+        "title": "影像生成 AI 的演進：從 GAN 到擴散模型",
+        "pdf": "/news/newsletter/files/影像生成AI的演進從GAN到擴散模型.pdf"
+      },
+      {
+        "title": "來認識各種影像生成 AI！變分自編碼器 VAE",
+        "pdf": "/news/newsletter/files/來認識各種影像生成AI變分自編碼器VAE.pdf"
+      }
+    ]
+  },
+  {
+    "no": 12,
+    "date": "2024.05",
+    "articles": [
+      {
+        "title": "LLM 開啟 Chatbot 新潛能！探索客服聊天機器人",
+        "pdf": "/news/newsletter/files/LLM開啟CHATBOT新潛能探索客服聊天機器人.pdf"
+      },
+      {
+        "title": "動茲動茲動茲～Haiper 一鍵生成 2-4 秒的短片動畫！",
+        "pdf": "/news/newsletter/files/動茲動茲動茲HAIPER一鍵生成2-4秒的短片動畫.pdf"
+      },
+      {
+        "title": "一站式智能助手！不用再忙於切換工具：Monica AI 應有盡有",
+        "pdf": "/news/newsletter/files/一站式智能助手不用再忙於切換工具MONICAAI應有盡有.pdf"
+      },
+      {
+        "title": "ChatGPT 應用懶人包！讓 AI 幫你快速完成這四種任務",
+        "pdf": "/news/newsletter/files/CHATGPT應用懶人包讓AI幫你快速完成這四種任務.pdf"
+      },
+      {
+        "title": "TXYZ.AI：一個插件，助你高效閱讀文獻",
+        "pdf": "/news/newsletter/files/TXYZAI一個插件助你高效閱讀文獻.pdf"
+      },
+      {
+        "title": "掌握 AI 心智圖工具：提升知識整合與創新能力",
+        "pdf": "/news/newsletter/files/掌握AI心智圖工具提升知識整合與創新能力.pdf"
+      },
+      {
+        "title": "OpenAI 新模型 GPT-4o：引領AI技術的最新突破",
+        "pdf": "/news/newsletter/files/OPENAI新模型GPT-4O引領AI技術的最新突破.pdf"
+      },
+      {
+        "title": "24 小時在線！AI 老師助你快速掌握外語",
+        "pdf": "/news/newsletter/files/24小時在線AI老師助你快速掌握外語.pdf"
+      }
+    ]
+  },
+  {
+    "no": 11,
+    "date": "2024.05",
+    "articles": [
+      {
+        "title": "讓生活更繽紛充實！GPT Store 中的生活建議 GPTs【GPTs 測試員】",
+        "pdf": "/news/newsletter/files/讓生活更繽紛充實GPTStore中的生活建議GPTsGPTs測試員.pdf"
+      },
+      {
+        "title": "詞曲生成 AI 降臨！Suno AI 中文歌也能唱",
+        "pdf": "/news/newsletter/files/詞曲生成AI降臨SunoAI中文歌也能唱.pdf"
+      },
+      {
+        "title": "高效會議的智能選擇！AI 會議助理：讓與會者能更專注於討論",
+        "pdf": "/news/newsletter/files/高效會議的智能選擇AI會議助理讓與會者能更專注於討論.pdf"
+      },
+      {
+        "title": "Ai Comic Factory：引領漫畫創作新紀元",
+        "pdf": "/news/newsletter/files/AiComicFactory引領漫畫創作新紀元.pdf"
+      },
+      {
+        "title": "超神免費 AI 搜尋引擎——Perplexity 讓你事半功倍！",
+        "pdf": "/news/newsletter/files/超神免費AI搜尋引擎Perplexity讓你事半功倍.pdf"
+      },
+      {
+        "title": "【如何讓照片開口說話 01】Heygen 讓您的照片「活」起來！",
+        "pdf": "/news/newsletter/files/如何讓照片開口說話01Heygen讓您的照片活起來.pdf"
+      },
+      {
+        "title": "【如何讓照片開口說話 02】用Heygen複製一個你",
+        "pdf": "/news/newsletter/files/如何讓照片開口說話02用Heygen複製一個你.pdf"
+      },
+      {
+        "title": "【如何讓照片開口說話 03】D-ID Agent：創建一個互動式AI代理人",
+        "pdf": "/news/newsletter/files/如何讓照片開口說話03DIDAgent創建一個互動式AI代理人.pdf"
+      }
+    ]
+  },
+  {
+    "no": 10,
+    "date": "2024.04",
+    "articles": [
+      {
+        "title": "OpenAI語音合成AI模型，15秒即可模擬真人聲音！",
+        "pdf": "/news/newsletter/files/OpenAI語音合成AI模型15秒即可模擬真人聲音.pdf"
+      },
+      {
+        "title": "全球首創突破：OpenAI與Figure攜手獻世智能人形機器人",
+        "pdf": "/news/newsletter/files/全球首創突破OpenAI與Figure攜手獻世智能人形機器人.pdf"
+      },
+      {
+        "title": "機器人創新巔峰：端到端大模型驅動實現人類級反應速度",
+        "pdf": "/news/newsletter/files/機器人創新巔峰端到端大模型驅動實現人類級反應速度.pdf"
+      },
+      {
+        "title": "生成式 AI 不只是工具！在 character.ai 與多位角色聊天",
+        "pdf": "/news/newsletter/files/生成式AI不只是工具在characterai與多位角色聊天.pdf"
+      },
+      {
+        "title": "比 ChatGPT 更精緻的網頁生成 GPTs（上）前端界面",
+        "pdf": "/news/newsletter/files/比ChatGPT更精緻的網頁生成GPTs前端界面GPTs測試員.pdf"
+      },
+      {
+        "title": "比 ChatGPT 更精緻的網頁生成 GPTs（下）後端功能",
+        "pdf": "/news/newsletter/files/比ChatGPT更精緻的網頁生成GPTs後端功能GPTs測試員.pdf"
+      },
+      {
+        "title": "讓生活更歡樂有趣！GPT Store 中的互動遊戲 GPTs",
+        "pdf": "/news/newsletter/files/讓生活更歡樂有趣GPTStore中的互動遊戲GPTsGPTs測試員.pdf"
+      }
+    ]
+  },
+  {
+    "no": 9,
+    "date": "2024.04",
+    "articles": [
+      {
+        "title": "革命化創作流程：InVideo AI打造未來敘事 — 智能創作工具定義新世代內容傳達",
+        "pdf": "/news/newsletter/files/革命化創作流程INVIDEOAI打造未來敘事智慧創作工具定義新世代內容傳達.pdf"
+      },
+      {
+        "title": "GPT模型的挑戰與向量資料庫的解決之道",
+        "pdf": "/news/newsletter/files/GPT模型的挑戰與向量資料庫的解決之道.pdf"
+      },
+      {
+        "title": "從關鍵字到語義：探索數據搜尋的演進與向量嵌入技術的突破",
+        "pdf": "/news/newsletter/files/從關鍵字到語義探索數據搜尋的演進與向量嵌入技術的突破.pdf"
+      },
+      {
+        "title": "向量數據庫：自然語言處理的革新引擎",
+        "pdf": "/news/newsletter/files/向量數據庫自然語言處理的革新引擎.pdf"
+      },
+      {
+        "title": "數據深海中的羅盤：特徵提取、向量嵌入與相似性搜索的融合之旅",
+        "pdf": "/news/newsletter/files/數據深海中的羅盤特徵提取向量嵌入與相似性搜索的融合之旅.pdf"
+      },
+      {
+        "title": "向量聚類的未來：K-Means演算法與近似最近鄰搜索的融合",
+        "pdf": "/news/newsletter/files/向量聚類的未來KMEANS演算法與近似最近鄰搜索的融合.pdf"
+      },
+      {
+        "title": "實用的 GPTs 有哪些？到 GPT Store 一探究竟【GPTs 測試員】",
+        "pdf": "/news/newsletter/files/實用的GPTs有哪些到GPTStore一探究竟.pdf"
+      },
+      {
+        "title": "GPT Store 受歡迎排行榜 Top 2：Write For Me【GPTs 測試員】",
+        "pdf": "/news/newsletter/files/GPTStore受歡迎排行榜Top2WriteForMe.pdf"
+      }
+    ]
+  },
+  {
+    "no": 8,
+    "date": "2024.03",
+    "articles": [
+      {
+        "title": "客製化部署：實現 LLM 於邊緣裝置的挑戰與機遇",
+        "pdf": "/news/newsletter/files/客製化部署實現LLM於邊緣裝置的挑戰與機遇.pdf"
+      },
+      {
+        "title": "超越文字的界限：智慧語言模型對特殊資料型態的革命性處理",
+        "pdf": "/news/newsletter/files/超越文字的界限智慧語言模型對特殊資料型態的革命性處理.pdf"
+      },
+      {
+        "title": "解鎖語音資訊處理新紀元：智慧語音讀取及處理技術全面應用",
+        "pdf": "/news/newsletter/files/解鎖語音資訊處理新紀元智慧語音讀取及處理技術全面應用.pdf"
+      },
+      {
+        "title": "《邊緣計算新紀元》- 大型語言模型邊緣落地評測",
+        "pdf": "/news/newsletter/files/邊緣計算新紀元大型語言模型邊緣落地評測.pdf"
+      },
+      {
+        "title": "RAG plus：開創企業超強資料檢索和學習力",
+        "pdf": "/news/newsletter/files/RAGPLUS開創企業超強資料檢索和學習力.pdf"
+      },
+      {
+        "title": "RISC-V 知識小助手：革新 IC 開發設計的智慧伴侶",
+        "pdf": "/news/newsletter/files/RISC-V知識小助手革新IC開發設計的智慧伴侶.pdf"
+      }
+    ]
+  },
+  {
+    "no": 7,
+    "date": "2024.03",
+    "articles": [
+      {
+        "title": "阿里巴巴推出革命性AI「EMO」：為照片注入生命，開啟互動娛樂新紀元",
+        "pdf": "/news/newsletter/files/阿里巴巴推出革命性AI「EMO」為照片注入生命開啟互動娛樂新紀元.pdf"
+      },
+      {
+        "title": "讓程式碼成為畫筆：生成式演算藝術與 ChatGPT 應用",
+        "pdf": "/news/newsletter/files/讓程式碼成為畫筆生成式演算藝術與ChatGPT應用.pdf"
+      },
+      {
+        "title": "Runway Gen-2：顛覆性多模態人工智慧系統，將文字轉化為精彩影片的魔法工具！",
+        "pdf": "/news/newsletter/files/RunwayGen-2顛覆性多模態人工智慧系統將文字轉化為精彩影片的魔法工具.pdf"
+      },
+      {
+        "title": "能完成多樣工作的超強助手：GPTs 原理簡介",
+        "pdf": "/news/newsletter/files/能完成多樣工作的超強助手GPTs原理簡介.pdf"
+      },
+      {
+        "title": "OpenAI x 史丹佛大學破局AI，Meta-Prompting引爆精準科技革命",
+        "pdf": "/news/newsletter/files/OpenAIx史丹佛大學破局AI_Meta-Prompting引爆精準科技革命.pdf"
+      },
+      {
+        "title": "向量嵌入：人工智慧與自然語言處理的革命",
+        "pdf": "/news/newsletter/files/向量嵌入人工智慧與自然語言處理的革命.pdf"
+      },
+      {
+        "title": "影像生成式 AI 的現任霸主：擴散模型（diffusion model）",
+        "pdf": "/news/newsletter/files/影像生成式AI的現任霸主擴散模型diffusion_model.pdf"
+      }
+    ]
+  },
+  {
+    "no": 6,
+    "date": "2024.02",
+    "articles": [
+      {
+        "title": "Gemini激戰GPT-4：重塑人工智慧的未來",
+        "pdf": "/news/newsletter/files/Gemini激戰GPT-4重塑人工智慧的未來.pdf"
+      },
+      {
+        "title": "創意工作者的新 AI 利器！文字轉影片 OpenAI Sora 登場",
+        "pdf": "/news/newsletter/files/創意工作者的新AI利器文字轉影片OpenAISora登場.pdf"
+      },
+      {
+        "title": "GPT 與 Gemini：人工智慧巨頭的較量",
+        "pdf": "/news/newsletter/files/GPT與Gemini人工智慧巨頭的較量.pdf"
+      },
+      {
+        "title": "搭上達哥列車（上）讓DaVinci客製化你的專屬助理！",
+        "pdf": "/news/newsletter/files/搭上達哥列車上讓DaVinci客製化你的專屬助理.pdf"
+      },
+      {
+        "title": "搭上達哥列車（中）讓DaVinci客製化你的專屬助理！",
+        "pdf": "/news/newsletter/files/搭上達哥列車中讓DaVinci客製化你的專屬助理.pdf"
+      },
+      {
+        "title": "搭上達哥列車（下）讓DaVinci客製化你的專屬助理！",
+        "pdf": "/news/newsletter/files/搭上達哥列車下讓DaVinci客製化你的專屬助理.pdf"
+      },
+      {
+        "title": "如何生成逼真影片？了解 Sora 模型訓練關鍵",
+        "pdf": "/news/newsletter/files/如何生成逼真影片了解Sora模型訓練關鍵.pdf"
+      }
+    ]
+  },
+  {
+    "no": 5,
+    "date": "2024.02",
+    "articles": [
+      {
+        "title": "MyLLM的先進服務Agent運作原理的核心",
+        "pdf": "/news/newsletter/files/MyLLM的先進服務Agent運作原理的核心.pdf"
+      },
+      {
+        "title": "企業賦能MyLLM開啟企業賦能的新紀元打造鋼鐵人員工",
+        "pdf": "/news/newsletter/files/企業賦能MyLLM開啟企業賦能的新紀元打造鋼鐵人員工.pdf"
+      },
+      {
+        "title": "智能知識網絡MyLLM服務強化企業的知識傳播和創新能力",
+        "pdf": "/news/newsletter/files/智能知識網絡MyLLM服務強化企業的知識傳播和創新能力.pdf"
+      },
+      {
+        "title": "RAGPlusMyLLM提供的服務強化學習於企業的應用",
+        "pdf": "/news/newsletter/files/RAGPlusMyLLM提供的服務強化學習於企業的應用.pdf"
+      },
+      {
+        "title": "數據驅動決策的未來MyLLM攜手企業開啟三大核心服務",
+        "pdf": "/news/newsletter/files/數據驅動決策的未來MyLLM攜手企業開啟三大核心服務.pdf"
+      },
+      {
+        "title": "創新企業服務MyLLM產學聯盟平台",
+        "pdf": "/news/newsletter/files/創新企業服務MyLLM產學聯盟平台.pdf"
+      },
+      {
+        "title": "智慧核心行業革新ＭyLLM依據企業需求客製化大型語言模型在專業領域的應用探索",
+        "pdf": "/news/newsletter/files/智慧核心行業革新ＭyLLM依據企業需求客製化大型語言模型在專業領域的應用探索.pdf"
+      },
+      {
+        "title": "智慧鏈MyLLM 打造的企業流程革新工具",
+        "pdf": "/news/newsletter/files/智慧鏈MyLLM 打造的企業流程革新工具.pdf"
+      },
+      {
+        "title": "國立陽明交通大學人工智能系統檢測中心： 橋接AI技術與產業先鋒",
+        "pdf": "/news/newsletter/files/國立陽明交通大學人工智能系統檢測中心： 橋接AI技術與產業先鋒.pdf"
+      }
+    ]
+  },
+  {
+    "no": 4,
+    "date": "2024.01",
+    "articles": [
+      {
+        "title": "即時數據處理的新時代-邊緣計算如何輝映雲端世界",
+        "pdf": "/news/newsletter/files/即時數據處理的新時代-邊緣計算如何輝映雲端世界.pdf"
+      },
+      {
+        "title": "人工智慧硬體平台：打造高效 AI 訓練與推理的核心",
+        "pdf": "/news/newsletter/files/人工智慧硬體平台打造高效AI訓練與推理的核心.pdf"
+      },
+      {
+        "title": "邊緣運算賦能生成AI探索未來的技術架構",
+        "pdf": "/news/newsletter/files/邊緣運算賦能生成AI探索未來的技術架構.pdf"
+      },
+      {
+        "title": "雲端計算與邊緣計算雙劍合璧共創信息技術新紀元",
+        "pdf": "/news/newsletter/files/雲端計算與邊緣計算雙劍合璧共創信息技術新紀元.pdf"
+      },
+      {
+        "title": "邊緣運算物聯網時代的技術革命和未來展望",
+        "pdf": "/news/newsletter/files/邊緣運算物聯網時代的技術革命和未來展望.pdf"
+      },
+      {
+        "title": "探索台灣科技創新的心臟 - 國家高速網路與計算中心",
+        "pdf": "/news/newsletter/files/探索台灣科技創新的心臟 - 國家高速網路與計算中心.pdf"
+      },
+      {
+        "title": "AI未來的發展超越伺服器邁向邊緣計算的新時代",
+        "pdf": "/news/newsletter/files/AI未來的發展超越伺服器邁向邊緣計算的新時代.pdf"
+      },
+      {
+        "title": "邊緣運算與人工智慧的創新融合：推動企業結構與運作方式的變革",
+        "pdf": "/news/newsletter/files/邊緣運算與人工智慧的創新融合推動企業結構與運作方式的變革.pdf"
+      }
+    ]
+  },
+  {
+    "no": 3,
+    "date": "2024.01",
+    "articles": [
+      {
+        "title": "LangChain: 打造專為您量身定制的智慧助理",
+        "pdf": "/news/newsletter/files/LangChain_打造專為您量身定制的智慧助理.pdf"
+      },
+      {
+        "title": "大型語言模型 - 不僅僅是ChatGPT！",
+        "pdf": "/news/newsletter/files/大型語言模型_不僅僅是ChatGPT.pdf"
+      },
+      {
+        "title": "AI會取代人類？如何在AI浪潮中駕馭創新浪頭",
+        "pdf": "/news/newsletter/files/AI會取代人類嗎_如何在AI浪潮中駕馭創新浪頭.pdf"
+      },
+      {
+        "title": "Agent 技術・虛擬的智慧助手",
+        "pdf": "/news/newsletter/files/Agent技術虛擬的智慧助手.pdf"
+      },
+      {
+        "title": "GPT Agents：塑造明日世界的AI助手",
+        "pdf": "/news/newsletter/files/GPT_Agents塑造明日世界的AI助手.pdf"
+      },
+      {
+        "title": "你的 AI 助理：用 LangChain 和 GPT 打造你的 AI 夥伴",
+        "pdf": "/news/newsletter/files/你的AI助理_用LangChain和GPT打造你的AI夥伴.pdf"
+      },
+      {
+        "title": "深入解析Langchain的模塊化AI，開創PDF文件理解的新紀元",
+        "pdf": "/news/newsletter/files/深入解析Langchain的模塊化AI_開創PDF文件理解的新紀元.pdf"
+      }
+    ]
+  },
+  {
+    "no": 2,
+    "date": "2023.12",
+    "articles": [
+      {
+        "title": "解碼NLP：智能科技背後的語言學大腦！",
+        "pdf": "/news/newsletter/files/%E8%A7%A3%E7%A2%BCNLP%E6%99%BA%E8%83%BD%E7%A7%91%E6%8A%80%E8%83%8C%E5%BE%8C%E7%9A%84%E8%AA%9E%E8%A8%80%E5%AD%B8%E5%A4%A7%E8%85%A6.pdf"
+      },
+      {
+        "title": "Google 真的聽得懂「人話」？！ BERT 演算法如何顛覆關鍵字搜尋？",
+        "pdf": "/news/newsletter/files/Google%E7%9C%9F%E7%9A%84%E8%81%BD%E5%BE%97%E6%87%82%E4%BA%BA%E8%A9%B1BERT%E6%BC%94%E7%AE%97%E6%B3%95%E5%A6%82%E4%BD%95%E9%A1%9B%E8%A6%86%E9%97%9C%E9%8D%B5%E5%AD%97%E6%90%9C%E5%B0%8B.pdf"
+      },
+      {
+        "title": "挑戰 GPT-4：Google 大型語言模型 Gemini 來勢洶洶",
+        "pdf": "/news/newsletter/files/%E6%8C%91%E6%88%B0GPT-4Google%E5%A4%A7%E5%9E%8B%E8%AA%9E%E8%A8%80%E6%A8%A1%E5%9E%8BGemini%E4%BE%86%E5%8B%A2%E6%B4%B6%E6%B4%B6.pdf"
+      },
+      {
+        "title": "AI文字轉影片技術：探索未來的視界",
+        "pdf": "/news/newsletter/files/AI%E6%96%87%E5%AD%97%E8%BD%89%E5%BD%B1%E7%89%87%E6%8A%80%E8%A1%93%E6%8E%A2%E7%B4%A2%E6%9C%AA%E4%BE%86%E7%9A%84%E8%A6%96%E7%95%8C.pdf"
+      },
+      {
+        "title": "顛覆傳統！AI如何在幾秒內將文字變成驚人影片",
+        "pdf": "/news/newsletter/files/%E9%A1%9B%E8%A6%86%E5%82%B3%E7%B5%B1AI%E5%A6%82%E4%BD%95%E5%9C%A8%E5%B9%BE%E7%A7%92%E5%85%A7%E5%B0%87%E6%96%87%E5%AD%97%E8%AE%8A%E6%88%90%E9%A9%9A%E4%BA%BA%E5%BD%B1%E7%89%87.pdf"
+      },
+      {
+        "title": "請梵谷穿越時空幫忙畫貓貓肖像？神經風格轉換簡介",
+        "pdf": "/news/newsletter/files/%E8%AB%8B%E6%A2%B5%E8%B0%B7%E7%A9%BF%E8%B6%8A%E6%99%82%E7%A9%BA%E5%B9%AB%E5%BF%99%E7%95%AB%E8%B2%93%E8%B2%93%E8%82%96%E5%83%8F%E7%A5%9E%E7%B6%93%E9%A2%A8%E6%A0%BC%E8%BD%89%E6%8F%9B%E7%B0%A1%E4%BB%8B.pdf"
+      },
+      {
+        "title": "語言處理的革命者：BERT vs GPT 他們有什麼不同？",
+        "pdf": "/news/newsletter/files/%E8%AA%9E%E8%A8%80%E8%99%95%E7%90%86%E7%9A%84%E9%9D%A9%E5%91%BD%E8%80%85%E4%BB%96%E5%80%91%E6%9C%89%E4%BB%80%E9%BA%BC%E4%B8%8D%E5%90%8CBERTvsGPT.pdf"
+      }
+    ]
+  },
+  {
+    "no": 1,
+    "date": "2023.11",
+    "articles": [
+      {
+        "title": "AI的創作是藝術？藝術圈的創作論戰！",
+        "pdf": "/news/newsletter/files/AI的創作是藝術藝術圈的創作論戰.pdf"
+      },
+      {
+        "title": "人工智慧技術在機器人領域實現突破： 預示工作自動化的新紀元",
+        "pdf": "/news/newsletter/files/人工智慧技術在機器人領域實現突破預示工作自動化的新紀元.pdf"
+      },
+      {
+        "title": "你相信AI醫生嗎？AI技術在醫療保健領域的創新應用及未來趨勢",
+        "pdf": "/news/newsletter/files/你相信AI醫生嗎AI技術在醫療保健領域的創新應用及未來趨勢.pdf"
+      },
+      {
+        "title": "探索人工智慧的奧秘：自駕車如何改變我們的世界",
+        "pdf": "/news/newsletter/files/探索人工智慧的奧秘自駕車如何改變我們的世界.pdf"
+      },
+      {
+        "title": "智能對話背後的秘密：揭開GPT的神秘面紗",
+        "pdf": "/news/newsletter/files/智能對話背後的秘密揭開GPT的神秘面紗.pdf"
+      },
+      {
+        "title": "跨越革新的門檻：GPT-AI引領語言模型進入創造力新紀元",
+        "pdf": "/news/newsletter/files/跨越革新的門檻GPT-AI引領語言模型進入創造力新紀元.pdf"
+      },
+      {
+        "title": "淺談科技：Self-attention - 讓機器學會「專注」的神奇技術！",
+        "pdf": "/news/newsletter/files/淺談科技Self-attention讓機器學會專注的神奇技術.pdf"
+      },
+      {
+        "title": "深入淺出 Self-attention —讓深度學習和自然語言處理領域轟動的技術！",
+        "pdf": "/news/newsletter/files/深入淺出Self-attention讓深度學習和自然語言處理領域轟動的技術.pdf"
+      }
+    ]
+  }
+]
