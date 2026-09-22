@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="找不到頁面" description="這個網址沒有對應的內容。">
+  <section class="mx-auto flex max-w-2xl flex-col items-center px-4 py-28 text-center">
+    <p class="text-6xl font-bold" style="color: var(--accent)">404</p>
+    <h1 class="mt-6 text-2xl font-bold tracking-tight sm:text-3xl">找不到這個頁面</h1>
+    <p class="mt-4 text-sm leading-relaxed" style="color: var(--ink-muted)">
+      網址可能已經變動，或是輸入有誤。
+    </p>
+    <div class="mt-10 flex flex-wrap justify-center gap-3">
+      <a
+        href="/"
+        class="rounded-xl px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
+        style="background: var(--accent); color: var(--accent-ink)"
+      >
+        回首頁
+      </a>
+      <a
+        href="/newsletter/"
+        class="rounded-xl border px-6 py-3 text-sm font-bold"
+        style="border-color: var(--border-strong); color: var(--ink)"
+      >
+        看電子報
+      </a>
+    </div>
+  </section>
+</Base>

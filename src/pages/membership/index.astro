@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Card from '../../components/Card.astro';
+import { membership, site } from '../../config/site';
+import { services } from '../../data/services';
+
+// 費用與權益還沒有可引用的來源，缺的時候在建置階段提醒，避免空區塊上線
+if (!membership.fee || membership.benefits.length === 0) {
+  console.warn(
+    '[membership] 會員費用或權益尚未填寫，/membership/ 會少掉對應區塊。請在 src/config/site.ts 的 membership 補上。',
+  );
+}
+---
+
+<Base
+  title="成為會員"
+  description="加入 myLLM 產學聯盟，取得專業諮詢、平台評測與技術交流資源。"
+>
+  <PageHeader
+    title="成為聯盟會員"
+    titleEn="Membership"
+    lead={`${site.org}的 myLLM 產學聯盟提供三大方向的服務。會員可取得諮詢、評測與技術交流資源。`}
+  />
+
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <Card class="lg:col-span-2">
+        <h2 class="text-xl font-bold tracking-tight">會員可以取得什麼</h2>
+        {
+          membership.benefits.length > 0 ? (
+            <ul class="mt-6 space-y-3">
+              {membership.benefits.map((b) => (
+                <li class="flex gap-3 text-[15px] leading-relaxed">
+                  <span style="color: var(--accent)">·</span>
+                  <span style="color: var(--ink-muted)">{b}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div class="mt-6 space-y-5 text-[15px] leading-relaxed" style="color: var(--ink-muted)">
+              <p>聯盟目前提供以下三個方向的服務，會員可依需求與聯盟討論適合的合作方式：</p>
+              <ul class="space-y-4">
+                {services.map((s) => (
+                  <li>
+                    <p class="font-medium" style="color: var(--ink)">
+                      {s.title}
+                    </p>
+                    <p class="mt-1">{s.summary}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </Card>
+
+      <div class="space-y-6">
+        {
+          membership.fee && (
+            <Card raised>
+              <h2 class="text-sm font-bold tracking-widest uppercase" style="color: var(--ink-faint)">
+                會員費用
+              </h2>
+              <p class="mt-3 text-2xl font-bold" style="color: var(--accent)">
+                {membership.fee}
+              </p>
+            </Card>
+          )
+        }
+        {
+          membership.eligibility && (
+            <Card raised>
+              <h2 class="text-sm font-bold tracking-widest uppercase" style="color: var(--ink-faint)">
+                入會資格
+              </h2>
+              <p class="mt-3 text-[15px] leading-relaxed" style="color: var(--ink-muted)">
+                {membership.eligibility}
+              </p>
+            </Card>
+          )
+        }
+        <Card raised>
+          <h2 class="text-sm font-bold tracking-widest uppercase" style="color: var(--ink-faint)">
+            入會流程
+          </h2>
+          <ol class="mt-4 space-y-4 text-sm">
+            <li class="flex gap-3">
+              <span class="font-bold tabular-nums" style="color: var(--accent)">1</span>
+              <span style="color: var(--ink-muted)">
+                下載並填寫
+                <a href={membership.applicationForm} class="font-medium underline" style="color: var(--accent)">
+                  會員申請表
+                </a>
+              </span>
+            </li>
+            <li class="flex gap-3">
+              <span class="font-bold tabular-nums" style="color: var(--accent)">2</span>
+              <span style="color: var(--ink-muted)">
+                與
+                <a href="/contact/" class="font-medium underline" style="color: var(--accent)">
+                  聯盟窗口
+                </a>
+                聯絡，確認服務需求
+              </span>
+            </li>
+            <li class="flex gap-3">
+              <span class="font-bold tabular-nums" style="color: var(--accent)">3</span>
+              <span style="color: var(--ink-muted)">完成審核與繳費後取得會員資格</span>
+            </li>
+          </ol>
+        </Card>
+      </div>
+    </div>
+
+    <Card class="mt-6">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold">使用條款</h2>
+          <p class="mt-1.5 text-sm" style="color: var(--ink-muted)">
+            加入會員即表示同意本聯盟的使用條款，共十二章。
+          </p>
+        </div>
+        <a
+          href="/membership/terms/"
+          class="rounded-xl border px-5 py-2.5 text-sm font-bold"
+          style="border-color: var(--border-strong); color: var(--ink)"
+        >
+          閱讀使用條款
+        </a>
+      </div>
+    </Card>
+  </section>
+</Base>
