@@ -1,31 +1,65 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
+import BenchmarkChart from '../components/BenchmarkChart.astro';
+import { Icon } from 'astro-icon/components';
 import { services, edgeLanding } from '../data/services';
+import { benchmarkDevice } from '../data/benchmark';
+
+// 跑馬燈的內容重複兩份，整條平移一半即可無縫循環
+const marqueeItems = [...edgeLanding, ...edgeLanding];
 ---
 
 <Base
   title="核心服務"
-  description="LLM 生態圈交流、平台落地測試與評估、分析式與生成式 AI 平台設計，以及 Edge Landing 六項落地服務。"
+  description="LLM 生態圈交流、平台落地評測、AI 平台設計，以及 Edge Landing 七項落地服務與邊緣裝置實測數據。"
 >
   <PageHeader
-    title="從知識交流到模型落地"
-    lead="三項服務對應企業導入大型語言模型的先後階段。先讓知識流動，再驗證效能，最後設計能在現場運作的平台。"
-  />
+    title="把大型語言模型帶進企業自己的機器"
+    lead="從知識交流、效能評測到平台設計。每一項服務都在實際的嵌入式裝置上跑過，從樹莓派到 Mac Studio。"
+    image={{
+      src: '/images/edge-devices.jpg',
+      alt: '六種嵌入式裝置並排陳列：Raspberry Pi 4、Raspberry Pi 5、Jetson Xavier、N3000、Jetson Orin 與 Mac Studio',
+      width: 2876,
+      height: 832,
+    }}
+  >
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a href="#edge-landing" class="btn-primary">
+        看七項落地服務
+        <Icon name="lucide:arrow-down" class="btn-arrow size-4" />
+      </a>
+      <a href="#benchmark" class="btn-ghost" style="color: #e9eff6">實測數據</a>
+    </div>
+  </PageHeader>
 
-  <section class="mx-auto max-w-5xl px-5 py-20">
-    <div class="axis space-y-20">
+  {/* 服務名稱跑馬燈 */}
+  <div class="marquee border-b py-5" style="border-color: var(--rule); background: var(--panel)" aria-hidden="true">
+    <div class="marquee-track gap-12 pr-12">
       {
-        services.map((s, i) => (
+        marqueeItems.map((item) => (
+          <span class="inline-flex shrink-0 items-center gap-3 text-sm" style="color: var(--ink-soft)">
+            <Icon name={item.icon} class="size-4" style="color: var(--signal)" />
+            {item.title}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  {/* 三個階段 */}
+  <section class="mx-auto max-w-6xl px-5 py-20">
+    <h2 class="text-3xl sm:text-4xl">企業導入 LLM 的三個階段</h2>
+    <div class="axis mt-14 space-y-16">
+      {
+        services.map((s) => (
           <article id={s.id} class="tick scroll-mt-24" data-major>
-            <div class="flex items-baseline gap-4">
-              <span class="reading text-sm" style="color: var(--signal)">
-                {i + 1}
-              </span>
-              <h2 class="text-2xl">{s.title}</h2>
+            <div class="flex items-center gap-3">
+              <Icon name={s.icon} class="size-6 shrink-0" style="color: var(--signal)" />
+              <h3 class="text-2xl">{s.title}</h3>
             </div>
             <p class="mt-5 max-w-2xl text-lg leading-relaxed">{s.summary}</p>
-            <div class="mt-6 max-w-2xl space-y-5 text-[15px] leading-loose" style="color: var(--ink-soft)">
+            <div class="mt-5 max-w-2xl space-y-4 text-[15px] leading-loose" style="color: var(--ink-soft)">
               {s.detail.map((p) => (
                 <p>{p}</p>
               ))}
@@ -36,43 +70,157 @@ import { services, edgeLanding } from '../data/services';
     </div>
   </section>
 
-  <section id="edge-landing" class="scroll-mt-24 border-t" style="border-color: var(--rule); background: var(--panel)">
-    <div class="mx-auto max-w-5xl px-5 py-20">
-      <h2 class="text-2xl sm:text-3xl">Edge Landing</h2>
-      <p class="mt-6 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
-        讓模型在企業自己的環境裡執行，資料不必離開現場。六項服務沒有先後，依需求選擇。
+  {/* 實測數據 */}
+  <section id="benchmark" class="scroll-mt-20 border-y" style="border-color: var(--rule); background: var(--panel)">
+    <div class="mx-auto max-w-6xl px-5 py-20">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="led"></span>
+        <span class="text-sm" style="color: var(--ink-faint)">實測於 {benchmarkDevice}</span>
+      </div>
+      <h2 class="mt-4 max-w-3xl text-3xl leading-snug sm:text-4xl">量化到 4 bits，速度快三倍，準確率幾乎不掉</h2>
+      <p class="mt-6 max-w-2xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+        以 7B 模型為例，16 bits 每秒生成 10.37 個 token，量化到 4 bits 提升到 33.6 個；
+        MMLU 準確率只從 59.13% 降到 58.93%。這組數據說明大型語言模型確實可以跑在邊緣裝置上。
       </p>
-      <dl class="mt-12 grid gap-x-12 sm:grid-cols-2">
-        {
-          edgeLanding.map((item) => (
-            <div class="border-t py-6" style="border-color: var(--rule)">
-              <dt class="text-base font-medium">{item.title}</dt>
-              <dd class="mt-2 text-sm leading-loose" style="color: var(--ink-soft)">
-                {item.description}
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
+      <div class="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-16">
+        <BenchmarkChart metric="tokPerSec" title="文字生成速度" unit="" max={70} />
+        <BenchmarkChart metric="mmlu" title="MMLU 準確率" unit="%" max={80} />
+      </div>
+      <p class="mt-10 text-xs leading-loose" style="color: var(--ink-faint)">
+        速度單位為每秒 token 數。34B 與 72B 的高精度版本放不進裝置記憶體，因此只有量化版本的數據。
+      </p>
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-5 py-20">
-    <h2 class="max-w-xl text-2xl leading-snug sm:text-3xl">想知道哪一項適合貴公司？</h2>
+  {/* Edge Landing 七項 */}
+  <section id="edge-landing" class="scroll-mt-20 mx-auto max-w-6xl px-5 py-20">
+    <h2 class="text-3xl sm:text-4xl">Edge Landing 七項落地服務</h2>
     <p class="mt-6 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
-      會員可取得專業諮詢服務，由聯盟協助釐清需求與可行的導入方式。
+      模型在企業自己的環境裡執行，資料不必離開現場。
     </p>
-    <div class="mt-10 flex flex-wrap items-center gap-8">
-      <a
-        href="/membership/"
-        class="px-6 py-3 text-sm font-medium"
-        style="background: var(--signal); color: var(--signal-face)"
-      >
-        成為聯盟會員
-      </a>
-      <a href="/contact/" class="border-b pb-0.5 text-sm" style="color: var(--link); border-color: var(--rule-strong)">
-        聯絡聯盟窗口
-      </a>
+
+    <div class="mt-14 grid gap-12 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14">
+      <nav aria-label="服務目錄" class="hidden lg:sticky lg:top-24 lg:block lg:self-start">
+        <ol class="space-y-1 border-l" style="border-color: var(--rule)">
+          {
+            edgeLanding.map((item) => (
+              <li>
+                <a
+                  href={`#${item.id}`}
+                  class="group -ml-px flex items-center gap-2.5 border-l-2 border-transparent py-2 pl-4 text-sm transition-colors hover:border-current"
+                  style="color: var(--ink-soft)"
+                >
+                  <Icon name={item.icon} class="icon-hover size-4 shrink-0" style="color: var(--signal)" />
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <div class="space-y-24">
+        {
+          edgeLanding.map((item) => (
+            <article id={item.id} class="scroll-mt-24">
+              <div class="flex items-center gap-3">
+                <span class="grid size-10 place-items-center" style="background: var(--panel)">
+                  <Icon name={item.icon} class="size-5" style="color: var(--signal)" />
+                </span>
+                <div>
+                  <h3 class="text-2xl">{item.title}</h3>
+                  {item.menuTitle && (
+                    <p class="text-xs" style="color: var(--ink-faint)">
+                      舊站名稱：{item.menuTitle}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <p class="mt-7 max-w-2xl text-xl leading-relaxed" style="font-family: var(--font-display)">
+                {item.summary}
+              </p>
+
+              <div class={`mt-8 grid gap-10 ${item.device ? 'md:grid-cols-[1fr_1fr]' : ''}`}>
+                <div>
+                  <div class="space-y-4 text-[15px] leading-loose" style="color: var(--ink-soft)">
+                    {item.body.map((p) => (
+                      <p>{p}</p>
+                    ))}
+                  </div>
+                  <p class="mt-8 text-sm" style="color: var(--ink-faint)">
+                    {item.uses.label}
+                  </p>
+                  <ul class="mt-3 flex flex-wrap gap-2">
+                    {item.uses.items.map((u) => (
+                      <li
+                        class="border px-3 py-1.5 text-sm transition-colors hover:border-current"
+                        style="border-color: var(--rule)"
+                      >
+                        {u}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {item.device && (
+                  <figure class="panel-hover self-start border" style="border-color: var(--rule)">
+                    <div class="scan overflow-hidden">
+                      <img
+                        src={item.device.image}
+                        alt={`本項服務的示範機型 ${item.device.name}`}
+                        loading="lazy"
+                        class="block w-full"
+                      />
+                    </div>
+                    <figcaption class="flex items-center justify-between gap-3 px-4 py-3 text-sm">
+                      <span>
+                        <span class="block text-xs" style="color: var(--ink-faint)">
+                          示範機型
+                        </span>
+                        {item.device.name}
+                      </span>
+                      <span class="text-xs" style="color: var(--signal)">
+                        {item.device.vendor} · {item.device.tier}
+                      </span>
+                    </figcaption>
+                  </figure>
+                )}
+              </div>
+
+              {item.visuals.length > 0 && (
+                <div class={`mt-10 grid gap-6 ${item.visuals.length > 1 ? 'md:grid-cols-2' : ''}`}>
+                  {item.visuals.map((v) => (
+                    <figure class="panel-hover border" style="border-color: var(--rule)">
+                      <div class="overflow-hidden">
+                        <img src={v.src} alt={v.alt} loading="lazy" class="block w-full" />
+                      </div>
+                      <figcaption class="px-4 py-3 text-sm leading-relaxed" style="color: var(--ink-soft)">
+                        {v.caption}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="inverse relative overflow-hidden">
+    <div class="drift halftone pointer-events-none absolute inset-0 opacity-[0.06]" style="color: #e9eff6" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-5 py-20">
+      <h2 class="max-w-xl text-3xl leading-snug sm:text-4xl">想知道哪一項適合貴公司？</h2>
+      <p class="muted mt-6 max-w-xl text-[15px] leading-loose">會員可取得專業諮詢，由聯盟協助釐清需求與導入方式。</p>
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a href="/membership/" class="btn-primary">
+          成為聯盟會員
+          <Icon name="lucide:arrow-right" class="btn-arrow size-4" />
+        </a>
+        <a href="/contact/" class="btn-ghost" style="color: #e9eff6">聯絡聯盟窗口</a>
+      </div>
     </div>
   </section>
 </Base>

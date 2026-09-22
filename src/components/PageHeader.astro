@@ -2,36 +2,52 @@
 interface Props {
   title: string;
   lead?: string;
-  /** 右上角的讀數，例如電子報的期數統計 */
+  /** 右側的圖片，會加上掃描線動效 */
+  image?: { src: string; alt: string; width: number; height: number };
   reading?: { label: string; value: string }[];
 }
-const { title, lead, reading = [] } = Astro.props;
+const { title, lead, image, reading = [] } = Astro.props;
 ---
 
-<section class="border-b" style="border-color: var(--rule)">
-  <div class="mx-auto max-w-5xl px-5 pt-16 pb-14 sm:pt-20">
-    <h1 class="max-w-2xl text-3xl leading-[1.3] sm:text-4xl">{title}</h1>
+<section class="inverse relative overflow-hidden">
+  <div class="drift halftone pointer-events-none absolute inset-0 opacity-[0.06]" style="color: #e9eff6" aria-hidden="true"></div>
+  <div
+    class:list={[
+      'stage-in relative mx-auto max-w-6xl px-5 py-16 sm:py-20',
+      image && 'grid items-center gap-10 md:grid-cols-[1.15fr_1fr] md:gap-14',
+    ]}
+  >
+    <div>
+      <h1 class="max-w-2xl text-3xl leading-[1.25] sm:text-4xl md:text-5xl">{title}</h1>
+      {lead && <p class="muted mt-7 max-w-xl text-[15px] leading-loose">{lead}</p>}
+      {
+        reading.length > 0 && (
+          <dl class="mt-10 flex flex-wrap gap-x-12 gap-y-6">
+            {reading.map((r) => (
+              <div>
+                <dt class="muted text-sm">{r.label}</dt>
+                <dd class="reading mt-1 text-3xl" style="font-family: var(--font-display); color: #d9a441">
+                  {r.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+      <slot />
+    </div>
     {
-      lead && (
-        <p class="mt-7 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
-          {lead}
-        </p>
-      )
-    }
-    {
-      reading.length > 0 && (
-        <dl class="mt-12 flex flex-wrap gap-x-12 gap-y-6">
-          {reading.map((r) => (
-            <div>
-              <dt class="text-sm" style="color: var(--ink-faint)">
-                {r.label}
-              </dt>
-              <dd class="reading mt-1 text-2xl" style="font-family: var(--font-display)">
-                {r.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+      image && (
+        <div class="scan cut-br">
+          <img
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="eager"
+            class="block w-full"
+          />
+        </div>
       )
     }
   </div>

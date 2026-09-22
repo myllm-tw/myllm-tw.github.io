@@ -4,10 +4,13 @@ import { Icon } from 'astro-icon/components';
 import { site } from '../config/site';
 import { services, edgeLanding, devices } from '../data/services';
 import { empowerment } from '../data/empowerment';
+import { benchmark } from '../data/benchmark';
 import issues from '../data/newsletter.json';
 
 const totalArticles = issues.reduce((n, i) => n + i.articles.length, 0);
 const latest = issues.slice(0, 4);
+const seven = benchmark.find((b) => b.model === '7B')!;
+const speedup = (seven.tokPerSec[0]! / seven.tokPerSec[2]!).toFixed(1);
 ---
 
 <Base path="/">
@@ -50,7 +53,7 @@ const latest = issues.slice(0, 4);
         </div>
       </div>
 
-      <div class="cut-br relative">
+      <div class="float cut-br relative">
         <img
           src="/images/robot-comic.webp"
           alt="漫畫風格的機器人衝出畫面，象徵 AI 落地到實際場景"
@@ -161,12 +164,9 @@ const latest = issues.slice(0, 4);
             <p class="mt-4 max-w-2xl text-[15px] leading-loose" style="color: var(--ink-soft)">
               {s.detail[0]}
             </p>
-            <a
-              href={`/services/#${s.id}`}
-              class="mt-4 inline-block border-b pb-0.5 text-sm"
-              style="border-color: var(--rule-strong)"
-            >
+            <a href={`/services/#${s.id}`} class="link-line mt-4 text-sm">
               {s.title}的服務內容
+              <Icon name="lucide:arrow-up-right" class="size-3.5" />
             </a>
           </article>
         ))
@@ -174,28 +174,84 @@ const latest = issues.slice(0, 4);
     </div>
   </section>
 
-  {/* Edge Landing 七項並列服務 */}
+  {/* 實測數據亮點 */}
+  <section class="mx-auto max-w-6xl px-5 py-20">
+    <div class="grid items-center gap-12 md:grid-cols-[1fr_1.1fr] md:gap-16">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="led"></span>
+          <span class="text-sm" style="color: var(--ink-faint)">邊緣裝置實測</span>
+        </div>
+        <h2 class="mt-4 text-3xl leading-snug sm:text-4xl">量化到 4 bits<br />速度快 {speedup} 倍</h2>
+        <p class="mt-6 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
+          7B 模型在 Jetson Orin 上從每秒 {seven.tokPerSec[2]} 個 token 提升到 {seven.tokPerSec[0]} 個，
+          MMLU 準確率只從 {seven.mmlu[2]}% 降到 {seven.mmlu[0]}%。
+        </p>
+        <a href="/services/#benchmark" class="link-line mt-8 text-sm">
+          看完整測試數據
+          <Icon name="lucide:arrow-up-right" class="size-3.5" />
+        </a>
+      </div>
+      <dl class="grid grid-cols-2 gap-px" style="background: var(--rule)">
+        <div class="p-6" style="background: var(--void)">
+          <dt class="text-sm" style="color: var(--ink-faint)">16 bits 速度</dt>
+          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display)">{seven.tokPerSec[2]}</dd>
+          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">token / 秒</dd>
+        </div>
+        <div class="p-6" style="background: var(--void)">
+          <dt class="text-sm" style="color: var(--ink-faint)">4 bits 速度</dt>
+          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display); color: var(--signal)">{seven.tokPerSec[0]}</dd>
+          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">token / 秒</dd>
+        </div>
+        <div class="p-6" style="background: var(--void)">
+          <dt class="text-sm" style="color: var(--ink-faint)">16 bits 準確率</dt>
+          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display)">{seven.mmlu[2]}%</dd>
+          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">MMLU</dd>
+        </div>
+        <div class="p-6" style="background: var(--void)">
+          <dt class="text-sm" style="color: var(--ink-faint)">4 bits 準確率</dt>
+          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display); color: var(--signal)">{seven.mmlu[0]}%</dd>
+          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">MMLU</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  {/* Edge Landing 七項：每一項都能點進服務頁的對應段落 */}
   <section class="border-t" style="border-color: var(--rule)">
     <div class="mx-auto max-w-6xl px-5 py-20">
-      <h2 class="text-3xl sm:text-4xl">Edge Landing 服務</h2>
-      <p class="mt-6 max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
-        讓模型在企業自己的環境裡執行，資料不必離開現場。
-      </p>
-      <dl class="mt-12 grid gap-x-10 md:grid-cols-2">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <h2 class="text-3xl sm:text-4xl">Edge Landing 七項落地服務</h2>
+        <a href="/services/#edge-landing" class="link-line text-sm">
+          全部服務細節
+          <Icon name="lucide:arrow-up-right" class="size-3.5" />
+        </a>
+      </div>
+      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {
           edgeLanding.map((item) => (
-            <div class="border-t py-6" style="border-color: var(--rule)">
-              <dt class="flex items-center gap-3 text-base font-medium">
-                <Icon name={item.icon} class="size-[18px] shrink-0" style="color: var(--signal)" />
-                {item.title}
-              </dt>
-              <dd class="mt-2.5 pl-[30px] text-sm leading-loose" style="color: var(--ink-soft)">
-                {item.description}
-              </dd>
-            </div>
+            <li>
+              <a
+                href={`/services/#${item.id}`}
+                class="panel-hover group flex h-full flex-col border p-6"
+                style="border-color: var(--rule)"
+              >
+                <Icon name={item.icon} class="icon-hover size-6" style="color: var(--signal)" />
+                <span class="mt-5 text-base font-medium">{item.title}</span>
+                <span class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">
+                  {item.summary}
+                </span>
+                {item.device && (
+                  <span class="mt-auto flex items-center gap-2 pt-5 text-xs" style="color: var(--ink-faint)">
+                    <Icon name="lucide:cpu" class="size-3.5" />
+                    {item.device.name}
+                  </span>
+                )}
+              </a>
+            </li>
           ))
         }
-      </dl>
+      </ul>
     </div>
   </section>
 
@@ -212,7 +268,7 @@ const latest = issues.slice(0, 4);
         {
           latest.map((issue) => (
             <li class="border-t" style="border-color: var(--rule)">
-              <a href={`/newsletter/${issue.no}/`} class="flex flex-wrap items-baseline gap-x-6 gap-y-1 py-5">
+              <a href={`/newsletter/${issue.no}/`} class="group flex flex-wrap items-baseline gap-x-6 gap-y-1 py-5 transition-[padding] duration-300 hover:pl-3">
                 <span class="reading w-10 text-xl" style="font-family: var(--font-display); color: var(--signal)">
                   {issue.no}
                 </span>
@@ -228,8 +284,9 @@ const latest = issues.slice(0, 4);
           ))
         }
       </ul>
-      <a href="/newsletter/" class="mt-8 inline-block border-b pb-0.5 text-sm" style="border-color: var(--rule-strong)">
+      <a href="/newsletter/" class="link-line mt-8 text-sm">
         瀏覽全部 {issues.length} 期
+        <Icon name="lucide:arrow-up-right" class="size-3.5" />
       </a>
     </div>
   </section>
@@ -245,16 +302,11 @@ const latest = issues.slice(0, 4);
         會員可取得專業諮詢與平台評測資源。
       </p>
       <div class="mt-10 flex flex-wrap items-center gap-6">
-        <a href="/membership/" class="px-7 py-3.5 text-sm font-medium" style="background: var(--signal); color: var(--signal-face)">
+        <a href="/membership/" class="btn-primary">
           成為聯盟會員
+          <Icon name="lucide:arrow-right" class="btn-arrow size-4" />
         </a>
-        <a
-          href="/contact/"
-          class="border-b pb-1 text-sm"
-          style="border-color: #43586e"
-        >
-          聯絡聯盟窗口
-        </a>
+        <a href="/contact/" class="btn-ghost" style="color: #e9eff6">聯絡聯盟窗口</a>
       </div>
     </div>
   </section>

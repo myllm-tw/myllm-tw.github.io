@@ -11,7 +11,7 @@ export default defineConfig({
   // 搭配 wrangler.jsonc 的 html_handling: "none"：頁面網址一律帶尾斜線（/about/），
   // 這樣舊的 .html 網址才能原樣保留而不被重導向。
   trailingSlash: 'always',
-  integrations: [sitemap(), icon({ iconDir: 'src/icons' })],
+  integrations: [sitemap(), icon()],
   vite: {
     plugins: [tailwindcss()],
   },
