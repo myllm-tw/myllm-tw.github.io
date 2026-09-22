@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import { Icon } from 'astro-icon/components';
 import terms from '../../data/terms.json';
 ---
 
@@ -10,14 +11,21 @@ import terms from '../../data/terms.json';
 >
   <PageHeader title={terms.title} lead="加入會員即表示同意以下條款。" />
 
-  <section class="mx-auto max-w-5xl px-5 py-16">
+  <section class="top-glow mx-auto max-w-6xl px-5 py-20">
     <div class="grid gap-14 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16">
-      <nav aria-label="條款目錄" class="lg:sticky lg:top-24 lg:self-start">
-        <ol class="space-y-2.5 text-sm">
+      <nav aria-label="條款目錄" class="card-soft relative p-5 lg:sticky lg:top-24 lg:self-start">
+        <p class="mb-3 flex items-center gap-2 px-2 text-xs" style="color: var(--ink-faint)">
+          <Icon name="lucide:list" class="size-3.5" />目錄
+        </p>
+        <ol class="space-y-0.5 text-sm">
           {
             terms.sections.map((s, i) => (
               <li>
-                <a href={`#section-${i}`} style="color: var(--ink-soft)">
+                <a
+                  href={`#section-${i}`}
+                  class="block rounded-lg px-2 py-1.5 transition-colors hover:bg-[var(--surface)]"
+                  style="color: var(--ink-soft)"
+                >
                   {s.heading}
                 </a>
               </li>
@@ -26,19 +34,17 @@ import terms from '../../data/terms.json';
         </ol>
       </nav>
 
-      <div class="max-w-2xl space-y-14">
+      <div class="relative max-w-2xl space-y-5">
         {
           terms.sections.map((section, i) => (
-            <section id={`section-${i}`} class="scroll-mt-24">
-              <h2 class="border-b pb-3 text-lg" style="border-color: var(--rule)">
-                {section.heading}
-              </h2>
+            <section id={`section-${i}`} class="card scroll-mt-24 p-7">
+              <h2 class="text-lg">{section.heading}</h2>
               <ul class="mt-6 space-y-5">
                 {section.items.map((item) => (
                   <li class="text-[15px] leading-loose" style="color: var(--ink-soft)">
                     <p>{item.text}</p>
                     {item.sub && (
-                      <ul class="mt-3 space-y-2 border-l pl-5" style="border-color: var(--rule)">
+                      <ul class="card-soft mt-3 space-y-2 p-4">
                         {item.sub.map((sub) => (
                           <li>{sub}</li>
                         ))}
@@ -50,7 +56,7 @@ import terms from '../../data/terms.json';
             </section>
           ))
         }
-        <p class="border-t pt-6 text-xs leading-loose" style="border-color: var(--rule); color: var(--ink-faint)">
+        <p class="px-2 pt-4 text-xs leading-loose" style="color: var(--ink-faint)">
           本頁內容由舊站 <code>/news/www/MemberAgreement.html</code> 轉為結構化資料，條文文字未做改寫。
         </p>
       </div>

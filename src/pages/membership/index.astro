@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import { Icon } from 'astro-icon/components';
 import { membership, site } from '../../config/site';
 import { services } from '../../data/services';
 
@@ -9,84 +10,122 @@ if (!membership.fee || membership.benefits.length === 0) {
     '[membership] 會員費用或權益尚未填寫，/membership/ 會少掉對應區塊。請在 src/config/site.ts 的 membership 補上。',
   );
 }
+
+const steps = [
+  { icon: 'lucide:file-down', title: '下載申請表', body: '填寫會員申請表，說明貴公司的需求。', href: membership.applicationForm, cta: '下載申請表' },
+  { icon: 'lucide:messages-square', title: '與聯盟聯絡', body: '和聯盟窗口確認服務需求與合作方式。', href: '/contact/', cta: '聯絡窗口' },
+  { icon: 'lucide:badge-check', title: '取得會員資格', body: '完成審核與繳費後，即可使用會員服務。' },
+];
 ---
 
 <Base title="成為會員" description="加入 myLLM 產學聯盟，取得專業諮詢、平台評測與技術交流資源。">
   <PageHeader
     title="成為聯盟會員"
     lead={`${site.org}的 myLLM 產學聯盟提供三個方向的服務。會員可取得諮詢、評測與技術交流資源。`}
-  />
+  >
+    <div class="mt-10 flex flex-wrap items-center gap-3">
+      <a href={membership.applicationForm} class="btn-primary">
+        <Icon name="lucide:file-down" class="size-4" />
+        下載會員申請表
+      </a>
+      <a href="/membership/terms/" class="btn-ghost" style="color: #e9eff6">閱讀使用條款</a>
+    </div>
+  </PageHeader>
 
-  <section class="mx-auto max-w-5xl px-5 py-20">
-    <div class="grid gap-16 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-20">
-      <div>
-        <h2 class="text-2xl">會員可以取得什麼</h2>
-        {
-          membership.benefits.length > 0 ? (
-            <ul class="mt-8 space-y-4">
-              {membership.benefits.map((b) => (
-                <li class="border-t pt-4 text-[15px] leading-loose" style="border-color: var(--rule); color: var(--ink-soft)">
-                  {b}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div class="mt-8">
-              <p class="max-w-xl text-[15px] leading-loose" style="color: var(--ink-soft)">
-                聯盟目前提供以下三個方向的服務，會員可依需求與聯盟討論合作方式。
-              </p>
-              <dl class="mt-8">
-                {services.map((s) => (
-                  <div class="border-t py-5" style="border-color: var(--rule)">
-                    <dt class="text-base font-medium">{s.title}</dt>
-                    <dd class="mt-2 max-w-xl text-sm leading-loose" style="color: var(--ink-soft)">
-                      {s.summary}
-                    </dd>
-                  </div>
+  {/* 入會三步驟：真的有先後，所以編號 */}
+  <section class="top-glow mx-auto max-w-6xl px-5 py-24">
+    <h2 class="relative text-3xl sm:text-4xl">三個步驟加入聯盟</h2>
+    <ol class="relative mt-12 grid gap-4 md:grid-cols-3">
+      {
+        steps.map((st, i) => (
+          <li class="card spotlight flex flex-col p-7">
+            <div class="flex items-center justify-between">
+              <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
+                <Icon name={st.icon} class="size-6" style="color: var(--signal)" />
+              </span>
+              <span class="reading text-4xl" style="font-family: var(--font-display); color: var(--rule)">
+                {i + 1}
+              </span>
+            </div>
+            <h3 class="mt-7 text-xl">{st.title}</h3>
+            <p class="mt-3 text-sm leading-loose" style="color: var(--ink-soft)">
+              {st.body}
+            </p>
+            {st.href && (
+              <a href={st.href} class="link-line mt-auto self-start pt-6 text-sm" style="color: var(--signal)">
+                {st.cta}
+                <Icon name="lucide:arrow-right" class="size-4" />
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section style="background: var(--surface-2)">
+    <div class="mx-auto max-w-6xl px-5 py-24">
+      <div class="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+        <article class="card p-8 sm:p-10">
+          <h2 class="text-2xl sm:text-3xl">會員可以取得什麼</h2>
+          {
+            membership.benefits.length > 0 ? (
+              <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+                {membership.benefits.map((b) => (
+                  <li class="card-soft flex items-start gap-3 p-4 text-[15px]">
+                    <Icon name="lucide:check" class="mt-0.5 size-4 shrink-0" style="color: var(--signal)" />
+                    {b}
+                  </li>
                 ))}
-              </dl>
-            </div>
-          )
-        }
-      </div>
+              </ul>
+            ) : (
+              <div class="mt-8 space-y-3">
+                {services.map((s) => (
+                  <a href={`/services/#${s.id}`} class="card-soft panel-hover group flex items-start gap-4 p-5">
+                    <Icon name={s.icon} class="icon-hover mt-0.5 size-5 shrink-0" style="color: var(--signal)" />
+                    <div>
+                      <p class="text-base font-medium">{s.title}</p>
+                      <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">
+                        {s.summary}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </article>
 
-      <div class="space-y-10 border-t pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8" style="border-color: var(--rule)">
-        {
-          membership.fee && (
-            <div>
-              <p class="text-sm" style="color: var(--ink-faint)">會員費用</p>
-              <p class="reading mt-2 text-2xl" style="font-family: var(--font-display)">{membership.fee}</p>
+        <aside class="grid gap-4 self-start">
+          {
+            membership.fee && (
+              <div class="card glow-border p-7">
+                <p class="text-sm" style="color: var(--ink-faint)">會員費用</p>
+                <p class="reading mt-2 text-3xl" style="font-family: var(--font-display); color: var(--signal)">
+                  {membership.fee}
+                </p>
+              </div>
+            )
+          }
+          {
+            membership.eligibility && (
+              <div class="card p-7">
+                <p class="text-sm" style="color: var(--ink-faint)">入會資格</p>
+                <p class="mt-2 text-[15px] leading-loose" style="color: var(--ink-soft)">{membership.eligibility}</p>
+              </div>
+            )
+          }
+          <a href="/membership/terms/" class="card panel-hover group flex items-center gap-4 p-7">
+            <span class="grid size-12 shrink-0 place-items-center rounded-2xl" style="background: var(--surface-2)">
+              <Icon name="lucide:scroll-text" class="icon-hover size-6" style="color: var(--signal)" />
+            </span>
+            <div class="flex-1">
+              <p class="text-base font-medium">使用條款</p>
+              <p class="mt-1 text-sm" style="color: var(--ink-soft)">加入會員即表示同意，共十二章</p>
             </div>
-          )
-        }
-        {
-          membership.eligibility && (
-            <div>
-              <p class="text-sm" style="color: var(--ink-faint)">入會資格</p>
-              <p class="mt-2 text-sm leading-loose" style="color: var(--ink-soft)">{membership.eligibility}</p>
-            </div>
-          )
-        }
-        <div>
-          <p class="text-sm" style="color: var(--ink-faint)">入會流程</p>
-          <ol class="axis mt-5 space-y-6 text-sm" style="padding-left: 1.75rem">
-            <li class="tick leading-relaxed">
-              下載並填寫
-              <a href={membership.applicationForm} style="color: var(--link)">會員申請表</a>
-            </li>
-            <li class="tick leading-relaxed">
-              與<a href="/contact/" style="color: var(--link)">聯盟窗口</a>聯絡，確認服務需求
-            </li>
-            <li class="tick leading-relaxed">完成審核與繳費後取得會員資格</li>
-          </ol>
-        </div>
-        <div>
-          <p class="text-sm" style="color: var(--ink-faint)">使用條款</p>
-          <p class="mt-2 text-sm leading-loose" style="color: var(--ink-soft)">
-            加入會員即表示同意本聯盟的
-            <a href="/membership/terms/" style="color: var(--link)">使用條款</a>，共十二章。
-          </p>
-        </div>
+            <Icon name="lucide:arrow-up-right" class="size-5 shrink-0" style="color: var(--ink-faint)" />
+          </a>
+        </aside>
       </div>
     </div>
   </section>

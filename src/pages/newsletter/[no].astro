@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import { Icon } from 'astro-icon/components';
 import issues from '../../data/newsletter.json';
 
 export function getStaticPaths() {
@@ -20,44 +21,52 @@ const next = sorted[index + 1];
 >
   <PageHeader
     title={`第 ${issue.no} 期`}
-    lead={`${issue.date} 發行，收錄 ${issue.articles.length} 篇文章。`}
+    lead={`${issue.date} 發行，收錄 ${issue.articles.length} 篇文章。點任何一篇即可下載 PDF 全文。`}
   />
 
-  <section class="mx-auto max-w-3xl px-5 py-16">
-    <ul>
+  <section class="top-glow mx-auto max-w-3xl px-5 py-20">
+    <ul class="relative space-y-3">
       {
         issue.articles.map((article, i) => (
-          <li class="border-t" style="border-color: var(--rule)">
-            <a href={article.pdf} class="flex items-baseline gap-5 py-5">
-              <span class="reading w-6 shrink-0 text-sm" style="color: var(--ink-faint)">
+          <li>
+            <a href={article.pdf} class="card spotlight panel-hover group flex items-center gap-5 p-5">
+              <span
+                class="reading grid size-10 shrink-0 place-items-center rounded-xl text-sm"
+                style="background: var(--surface-2); color: var(--ink-faint)"
+              >
                 {i + 1}
               </span>
               <span class="flex-1 text-[15px] leading-relaxed">{article.title}</span>
-              <span class="shrink-0 text-xs" style="color: var(--ink-faint)">PDF</span>
+              <span class="pill shrink-0 transition-colors group-hover:border-[var(--signal)]">
+                <Icon name="lucide:download" class="size-3.5" style="color: var(--signal)" />
+                PDF
+              </span>
             </a>
           </li>
         ))
       }
     </ul>
 
-    <nav
-      class="mt-14 flex flex-wrap items-center justify-between gap-5 border-t pt-7 text-sm"
-      style="border-color: var(--rule)"
-    >
+    <nav class="mt-14 flex flex-wrap items-center justify-between gap-3">
       {
         prev ? (
-          <a href={`/newsletter/${prev.no}/`} style="color: var(--link)">
+          <a href={`/newsletter/${prev.no}/`} class="btn-ghost group">
+            <Icon name="lucide:arrow-left" class="size-4 transition-transform group-hover:-translate-x-1" />
             第 {prev.no} 期
           </a>
         ) : (
           <span />
         )
       }
-      <a href="/newsletter/" style="color: var(--ink-soft)">所有期數</a>
+      <a href="/newsletter/" class="pill">
+        <Icon name="lucide:layout-grid" class="size-3.5" style="color: var(--signal)" />
+        所有期數
+      </a>
       {
         next ? (
-          <a href={`/newsletter/${next.no}/`} style="color: var(--link)">
+          <a href={`/newsletter/${next.no}/`} class="btn-ghost group">
             第 {next.no} 期
+            <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
           </a>
         ) : (
           <span />
@@ -65,9 +74,9 @@ const next = sorted[index + 1];
       }
     </nav>
 
-    <p class="mt-10 text-xs leading-loose" style="color: var(--ink-faint)">
+    <p class="mt-10 text-center text-xs leading-loose" style="color: var(--ink-faint)">
       這一期寄出時的原始版面保留在
-      <a href={`/news/newsletter/newsletter-${issue.no}.html`} class="underline">
+      <a href={`/news/newsletter/newsletter-${issue.no}.html`} class="link-line">
         /news/newsletter/newsletter-{issue.no}.html
       </a>
     </p>

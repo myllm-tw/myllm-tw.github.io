@@ -8,305 +8,283 @@ import { benchmark } from '../data/benchmark';
 import issues from '../data/newsletter.json';
 
 const totalArticles = issues.reduce((n, i) => n + i.articles.length, 0);
-const latest = issues.slice(0, 4);
+const latest = issues.slice(0, 3);
 const seven = benchmark.find((b) => b.model === '7B')!;
 const speedup = (seven.tokPerSec[0]! / seven.tokPerSec[2]!).toFixed(1);
+const deviceTicker = [...devices, ...devices];
 ---
 
 <Base path="/">
-  {/* 開場：聯盟自己的主張，配上漫畫視覺 */}
+  {/* 開場：極光背景 + 聯盟主張 + 漫畫插圖 */}
   <section class="inverse relative overflow-hidden">
-    <div
-      class="pointer-events-none absolute inset-0 halftone-dense opacity-[0.07]"
-      style="color: #e9eff6"
-      aria-hidden="true"
-    >
-    </div>
-    <div class="relative mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_1fr] md:gap-14 md:py-24">
+    <div class="aurora" aria-hidden="true"></div>
+    <div class="drift halftone pointer-events-none absolute inset-0 opacity-[0.05]" style="color: #e9eff6" aria-hidden="true"></div>
+    <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-16 pb-20 md:grid-cols-[1.1fr_1fr] md:gap-14 md:pt-24 md:pb-28">
       <div class="stage-in">
-        <p class="muted text-sm">{site.org}</p>
-        <h1 class="mt-6 text-[2.75rem] leading-[1.15] sm:text-6xl md:text-[4.25rem]">
+        <span class="glass-dark inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs">
+          <span class="led"></span>
+          {site.funding} · {site.orgShort}
+        </span>
+        <h1 class="mt-7 text-[2.75rem] leading-[1.12] sm:text-6xl md:text-[4.5rem]">
           資料不落雲<br />
-          <span style="color: var(--signal)">AI 要落地</span>
+          <span style="color: #d9a441">AI 要落地</span>
         </h1>
-        <p
-          class="muted mt-8 max-w-md text-[15px] leading-loose"
-        >
-          生成式 AI 的軟硬體整合，做在企業自己的機器上。myLLM 產學聯盟以獨立第三方角色
-          評測模型效能，並把驗證過的模型帶進現場。
+        <p class="muted mt-8 max-w-md text-[15px] leading-loose">
+          生成式 AI 的軟硬體整合，做在企業自己的機器上。myLLM 產學聯盟以獨立第三方角色評測模型效能，
+          並把驗證過的模型帶進現場。
         </p>
-        <div class="mt-10 flex flex-wrap items-center gap-6">
-          <a
-            href="/services/"
-            class="px-7 py-3.5 text-sm font-medium"
-            style="background: var(--signal); color: var(--signal-face)"
-          >
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a href="/services/" class="btn-primary">
             我們做什麼
+            <Icon name="lucide:arrow-right" class="btn-arrow size-4" />
           </a>
-          <a
-            href="/membership/"
-            class="border-b pb-1 text-sm"
-            style="color: var(--void); border-color: color-mix(in srgb, var(--void) 45%, transparent)"
-          >
-            成為聯盟會員
+          <a href="/services/#benchmark" class="btn-ghost" style="color: #e9eff6">
+            <Icon name="lucide:activity" class="size-4" />
+            看實測數據
           </a>
         </div>
       </div>
 
-      <div class="float cut-br relative">
-        <img
-          src="/images/robot-comic.webp"
-          alt="漫畫風格的機器人衝出畫面，象徵 AI 落地到實際場景"
-          width="1024"
-          height="1024"
-          loading="eager"
-          fetchpriority="high"
-          class="block w-full"
-        />
+      <div class="float relative">
+        <div class="absolute -inset-4 rounded-[2rem] opacity-60 blur-2xl" style="background: radial-gradient(60% 60% at 50% 50%, rgb(217 164 65 / 0.35), transparent)" aria-hidden="true"></div>
+        <div class="frame relative" style="border-color: rgb(255 255 255 / 0.12)">
+          <img
+            src="/images/robot-comic.webp"
+            alt="漫畫風格的機器人衝出畫面，象徵 AI 落地到實際場景"
+            width="1024"
+            height="1024"
+            loading="eager"
+            fetchpriority="high"
+            class="block w-full"
+          />
+        </div>
+        <div
+          class="absolute -bottom-6 left-5 z-10 flex items-center gap-3 rounded-2xl px-4 py-3 sm:left-8"
+          style="background: rgb(11 18 25 / 0.94); border: 1px solid rgb(255 255 255 / 0.12); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 16px 40px -12px rgb(0 0 0 / 0.6)"
+        >
+          <Icon name="lucide:zap" class="size-5" style="color: #d9a441" />
+          <div>
+            <p class="reading text-lg leading-none" style="font-family: var(--font-display)">{speedup}×</p>
+            <p class="muted mt-1 text-[11px]">4 bits 量化後的速度</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  {/* 企業賦能：聯盟自己的比喻 */}
-  <section class="mx-auto max-w-6xl px-5 py-20">
-    <h2 class="max-w-2xl text-3xl leading-snug sm:text-4xl">{empowerment.headline}</h2>
-    <div class="mt-12 grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
-      <dl class="space-y-8">
-        {
-          empowerment.contrast.map((c) => (
-            <div class="border-t-2 pt-5" style="border-color: var(--rule-strong)">
-              <dt class="text-2xl" style="font-family: var(--font-display)">
-                {c.subject}
-              </dt>
-              <dd class="mt-3 text-[15px] leading-loose" style="color: var(--ink-soft)">
-                {c.body}
-              </dd>
-            </div>
-          ))
-        }
-        <p class="text-lg" style="color: var(--signal); font-family: var(--font-display)">
-          {empowerment.note}
-        </p>
-      </dl>
-
-      <div class="cut-tl p-7 md:p-9" style="background: var(--panel)">
-        <p class="text-sm" style="color: var(--ink-faint)">企業賦能員工要具備的能力</p>
-        <ol class="mt-6 space-y-4">
-          {
-            empowerment.abilities.map((a, i) => (
-              <li class="flex gap-4 border-b pb-4 text-[15px]" style="border-color: var(--rule)">
-                <span class="reading shrink-0 text-sm" style="color: var(--signal)">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span>{a}</span>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  {/* 評測平台：實機照片是第三方評比的實體依據 */}
-  <section class="border-y" style="border-color: var(--rule-strong); background: var(--panel)">
-    <div class="mx-auto max-w-6xl px-5 py-20">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <h2 class="max-w-xl text-3xl leading-snug sm:text-4xl">在六種嵌入式裝置上跑過同一組測試</h2>
-        <p class="reading text-sm" style="color: var(--ink-faint)">低配 · 中配 · 高配</p>
-      </div>
-
-      <figure class="mt-10">
-        <img
-          src="/images/edge-devices.jpg"
-          alt="桌面上並排陳列六種嵌入式裝置，依序為 Raspberry Pi 4、Raspberry Pi 5、Jetson Xavier、N3000、Jetson Orin 與 Mac Studio，各自標示配置等級"
-          width="2876"
-          height="832"
-          loading="lazy"
-          class="block w-full border"
-          style="border-color: var(--rule)"
-        />
-        <figcaption class="mt-4 text-sm" style="color: var(--ink-faint)">
-          聯盟的評測平台。同一組模型在不同等級的裝置上實測，效能比較才有基準。
-        </figcaption>
-      </figure>
-
-      <ul class="mt-10 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          devices.map((d) => (
-            <li class="flex items-baseline justify-between gap-4 border-t py-4" style="border-color: var(--rule)">
-              <span class="text-[15px] font-medium">{d.name}</span>
-              <span class="text-sm" style="color: var(--ink-faint)">
-                {d.vendor}
-              </span>
-              <span class="text-xs" style="color: var(--signal)">
-                {d.tier}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  {/* 三項服務對應導入的先後階段 */}
-  <section class="mx-auto max-w-6xl px-5 py-20">
-    <h2 class="text-3xl sm:text-4xl">企業導入 LLM 的三個階段</h2>
-    <div class="axis mt-14 space-y-14">
+  {/* 評測裝置跑馬燈 */}
+  <div class="marquee border-b py-5" style="border-color: var(--hairline); background: var(--surface-2)" aria-hidden="true">
+    <div class="marquee-track gap-4 pr-4">
       {
-        services.map((s, i) => (
-          <article class="tick" data-major>
-            <div class="flex items-baseline gap-4">
-              <span class="reading text-sm" style="color: var(--signal)">
-                {i + 1}
-              </span>
-              <h3 class="text-xl sm:text-2xl">{s.title}</h3>
-            </div>
-            <p class="mt-4 max-w-2xl text-[15px] leading-loose" style="color: var(--ink-soft)">
-              {s.detail[0]}
-            </p>
-            <a href={`/services/#${s.id}`} class="link-line mt-4 text-sm">
-              {s.title}的服務內容
-              <Icon name="lucide:arrow-up-right" class="size-3.5" />
-            </a>
-          </article>
+        deviceTicker.map((d) => (
+          <span class="pill shrink-0">
+            <Icon name="lucide:cpu" class="size-3.5" style="color: var(--signal)" />
+            {d.name}
+            <span style="color: var(--ink-faint)">{d.tier}</span>
+          </span>
         ))
       }
     </div>
-  </section>
+  </div>
 
-  {/* 實測數據亮點 */}
-  <section class="mx-auto max-w-6xl px-5 py-20">
-    <div class="grid items-center gap-12 md:grid-cols-[1fr_1.1fr] md:gap-16">
-      <div>
-        <div class="flex items-center gap-3">
-          <span class="led"></span>
-          <span class="text-sm" style="color: var(--ink-faint)">邊緣裝置實測</span>
-        </div>
-        <h2 class="mt-4 text-3xl leading-snug sm:text-4xl">量化到 4 bits<br />速度快 {speedup} 倍</h2>
-        <p class="mt-6 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
-          7B 模型在 Jetson Orin 上從每秒 {seven.tokPerSec[2]} 個 token 提升到 {seven.tokPerSec[0]} 個，
-          MMLU 準確率只從 {seven.mmlu[2]}% 降到 {seven.mmlu[0]}%。
-        </p>
-        <a href="/services/#benchmark" class="link-line mt-8 text-sm">
-          看完整測試數據
-          <Icon name="lucide:arrow-up-right" class="size-3.5" />
-        </a>
-      </div>
-      <dl class="grid grid-cols-2 gap-px" style="background: var(--rule)">
-        <div class="p-6" style="background: var(--void)">
-          <dt class="text-sm" style="color: var(--ink-faint)">16 bits 速度</dt>
-          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display)">{seven.tokPerSec[2]}</dd>
-          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">token / 秒</dd>
-        </div>
-        <div class="p-6" style="background: var(--void)">
-          <dt class="text-sm" style="color: var(--ink-faint)">4 bits 速度</dt>
-          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display); color: var(--signal)">{seven.tokPerSec[0]}</dd>
-          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">token / 秒</dd>
-        </div>
-        <div class="p-6" style="background: var(--void)">
-          <dt class="text-sm" style="color: var(--ink-faint)">16 bits 準確率</dt>
-          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display)">{seven.mmlu[2]}%</dd>
-          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">MMLU</dd>
-        </div>
-        <div class="p-6" style="background: var(--void)">
-          <dt class="text-sm" style="color: var(--ink-faint)">4 bits 準確率</dt>
-          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display); color: var(--signal)">{seven.mmlu[0]}%</dd>
-          <dd class="mt-1 text-xs" style="color: var(--ink-faint)">MMLU</dd>
-        </div>
-      </dl>
+  {/* Bento：把最重要的幾件事拼成一塊 */}
+  <section class="top-glow mx-auto max-w-6xl px-5 py-24">
+    <div class="relative max-w-2xl">
+      <h2 class="text-3xl leading-snug sm:text-4xl">{empowerment.headline}</h2>
+      <p class="mt-5 text-[15px] leading-loose" style="color: var(--ink-soft)">{empowerment.note}</p>
     </div>
-  </section>
 
-  {/* Edge Landing 七項：每一項都能點進服務頁的對應段落 */}
-  <section class="border-t" style="border-color: var(--rule)">
-    <div class="mx-auto max-w-6xl px-5 py-20">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <h2 class="text-3xl sm:text-4xl">Edge Landing 七項落地服務</h2>
-        <a href="/services/#edge-landing" class="link-line text-sm">
-          全部服務細節
-          <Icon name="lucide:arrow-up-right" class="size-3.5" />
-        </a>
-      </div>
-      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          edgeLanding.map((item) => (
-            <li>
-              <a
-                href={`/services/#${item.id}`}
-                class="panel-hover group flex h-full flex-col border p-6"
-                style="border-color: var(--rule)"
-              >
-                <Icon name={item.icon} class="icon-hover size-6" style="color: var(--signal)" />
-                <span class="mt-5 text-base font-medium">{item.title}</span>
-                <span class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">
-                  {item.summary}
+    <div class="bento relative mt-12">
+      <article class="card spotlight md:col-span-4 md:row-span-2 flex flex-col justify-between p-8">
+        <div class="grid gap-8 sm:grid-cols-2">
+          {
+            empowerment.contrast.map((c, i) => (
+              <div>
+                <span
+                  class="grid size-11 place-items-center rounded-2xl"
+                  style={i === 0 ? 'background: var(--surface-2)' : 'background: var(--signal); color: var(--signal-face)'}
+                >
+                  <Icon name={i === 0 ? 'lucide:user-round' : 'lucide:bot'} class="size-5" />
                 </span>
-                {item.device && (
-                  <span class="mt-auto flex items-center gap-2 pt-5 text-xs" style="color: var(--ink-faint)">
-                    <Icon name="lucide:cpu" class="size-3.5" />
-                    {item.device.name}
-                  </span>
-                )}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+                <h3 class="mt-5 text-2xl">{c.subject}</h3>
+                <p class="mt-3 text-[15px] leading-loose" style="color: var(--ink-soft)">
+                  {c.body}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="mt-10">
+          <p class="text-sm" style="color: var(--ink-faint)">企業賦能員工要具備的能力</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {empowerment.abilities.map((a) => <li class="pill">{a}</li>)}
+          </ul>
+        </div>
+      </article>
 
-  {/* 電子報 */}
-  <section style="background: var(--panel)">
-    <div class="mx-auto max-w-6xl px-5 py-20">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <h2 class="text-3xl sm:text-4xl">AI 電子報</h2>
-        <p class="reading text-sm" style="color: var(--ink-faint)">
-          {issues.length} 期 · {totalArticles} 篇 · 自 2023.11
-        </p>
-      </div>
-      <ul class="mt-12">
-        {
-          latest.map((issue) => (
-            <li class="border-t" style="border-color: var(--rule)">
-              <a href={`/newsletter/${issue.no}/`} class="group flex flex-wrap items-baseline gap-x-6 gap-y-1 py-5 transition-[padding] duration-300 hover:pl-3">
-                <span class="reading w-10 text-xl" style="font-family: var(--font-display); color: var(--signal)">
-                  {issue.no}
-                </span>
-                <span class="reading text-sm" style="color: var(--ink-faint)">
-                  {issue.date}
-                </span>
-                <span class="min-w-0 flex-1 text-[15px]">{issue.articles[0]?.title}</span>
-                <span class="reading text-sm" style="color: var(--ink-faint)">
-                  {issue.articles.length} 篇
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <a href="/newsletter/" class="link-line mt-8 text-sm">
-        瀏覽全部 {issues.length} 期
-        <Icon name="lucide:arrow-up-right" class="size-3.5" />
+      <article class="card glow-border md:col-span-2 flex flex-col justify-between p-7">
+        <div class="flex items-center gap-2 text-sm" style="color: var(--ink-faint)">
+          <span class="led"></span>7B · 4 bits
+        </div>
+        <div>
+          <p class="reading text-5xl" style="font-family: var(--font-display); color: var(--signal)">{seven.tokPerSec[0]}</p>
+          <p class="mt-2 text-sm" style="color: var(--ink-soft)">每秒 token，比 16 bits 快 {speedup} 倍</p>
+        </div>
+      </article>
+
+      <article class="card spotlight md:col-span-2 flex flex-col justify-between p-7">
+        <Icon name="lucide:target" class="size-6" style="color: var(--signal)" />
+        <div>
+          <p class="reading text-5xl" style="font-family: var(--font-display)">{seven.mmlu[0]}%</p>
+          <p class="mt-2 text-sm" style="color: var(--ink-soft)">MMLU 準確率，16 bits 為 {seven.mmlu[2]}%</p>
+        </div>
+      </article>
+
+      <a href="/services/#benchmark" class="card panel-hover md:col-span-3 group overflow-hidden">
+        <div class="overflow-hidden">
+          <img src="/images/edge-devices.jpg" alt="六種嵌入式裝置並排陳列的評測平台" width="2876" height="832" loading="lazy" class="block w-full" />
+        </div>
+        <div class="flex items-center justify-between p-6">
+          <div>
+            <p class="text-base font-medium">六種嵌入式裝置的評測平台</p>
+            <p class="mt-1 text-sm" style="color: var(--ink-soft)">從樹莓派到 Mac Studio，同一組測試</p>
+          </div>
+          <Icon name="lucide:arrow-up-right" class="icon-hover size-5 shrink-0" style="color: var(--signal)" />
+        </div>
+      </a>
+
+      <a href="/newsletter/" class="card-soft panel-hover md:col-span-3 group flex flex-col justify-between p-7">
+        <div class="flex items-center justify-between">
+          <Icon name="lucide:newspaper" class="size-6" style="color: var(--signal)" />
+          <Icon name="lucide:arrow-up-right" class="icon-hover size-5" style="color: var(--ink-faint)" />
+        </div>
+        <div class="mt-10">
+          <p class="reading text-5xl" style="font-family: var(--font-display)">{totalArticles}</p>
+          <p class="mt-2 text-sm" style="color: var(--ink-soft)">篇 AI 電子報文章，{issues.length} 期，自 2023.11 起每月發行</p>
+        </div>
       </a>
     </div>
   </section>
 
-  {/* 結尾 */}
-  <section class="inverse relative overflow-hidden">
-    <div class="pointer-events-none absolute inset-0 halftone opacity-[0.06]" style="color: #e9eff6" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-6xl px-5 py-20">
-      <h2 class="max-w-xl text-3xl leading-snug sm:text-4xl">想知道貴公司的 AI 系統表現如何？</h2>
-      <p
-        class="muted mt-6 max-w-xl text-[15px] leading-loose"
-      >
-        會員可取得專業諮詢與平台評測資源。
-      </p>
-      <div class="mt-10 flex flex-wrap items-center gap-6">
-        <a href="/membership/" class="btn-primary">
-          成為聯盟會員
-          <Icon name="lucide:arrow-right" class="btn-arrow size-4" />
+  {/* 三個階段 */}
+  <section style="background: var(--surface-2)">
+    <div class="mx-auto max-w-6xl px-5 py-24">
+      <h2 class="text-3xl sm:text-4xl">企業導入 LLM 的三個階段</h2>
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          services.map((s, i) => (
+            <a href={`/services/#${s.id}`} class="card spotlight panel-hover group flex flex-col p-7">
+              <div class="flex items-center justify-between">
+                <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
+                  <Icon name={s.icon} class="icon-hover size-6" style="color: var(--signal)" />
+                </span>
+                <span class="reading text-sm" style="color: var(--ink-faint)">
+                  階段 {i + 1}
+                </span>
+              </div>
+              <h3 class="mt-7 text-xl">{s.title}</h3>
+              <p class="mt-3 text-sm leading-loose" style="color: var(--ink-soft)">
+                {s.summary}
+              </p>
+              <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm" style="color: var(--signal)">
+                服務內容
+                <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Edge Landing 七項 */}
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <h2 class="text-3xl sm:text-4xl">Edge Landing 七項落地服務</h2>
+        <p class="mt-4 text-[15px]" style="color: var(--ink-soft)">模型在企業自己的環境裡執行，資料不必離開現場。</p>
+      </div>
+      <a href="/services/#edge-landing" class="link-line text-sm">
+        全部服務細節
+        <Icon name="lucide:arrow-up-right" class="size-3.5" />
+      </a>
+    </div>
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        edgeLanding.map((item, i) => (
+          <li class={i === 0 ? 'sm:col-span-2' : ''}>
+            <a href={`/services/#${item.id}`} class="card spotlight panel-hover group flex h-full flex-col p-6">
+              <span class="grid size-11 place-items-center rounded-2xl" style="background: var(--surface-2)">
+                <Icon name={item.icon} class="icon-hover size-5" style="color: var(--signal)" />
+              </span>
+              <span class="mt-5 text-base font-medium">{item.title}</span>
+              <span class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">
+                {item.summary}
+              </span>
+              {item.device && (
+                <span class="pill mt-auto self-start pt-1.5" style="margin-top: auto">
+                  <Icon name="lucide:cpu" class="size-3.5" style="color: var(--signal)" />
+                  {item.device.name}
+                </span>
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {/* 電子報 */}
+  <section style="background: var(--surface-2)">
+    <div class="mx-auto max-w-6xl px-5 py-24">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <h2 class="text-3xl sm:text-4xl">最新的 AI 電子報</h2>
+        <a href="/newsletter/" class="link-line text-sm">
+          瀏覽全部 {issues.length} 期
+          <Icon name="lucide:arrow-up-right" class="size-3.5" />
         </a>
-        <a href="/contact/" class="btn-ghost" style="color: #e9eff6">聯絡聯盟窗口</a>
+      </div>
+      <ul class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          latest.map((issue) => (
+            <li>
+              <a href={`/newsletter/${issue.no}/`} class="card spotlight panel-hover group flex h-full flex-col p-7">
+                <div class="flex items-center justify-between">
+                  <span class="pill">
+                    <Icon name="lucide:calendar" class="size-3.5" style="color: var(--signal)" />
+                    {issue.date}
+                  </span>
+                  <span class="reading text-3xl" style="font-family: var(--font-display); color: var(--signal)">
+                    {issue.no}
+                  </span>
+                </div>
+                <p class="mt-7 text-[15px] leading-relaxed">{issue.articles[0]?.title}</p>
+                <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm" style="color: var(--ink-faint)">
+                  {issue.articles.length} 篇文章
+                  <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* 結尾 */}
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <div class="inverse relative overflow-hidden rounded-[2rem] px-8 py-16 sm:px-14">
+      <div class="aurora" aria-hidden="true"></div>
+      <div class="relative max-w-xl">
+        <h2 class="text-3xl leading-snug sm:text-4xl">想知道貴公司的 AI 系統表現如何？</h2>
+        <p class="muted mt-6 text-[15px] leading-loose">會員可取得專業諮詢與平台評測資源。</p>
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a href="/membership/" class="btn-primary">
+            成為聯盟會員
+            <Icon name="lucide:arrow-right" class="btn-arrow size-4" />
+          </a>
+          <a href="/contact/" class="btn-ghost" style="color: #e9eff6">聯絡聯盟窗口</a>
+        </div>
       </div>
     </div>
   </section>

@@ -1,11 +1,19 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
+import { Icon } from 'astro-icon/components';
 import { site } from '../config/site';
-import { services } from '../data/services';
+import { services, edgeLanding, devices } from '../data/services';
+import { empowerment } from '../data/empowerment';
 import issues from '../data/newsletter.json';
 
 const totalArticles = issues.reduce((n, i) => n + i.articles.length, 0);
+const facts = [
+  { icon: 'lucide:building-2', label: '主辦單位', value: site.org },
+  { icon: 'lucide:calendar', label: '成立時間', value: '2024 年 3 月' },
+  { icon: 'lucide:landmark', label: '計畫類型', value: site.funding },
+  { icon: 'lucide:scale', label: '聯盟角色', value: '獨立第三方評測與技術服務' },
+];
 ---
 
 <Base
@@ -13,99 +21,113 @@ const totalArticles = issues.reduce((n, i) => n + i.articles.length, 0);
   description={`${site.org}於 2024 年 3 月成立 myLLM 產學聯盟，以獨立第三方角色協助產業導入大型語言模型。`}
 >
   <PageHeader
-    title="站在供給與需求之間的第三方"
-    lead={`${site.org}於 2024 年 3 月成立 myLLM 產學聯盟，以獨立第三方角色執行 AI 系統的效能評估，並協助企業把模型帶進自己的環境。`}
+    title="站在 AI 供給與需求之間的第三方"
+    lead={`${site.org}於 2024 年 3 月成立 myLLM 產學聯盟，執行 AI 系統的效能評估，並協助企業把模型帶進自己的環境。`}
+    image={{
+      src: '/images/services/identity-demo.jpg',
+      alt: '聯盟的示範現場：鋼鐵人頭盔旁的樹莓派正在執行即時人臉辨識',
+      width: 1600,
+      height: 1146,
+    }}
   />
 
-  <section class="mx-auto max-w-5xl px-5 py-20">
-    <div class="grid gap-16 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-20">
-      <div class="max-w-xl space-y-7 text-[15px] leading-loose" style="color: var(--ink-soft)">
-        <p>
-          AI 技術的供給與需求之間存在落差。企業知道自己有需求，但不容易判斷哪一種模型、
-          哪一套平台真的適合；技術供應者則不容易取得中立的效能驗證。
-        </p>
-        <p>
-          聯盟以學術單位的身分介入這個落差。一方面舉辦教育課程、展會與技術交流，讓知識流動；
-          一方面提供效能評估與基準測試，讓選擇有依據。
-        </p>
-        <p>
-          在此之上，針對已經確定方向的企業，提供分析式與生成式 AI 平台的設計與落地服務。
-        </p>
+  <section class="top-glow mx-auto max-w-6xl px-5 py-24">
+    <div class="relative grid gap-5 lg:grid-cols-[1.4fr_1fr]">
+      <article class="card spotlight p-8 sm:p-10">
+        <h2 class="text-2xl sm:text-3xl">聯盟為什麼存在</h2>
+        <div class="mt-7 space-y-5 text-[15px] leading-loose" style="color: var(--ink-soft)">
+          <p>
+            企業知道自己需要 AI，卻不容易判斷哪一種模型、哪一套平台真的適合；技術供應者則不容易取得中立的效能驗證。
+          </p>
+          <p>
+            聯盟以學術單位的身分介入這個落差。一方面舉辦教育課程、展會與技術交流，讓知識流動；一方面提供效能評估與基準測試，讓選擇有依據。
+          </p>
+          <p>在此之上，為已經確定方向的企業設計並部署分析式與生成式 AI 平台。</p>
+        </div>
+      </article>
+
+      <dl class="grid gap-3">
+        {
+          facts.map((f) => (
+            <div class="card-soft flex items-start gap-4 p-5">
+              <span class="grid size-10 shrink-0 place-items-center rounded-xl" style="background: var(--surface)">
+                <Icon name={f.icon} class="size-5" style="color: var(--signal)" />
+              </span>
+              <div>
+                <dt class="text-xs" style="color: var(--ink-faint)">
+                  {f.label}
+                </dt>
+                <dd class="mt-1 text-[15px] leading-snug">{f.value}</dd>
+              </div>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section style="background: var(--surface-2)">
+    <div class="mx-auto max-w-6xl px-5 py-24">
+      <h2 class="text-3xl sm:text-4xl">聯盟至今累積</h2>
+      <div class="bento mt-12">
+        <div class="card glow-border flex flex-col justify-between p-8 md:col-span-2 md:row-span-2">
+          <Icon name="lucide:newspaper" class="size-7" style="color: var(--signal)" />
+          <div>
+            <p class="reading text-6xl" style="font-family: var(--font-display)">{totalArticles}</p>
+            <p class="mt-3 text-sm leading-relaxed" style="color: var(--ink-soft)">
+              篇 AI 電子報文章，{issues.length} 期，自 2023 年 11 月起每月發行
+            </p>
+          </div>
+        </div>
+        <div class="card spotlight flex flex-col justify-between p-7 md:col-span-2">
+          <Icon name="lucide:cpu" class="size-6" style="color: var(--signal)" />
+          <div>
+            <p class="reading text-5xl" style="font-family: var(--font-display)">{devices.length}</p>
+            <p class="mt-2 text-sm" style="color: var(--ink-soft)">種嵌入式評測裝置，從低配到高配</p>
+          </div>
+        </div>
+        <div class="card spotlight flex flex-col justify-between p-7 md:col-span-2">
+          <Icon name="lucide:boxes" class="size-6" style="color: var(--signal)" />
+          <div>
+            <p class="reading text-5xl" style="font-family: var(--font-display)">{edgeLanding.length}</p>
+            <p class="mt-2 text-sm" style="color: var(--ink-soft)">項 Edge Landing 落地服務</p>
+          </div>
+        </div>
+        <div class="card spotlight flex items-center gap-5 p-7 md:col-span-4">
+          <span class="grid size-12 shrink-0 place-items-center rounded-2xl" style="background: var(--signal); color: var(--signal-face)">
+            <Icon name="lucide:bot" class="size-6" />
+          </span>
+          <p class="text-lg leading-relaxed" style="font-family: var(--font-display)">
+            {empowerment.contrast[1].body}
+          </p>
+        </div>
       </div>
-
-      <dl class="space-y-6 border-t pt-7 text-sm lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8" style="border-color: var(--rule)">
-        <div>
-          <dt style="color: var(--ink-faint)">主辦單位</dt>
-          <dd class="mt-1.5 leading-relaxed">{site.org}</dd>
-        </div>
-        <div>
-          <dt style="color: var(--ink-faint)">成立時間</dt>
-          <dd class="reading mt-1.5">2024 年 3 月</dd>
-        </div>
-        <div>
-          <dt style="color: var(--ink-faint)">計畫類型</dt>
-          <dd class="mt-1.5">{site.funding}</dd>
-        </div>
-        <div>
-          <dt style="color: var(--ink-faint)">聯盟角色</dt>
-          <dd class="mt-1.5 leading-relaxed">獨立第三方評測與技術服務</dd>
-        </div>
-      </dl>
     </div>
   </section>
 
-  <section class="border-t" style="border-color: var(--rule); background: var(--panel)">
-    <div class="mx-auto max-w-5xl px-5 py-20">
-      <h2 class="text-2xl sm:text-3xl">聯盟至今累積</h2>
-      <dl class="mt-12 flex flex-wrap gap-x-16 gap-y-10">
-        <div>
-          <dt class="text-sm" style="color: var(--ink-faint)">電子報發行</dt>
-          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display)">
-            {issues.length}<span class="ml-1.5 text-base" style="color: var(--ink-soft)">期</span>
-          </dd>
-          <dd class="mt-2 text-sm" style="color: var(--ink-soft)">自 2023 年 11 月起每月發行</dd>
-        </div>
-        <div>
-          <dt class="text-sm" style="color: var(--ink-faint)">收錄文章</dt>
-          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display)">
-            {totalArticles}<span class="ml-1.5 text-base" style="color: var(--ink-soft)">篇</span>
-          </dd>
-          <dd class="mt-2 text-sm" style="color: var(--ink-soft)">AI 工具、模型與產業動態</dd>
-        </div>
-        <div>
-          <dt class="text-sm" style="color: var(--ink-faint)">服務方向</dt>
-          <dd class="reading mt-2 text-4xl" style="font-family: var(--font-display)">
-            {services.length}<span class="ml-1.5 text-base" style="color: var(--ink-soft)">項</span>
-          </dd>
-          <dd class="mt-2 text-sm" style="color: var(--ink-soft)">從交流、評測到平台設計</dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="mx-auto max-w-5xl px-5 py-20">
-    <h2 class="text-2xl sm:text-3xl">三個服務方向</h2>
-    <div class="axis mt-12 space-y-12">
+  <section class="mx-auto max-w-6xl px-5 py-24">
+    <h2 class="text-3xl sm:text-4xl">三個服務方向</h2>
+    <div class="mt-12 grid gap-4 md:grid-cols-3">
       {
         services.map((s, i) => (
-          <article class="tick" data-major>
-            <div class="flex items-baseline gap-4">
-              <span class="reading text-sm" style="color: var(--signal)">
-                {i + 1}
+          <a href={`/services/#${s.id}`} class="card spotlight panel-hover group flex flex-col p-7">
+            <div class="flex items-center justify-between">
+              <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
+                <Icon name={s.icon} class="icon-hover size-6" style="color: var(--signal)" />
               </span>
-              <h3 class="text-xl">{s.title}</h3>
+              <span class="reading text-sm" style="color: var(--ink-faint)">
+                階段 {i + 1}
+              </span>
             </div>
-            <p class="mt-4 max-w-2xl text-[15px] leading-loose" style="color: var(--ink-soft)">
+            <h3 class="mt-7 text-xl">{s.title}</h3>
+            <p class="mt-3 text-sm leading-loose" style="color: var(--ink-soft)">
               {s.summary}
             </p>
-            <a
-              href={`/services/#${s.id}`}
-              class="mt-4 inline-block border-b pb-0.5 text-sm"
-              style="color: var(--link); border-color: var(--rule-strong)"
-            >
+            <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm" style="color: var(--signal)">
               服務細節
-            </a>
-          </article>
+              <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </a>
         ))
       }
     </div>

@@ -24,7 +24,9 @@
   --font-display: "Noto Serif TC", ui-serif, Georgia, serif;
   --font-sans: "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
 
-  --radius-panel: 0.25rem;
+  --radius-panel: 1.25rem;
+  --radius-card: 1.25rem;
+  --radius-pill: 9999px;
 }
 
 /*
@@ -170,13 +172,11 @@
     background-size: 3px 3px;
   }
 
-  /* 設計稿的幾何斜角：右下切角 */
-  .cut-br {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.75rem), calc(100% - 1.75rem) 100%, 0 100%);
-  }
-  /* 左上切角，與 cut-br 相對，用於並置的兩個區塊 */
+  /* 原本是斜角切割，改為大圓角以符合現代圓潤風格；類名保留避免頁面壞掉 */
+  .cut-br,
   .cut-tl {
-    clip-path: polygon(1.75rem 0, 100% 0, 100% 100%, 0 100%, 0 1.75rem);
+    border-radius: 1.5rem;
+    overflow: hidden;
   }
 
   /* 反白區塊：黑底白字，用在需要強烈對比的段落 */
@@ -258,7 +258,9 @@
     align-items: center;
     gap: 0.6rem;
     overflow: hidden;
-    padding: 0.9rem 1.6rem;
+    border-radius: 9999px;
+    padding: 0.85rem 1.6rem;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), 0 8px 24px -12px var(--signal);
     font-size: 0.875rem;
     font-weight: 500;
     background: var(--signal);
@@ -288,10 +290,11 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.85rem 1.5rem;
+    border-radius: 9999px;
+    padding: 0.8rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
-    border: 1px solid currentColor;
+    border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
     overflow: hidden;
     isolation: isolate;
     transition: color 0.3s;
@@ -340,9 +343,9 @@
     transition: border-color 0.3s, transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.3s;
   }
   .panel-hover:hover {
-    border-color: var(--signal);
-    transform: translateY(-3px);
-    box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.5);
+    border-color: color-mix(in srgb, var(--signal) 55%, transparent);
+    transform: translateY(-4px);
+    box-shadow: inset 0 1px 0 var(--highlight), 0 24px 48px -24px rgb(0 0 0 / 0.45);
   }
   .panel-hover img { transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1); }
   .panel-hover:hover img { transform: scale(1.04); }
@@ -453,4 +456,184 @@
 @keyframes reveal-up {
   from { opacity: 0; transform: translateY(1.5rem); }
   to { opacity: 1; transform: none; }
+}
+
+/* ───────────────────────── 現代圓潤風格 ─────────────────────────
+   依 Raycast、Vercel 與 21st.dev 的調查：
+   - 卡片頂部一道 1px 內高光，平面卡片才有厚度，是「不生硬」的主要來源
+   - 大圓角：卡片 20px、按鈕膠囊形
+   - 毛玻璃：blur + saturate，讓底下顏色透上來
+   - 極光背景、滑鼠追蹤光暈、旋轉光邊
+*/
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+:root {
+  --surface: #ffffff;
+  --surface-2: #f6f8fb;
+  --hairline: rgb(15 26 39 / 0.08);
+  --highlight: rgb(255 255 255 / 0.9);
+  --glow: rgb(217 164 65 / 0.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #111b27;
+    --surface-2: #16222f;
+    --hairline: rgb(233 239 246 / 0.08);
+    --highlight: rgb(255 255 255 / 0.09);
+    --glow: rgb(217 164 65 / 0.16);
+  }
+}
+:root[data-theme="dark"] {
+  --surface: #111b27;
+  --surface-2: #16222f;
+  --hairline: rgb(233 239 246 / 0.08);
+  --highlight: rgb(255 255 255 / 0.09);
+  --glow: rgb(217 164 65 / 0.16);
+}
+
+@layer components {
+  /* 卡片：大圓角 + 淡邊框 + 頂部內高光 + 柔和陰影 */
+  .card {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--hairline);
+    background: var(--surface);
+    box-shadow:
+      inset 0 1px 0 var(--highlight),
+      0 1px 2px rgb(0 0 0 / 0.04),
+      0 12px 32px -18px rgb(0 0 0 / 0.28);
+  }
+  .card-soft {
+    border-radius: var(--radius-card);
+    background: var(--surface-2);
+    box-shadow: inset 0 1px 0 var(--highlight);
+  }
+
+  /* 毛玻璃：用於導覽列與浮在圖片上的元素 */
+  .glass {
+    background: color-mix(in srgb, var(--void) 72%, transparent);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    border: 1px solid var(--hairline);
+  }
+  .glass-dark {
+    background: rgb(11 18 25 / 0.55);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+  }
+
+  /*
+    滑鼠追蹤光暈：Base.astro 的小段腳本會把游標位置寫進 --mx / --my。
+    光暈疊在卡片背景上，沒有腳本時就只是一般卡片。
+  */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .spotlight:hover::before { opacity: 1; }
+
+  /* 旋轉光邊：conic-gradient 繞著邊框轉，用在最重要的一兩個區塊 */
+  .glow-border {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--surface), var(--surface)) padding-box,
+      conic-gradient(from var(--angle), transparent 55%, var(--signal) 75%, transparent 90%) border-box;
+  }
+
+  /* 極光背景：幾團柔光緩慢漂移，用在深藍區塊 */
+  .aurora {
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    filter: blur(70px) saturate(1.3);
+    opacity: 0.85;
+    background:
+      radial-gradient(38% 32% at 18% 28%, rgb(60 120 190 / 0.7), transparent 70%),
+      radial-gradient(30% 28% at 82% 18%, rgb(217 164 65 / 0.45), transparent 70%),
+      radial-gradient(42% 38% at 62% 88%, rgb(35 150 175 / 0.5), transparent 70%);
+  }
+
+  /* 頂部柔光：區塊上緣一片淡淡的光，製造空間感 */
+  .top-glow {
+    position: relative;
+  }
+  .top-glow::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: min(900px, 90%);
+    height: 320px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background: radial-gradient(50% 50% at 50% 0%, var(--glow), transparent 70%);
+  }
+
+  /* 膠囊標籤 */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: var(--radius-pill);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8125rem;
+    border: 1px solid var(--hairline);
+    background: var(--surface);
+    box-shadow: inset 0 1px 0 var(--highlight);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .pill:hover { border-color: var(--signal); transform: translateY(-1px); }
+
+  /* 圖片框：大圓角 + 內高光 */
+  .frame {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    box-shadow: inset 0 1px 0 var(--highlight), 0 24px 60px -30px rgb(0 0 0 / 0.45);
+  }
+
+  /*
+    Bento 網格：不等大的卡片拼成一塊。
+    子元素的跨欄跨列請用 Tailwind 原生的 md:col-span-* / md:row-span-*。
+    不要自訂 .row-2 這類名稱：Tailwind v4 內建的 row-2 是 grid-row: 2，
+    utility 層級比 components 高，會把自訂規則蓋掉。
+  */
+  .bento {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  @media (min-width: 768px) {
+    .bento { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: minmax(11rem, auto); }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .glow-border { animation: angle-spin 6s linear infinite; }
+  .aurora { animation: aurora-drift 18s ease-in-out infinite alternate; }
+}
+
+@keyframes angle-spin {
+  to { --angle: 360deg; }
+}
+@keyframes aurora-drift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(4%, -3%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(-3%, 4%, 0) rotate(-6deg) scale(1.02); }
 }

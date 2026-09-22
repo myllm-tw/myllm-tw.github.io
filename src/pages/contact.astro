@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
+import { Icon } from 'astro-icon/components';
 import { site, contact, hasContactInfo, relatedLinks, membership } from '../config/site';
 
 if (!hasContactInfo) {
@@ -8,104 +9,113 @@ if (!hasContactInfo) {
     '[contact] 尚未填寫聯絡窗口資料，/contact/ 只會顯示主辦單位與相關連結。請在 src/config/site.ts 的 contact 補上姓名、電話、信箱與地址。',
   );
 }
+
+const channels = [
+  contact.person && { icon: 'lucide:user-round', label: '窗口', value: contact.person },
+  contact.phone && { icon: 'lucide:phone', label: '電話', value: contact.phone, href: `tel:${contact.phone.replace(/[^\d+]/g, '')}` },
+  contact.email && { icon: 'lucide:mail', label: '信箱', value: contact.email, href: `mailto:${contact.email}` },
+  contact.address && { icon: 'lucide:map-pin', label: '地址', value: contact.address },
+].filter(Boolean) as { icon: string; label: string; value: string; href?: string }[];
+
+const linkIcons = ['lucide:landmark', 'lucide:graduation-cap', 'lucide:flask-conical', 'lucide:brain-circuit'];
 ---
 
 <Base title="聯絡我們" description={`與 ${site.name} 聯絡，了解服務內容與入會方式。`}>
   <PageHeader title="聯絡聯盟" lead="想了解服務內容或入會方式，歡迎與聯盟聯絡。" />
 
-  <section class="mx-auto max-w-5xl px-5 py-20">
-    <div class="grid gap-14 lg:grid-cols-2 lg:gap-20">
-      <div>
-        <h2 class="text-xl">聯盟窗口</h2>
+  <section class="top-glow mx-auto max-w-6xl px-5 py-24">
+    <div class="relative grid gap-5 lg:grid-cols-2">
+      <article class="card spotlight p-8 sm:p-10">
+        <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
+          <Icon name="lucide:message-circle" class="size-6" style="color: var(--signal)" />
+        </span>
+        <h2 class="mt-6 text-2xl">聯盟窗口</h2>
         {
           hasContactInfo ? (
-            <dl class="mt-8">
-              {contact.person && (
-                <div class="border-t py-4" style="border-color: var(--rule)">
-                  <dt class="text-sm" style="color: var(--ink-faint)">窗口</dt>
-                  <dd class="mt-1.5">{contact.person}</dd>
+            <dl class="mt-7 space-y-3">
+              {channels.map((c) => (
+                <div class="card-soft flex items-center gap-4 p-4">
+                  <Icon name={c.icon} class="size-5 shrink-0" style="color: var(--signal)" />
+                  <div class="min-w-0">
+                    <dt class="text-xs" style="color: var(--ink-faint)">{c.label}</dt>
+                    <dd class="mt-0.5 break-words">
+                      {c.href ? <a href={c.href} class="link-line">{c.value}</a> : c.value}
+                    </dd>
+                  </div>
                 </div>
-              )}
-              {contact.phone && (
-                <div class="border-t py-4" style="border-color: var(--rule)">
-                  <dt class="text-sm" style="color: var(--ink-faint)">電話</dt>
-                  <dd class="reading mt-1.5">
-                    <a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`} style="color: var(--link)">
-                      {contact.phone}
-                    </a>
-                  </dd>
-                </div>
-              )}
-              {contact.email && (
-                <div class="border-t py-4" style="border-color: var(--rule)">
-                  <dt class="text-sm" style="color: var(--ink-faint)">信箱</dt>
-                  <dd class="mt-1.5">
-                    <a href={`mailto:${contact.email}`} style="color: var(--link)">
-                      {contact.email}
-                    </a>
-                  </dd>
-                </div>
-              )}
-              {contact.address && (
-                <div class="border-t py-4" style="border-color: var(--rule)">
-                  <dt class="text-sm" style="color: var(--ink-faint)">地址</dt>
-                  <dd class="mt-1.5 leading-relaxed">{contact.address}</dd>
-                </div>
-              )}
+              ))}
             </dl>
           ) : (
-            <p class="mt-8 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
-              聯盟由{site.org}主辦。若要洽詢服務內容或入會方式，可先下載
-              <a href={membership.applicationForm} style="color: var(--link)">會員申請表</a>
-              ，或透過下方主辦單位的管道聯絡。
+            <p class="mt-5 text-[15px] leading-loose" style="color: var(--ink-soft)">
+              聯盟由{site.org}主辦。洽詢服務內容或入會方式，可以先下載會員申請表，或透過下方主辦單位的管道聯絡。
             </p>
           )
         }
-      </div>
+        <a href={membership.applicationForm} class="btn-primary mt-8">
+          <Icon name="lucide:file-down" class="size-4" />
+          下載會員申請表
+        </a>
+      </article>
 
-      <div>
-        <h2 class="text-xl">主辦單位</h2>
-        <p class="mt-8 text-lg leading-relaxed" style="font-family: var(--font-display)">{site.org}</p>
-        <p class="mt-4 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
+      <article class="card p-8 sm:p-10">
+        <span class="grid size-12 place-items-center rounded-2xl" style="background: var(--surface-2)">
+          <Icon name="lucide:building-2" class="size-6" style="color: var(--signal)" />
+        </span>
+        <h2 class="mt-6 text-2xl">主辦單位</h2>
+        <p class="mt-5 text-lg leading-relaxed" style="font-family: var(--font-display)">{site.org}</p>
+        <p class="mt-4 text-[15px] leading-loose" style="color: var(--ink-soft)">
           於 2024 年 3 月成立 myLLM 產學聯盟，以獨立第三方角色提供大型語言模型的評測與技術服務。
         </p>
-        <p class="mt-6 text-sm" style="color: var(--ink-faint)">{site.funding}</p>
-      </div>
+        <span class="pill mt-7">
+          <span class="led"></span>
+          {site.funding}
+        </span>
+      </article>
     </div>
 
     {
       contact.mapEmbed && (
-        <iframe
-          src={contact.mapEmbed}
-          title="聯盟位置地圖"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          class="mt-16 block h-80 w-full border"
-          style="border-color: var(--rule)"
-        />
+        <div class="frame mt-5">
+          <iframe
+            src={contact.mapEmbed}
+            title="聯盟位置地圖"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="block h-80 w-full border-0"
+          />
+        </div>
       )
     }
   </section>
 
-  <section class="border-t" style="border-color: var(--rule); background: var(--panel)">
-    <div class="mx-auto max-w-5xl px-5 py-20">
-      <h2 class="text-2xl">相關連結</h2>
-      <dl class="mt-10 grid gap-x-12 sm:grid-cols-2">
+  <section style="background: var(--surface-2)">
+    <div class="mx-auto max-w-6xl px-5 py-24">
+      <h2 class="text-3xl sm:text-4xl">相關連結</h2>
+      <ul class="mt-12 grid gap-4 sm:grid-cols-2">
         {
-          relatedLinks.map((link) => (
-            <div class="border-t py-5" style="border-color: var(--rule)">
-              <dt>
-                <a href={link.href} target="_blank" rel="noopener noreferrer" class="text-base" style="color: var(--link)">
-                  {link.label}
-                </a>
-              </dt>
-              <dd class="mt-1.5 text-sm" style="color: var(--ink-soft)">
-                {link.note}
-              </dd>
-            </div>
+          relatedLinks.map((link, i) => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="card spotlight panel-hover group flex items-center gap-5 p-6"
+              >
+                <span class="grid size-12 shrink-0 place-items-center rounded-2xl" style="background: var(--surface-2)">
+                  <Icon name={linkIcons[i % linkIcons.length]} class="icon-hover size-6" style="color: var(--signal)" />
+                </span>
+                <span class="flex-1">
+                  <span class="block text-base font-medium">{link.label}</span>
+                  <span class="mt-1 block text-sm" style="color: var(--ink-soft)">
+                    {link.note}
+                  </span>
+                </span>
+                <Icon name="lucide:arrow-up-right" class="size-5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" style="color: var(--ink-faint)" />
+              </a>
+            </li>
           ))
         }
-      </dl>
+      </ul>
     </div>
   </section>
 </Base>

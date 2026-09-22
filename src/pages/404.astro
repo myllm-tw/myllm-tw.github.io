@@ -1,18 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Icon } from 'astro-icon/components';
 ---
 
 <Base title="找不到頁面" description="這個網址沒有對應的內容。">
-  <section class="mx-auto max-w-5xl px-5 py-32">
-    <p class="reading text-sm" style="color: var(--signal)">404</p>
-    <h1 class="mt-5 text-3xl sm:text-4xl">這個網址沒有對應的內容</h1>
-    <p class="mt-7 max-w-md text-[15px] leading-loose" style="color: var(--ink-soft)">
-      網址可能已經變動，或是輸入有誤。
-    </p>
-    <div class="mt-10 flex flex-wrap items-center gap-8 text-sm">
-      <a href="/" style="color: var(--link)">回首頁</a>
-      <a href="/newsletter/" style="color: var(--link)">瀏覽電子報</a>
-      <a href="/contact/" style="color: var(--link)">聯絡聯盟</a>
+  <section class="inverse relative overflow-hidden">
+    <div class="aurora" aria-hidden="true"></div>
+    <div class="stage-in relative mx-auto flex max-w-3xl flex-col items-center px-5 py-32 text-center">
+      <p class="reading text-8xl sm:text-9xl" style="font-family: var(--font-display); color: #d9a441">404</p>
+      <h1 class="mt-6 text-3xl sm:text-4xl">這個網址沒有對應的內容</h1>
+      <p class="muted mt-6 max-w-md text-[15px] leading-loose">網址可能已經變動，或是輸入有誤。</p>
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <a href="/" class="btn-primary">
+          <Icon name="lucide:house" class="size-4" />
+          回首頁
+        </a>
+        <a href="/newsletter/" class="btn-ghost" style="color: #e9eff6">瀏覽電子報</a>
+        <a href="/contact/" class="btn-ghost" style="color: #e9eff6">聯絡聯盟</a>
+      </div>
     </div>
   </section>
 </Base>

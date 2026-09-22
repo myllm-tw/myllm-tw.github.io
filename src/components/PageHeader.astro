@@ -10,7 +10,8 @@ const { title, lead, image, reading = [] } = Astro.props;
 ---
 
 <section class="inverse relative overflow-hidden">
-  <div class="drift halftone pointer-events-none absolute inset-0 opacity-[0.06]" style="color: #e9eff6" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="drift halftone pointer-events-none absolute inset-0 opacity-[0.05]" style="color: #e9eff6" aria-hidden="true"></div>
   <div
     class:list={[
       'stage-in relative mx-auto max-w-6xl px-5 py-16 sm:py-20',
@@ -38,7 +39,7 @@ const { title, lead, image, reading = [] } = Astro.props;
     </div>
     {
       image && (
-        <div class="scan cut-br">
+        <div class="scan frame" style="border-color: rgb(255 255 255 / 0.12)">
           <img
             src={image.src}
             alt={image.alt}
